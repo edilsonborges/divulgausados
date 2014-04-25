@@ -9,7 +9,7 @@ env:
   - DB=mysql
 
 before_script:
-  - if [[ "$DB" == "mysql" ]]; then mysql -e "CREATE DATABASE IF NOT EXISTS divulgausados;" -uroot; fi
+  - if [[ "$DB" == "mysql" ]]; then mysql -e "CREATE DATABASE IF NOT EXISTS divulgausados;"; fi
 
 install: composer install
 
