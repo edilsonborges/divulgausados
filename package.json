@@ -1,0 +1,35 @@
+{
+  "name": "divulgausados",
+  "version": "0.0.2",
+  "description": "[![Build Status](https://travis-ci.org/murilocosta/divulgausados)",
+  "main": "public/index.php",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/murilocosta/divulgausados.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    
+  },
+  "devDependencies": {
+    "grunt": "0.4.4",
+    "grunt-contrib-uglify": "0.4.0",
+    "grunt-contrib-jshint": "0.10.0",
+    "grunt-contrib-qunit": "0.4.0",
+    "grunt-contrib-watch": "0.6.1",
+    "grunt-contrib-concat": "0.4.0",
+    "load-grunt-tasks": "0.4.0",
+    "time-grunt": "0.3.1"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "bugs": {
+    "url": "https://github.com/murilocosta/divulgausados/issues"
+  },
+  "homepage": "https://github.com/murilocosta/divulgausados"
+}

@@ -1,0 +1,32 @@
+{
+  "name": "divulgausados",
+  "version": "0.0.2",
+  "homepage": "https://github.com/murilocosta/divulgausados",
+  "authors": [
+    "Murilo Nunes José da Costa <murilo.nunes.jose@gmail.com>"
+  ],
+  "description": "Uma aplicação para compartilhar e divulgar dados de veículos usados.",
+  "main": "public/index.php",
+  "keywords": [
+    "divulgacao",
+    "veiculos",
+    "automoveis",
+    "carro",
+    "usados"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "public/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "2.1.0",
+    "angular": "1.2.16",
+    "qunit": "1.14.0",
+    "jshint": "2.5.0",
+    "pure": "~0.4.2"
+  }
+}
