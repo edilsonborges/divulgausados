@@ -7,15 +7,16 @@ php:
 env:
   - DB=mysql
 
-before_script:
-  - if [[ "$DB" == "mysql" ]]; then mysql -e "CREATE DATABASE IF NOT EXISTS divulgausados;"; fi
-
 install: 
   -  composer install
   -  npm install
-  -  bower install
+  
+before_script:
+  - if [[ "$DB" == "mysql" ]]; then mysql -e "CREATE DATABASE IF NOT EXISTS divulgausados;"; fi
+  - npm install -g bower
 
 script: 
+  - bower install
   - grunt
   - php artisan migrate
   - phpunit 
