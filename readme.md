@@ -1,6 +1,8 @@
-## Divulga Usados PHP Application
+﻿## Divulga Usados PHP Application
 
-[![Build Status](https://travis-ci.org/murilocosta/divulgausados)
+[![Build Status](https://travis-ci.org/murilocosta/divulgausados.svg?branch=master)](https://travis-ci.org/murilocosta/divulgausados)
+
+Uma aplicação para compartilhar informações de veículos usados.
 
 ### License
 

@@ -1,7 +1,7 @@
 {
   "name": "divulgausados",
   "version": "0.0.2",
-  "description": "[![Build Status](https://travis-ci.org/murilocosta/divulgausados)",
+  "description": "Uma aplicacao para divulgar informacoes de veiculos usados.",
   "main": "public/index.php",
   "scripts": {
     "test": "npm test"
