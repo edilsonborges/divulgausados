@@ -1,0 +1,9 @@
+<?php
+
+class VehicleBodyStyle extends Eloquent {
+
+    protected $table = 'vehiclefeaturevalue';
+
+    protected $softDelete = true;
+
+}

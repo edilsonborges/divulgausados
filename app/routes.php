@@ -16,8 +16,9 @@ Route::get('/', function()
     return View::make('index');
 });
 
-Route::group(array('prefix' => 'service'), function() {
-    Route::resource('category', 'VehicleCategoryController', array('except' => array('show')));
+Route::group(array('prefix' => 'service'), function() 
+{
+    Route::resource('body-style', 'VehicleBodyStyleController');
 });
 
 App::missing(function($exception)

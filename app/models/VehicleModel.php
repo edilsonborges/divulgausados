@@ -8,7 +8,7 @@ class VehicleModel extends Eloquent {
 
     public function vehicles() 
     {
-        $this->hasMany('Vehicle', 'vehiclemodel_id');
+        return $this->hasMany('Vehicle', 'vehiclemodel_id');
     }
 
 }

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVehicleAccessoryTable extends Migration {
+class CreateVehicleMakeTable extends Migration {
 
     /**
      * Run the migrations.
@@ -12,9 +12,10 @@ class CreateVehicleAccessoryTable extends Migration {
      */
     public function up()
     {
-        Schema::create('vehicleaccessory', function ($table) {
+        Schema::create('vehiclemake', function ($table) {
             $table->increments('id');
-            $table->string('name', 100);
+            $table->string('name', 80);
+            $table->string('brand_image_path', 80);
             $table->timestamps();
             $table->softDeletes();
         });

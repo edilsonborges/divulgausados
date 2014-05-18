@@ -25,8 +25,11 @@
   "dependencies": {
     "jquery": "2.1.0",
     "angular": "1.2.16",
+    "angular-route": "1.2.16",
+    "angular-resource": "1.2.16",
+    "angular-mocks": "1.2.16",
     "qunit": "1.14.0",
     "jshint": "2.5.0",
-    "pure": "~0.4.2"
+    "pure": "0.4.2"
   }
 }

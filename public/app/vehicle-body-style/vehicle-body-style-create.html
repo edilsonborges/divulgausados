@@ -1,0 +1,16 @@
+<section ng-controller="VehicleBodyStyleCreateCtrl">
+	<h2>Incluir uma categoria de veículo</h2>
+
+	<form class="pure-form pure-form-aligned" ng-submit="submitCategory()">
+		<fieldset>
+			<div class="pure-control-group">
+				<label for="name">Nome</label>
+				<input id="name" type="text" name="name" placeholder="Nome" ng-model="bodyStyleFormData.name" />
+			</div>
+
+			<div class="pure-controls">
+				<button type="submit" class="pure-button pure-button-primary">Confirmar</button>
+			</div>
+		</fieldset>
+	</form>
+</section>

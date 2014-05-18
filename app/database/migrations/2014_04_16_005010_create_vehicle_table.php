@@ -16,25 +16,28 @@ class CreateVehicleTable extends Migration {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('vehiclemodel_id')->unsigned();
-            $table->integer('vehiclecategory_id')->unsigned();
-            $table->integer('vehiclebrand_id')->unsigned();
+            $table->integer('vehiclebodystyle_id')->unsigned();
+            $table->integer('vehiclemake_id')->unsigned();
+            $table->decimal('price', 10, 2);
+            $table->bigInteger('kilometres');
+            $table->bigInteger('colour');
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('user_id')->references('id')->on('user');
-            $table->foreign('vehiclecategory_id')->references('id')->on('vehiclecategory');
-            $table->foreign('vehiclebrand_id')->references('id')->on('vehiclebrand');
+            $table->foreign('vehiclebodystyle_id')->references('id')->on('vehiclebodystyle');
+            $table->foreign('vehiclemake_id')->references('id')->on('vehiclemake');
             $table->foreign('vehiclemodel_id')->references('id')->on('vehiclemodel');
         });
 
-        Schema::create('vehicleaccessory_dependency', function ($table) {
+        Schema::create('vehiclefeaturevalue', function ($table) {
             $table->increments('id');
             $table->integer('vehicle_id')->unsigned();
-            $table->integer('vehicleaccessory_id')->unsigned();
-            $table->boolean('enabled');
+            $table->integer('vehiclefeature_id')->unsigned();
+            $table->boolean('value');
 
             $table->foreign('vehicle_id')->references('id')->on('vehicle');
-            $table->foreign('vehicleaccessory_id')->references('id')->on('vehicleaccessory');
+            $table->foreign('vehiclefeature_id')->references('id')->on('vehiclefeature');
         });
     }
 

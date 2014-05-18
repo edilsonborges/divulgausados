@@ -11,14 +11,14 @@ class Vehicle extends Eloquent {
         return $this->belongsTo('User');
     }
 
-    public function category() 
+    public function bodyStyle() 
     {
-        return $this->belongsTo('VehicleCategory');
+        return $this->belongsTo('VehicleBodyStyle');
     }
 
-    public function brand() 
+    public function make() 
     {
-        return $this->belongsTo('VehicleBrand');
+        return $this->belongsTo('VehicleMake');
     }
 
     public function model() 
@@ -26,9 +26,9 @@ class Vehicle extends Eloquent {
         return $this->belongsTo('VehicleModel');
     }
 
-    public function accessories() 
+    public function features() 
     {
-        return $this->belongsToMany('VehicleAccessory', 'vehicleaccessory_dependency', 'vehicleaccessory_id', 'vehicle_id');
+        return $this->belongsToMany('VehicleFeature', 'vehicleafeaturevalue', 'vehiclefeature_id', 'vehicle_id');
     }
 
 }

@@ -19,7 +19,7 @@ module.exports = function(grunt) {
 			},
 			dist : {
 				src : [ 'public/app/**/*.js' ],
-				dest : 'public/resources/scripts/<%= pkg.name %>.js'
+				dest : 'public/app/scripts/<%= pkg.name %>.js'
 			}
 		},
 		
@@ -30,7 +30,7 @@ module.exports = function(grunt) {
 
 			dist : {
 				files : {
-					'public/resources/scripts/<%= pkg.name %>.min.js' : [ '<%= concat.dist.dest %>' ]
+					'public/app/scripts/<%= pkg.name %>.min.js' : [ '<%= concat.dist.dest %>' ]
 				}
 			}
 		},
