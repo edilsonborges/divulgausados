@@ -30,6 +30,9 @@
     "angular-mocks": "1.2.16",
     "angular-file-upload": "0.5.6",
     "bootstrap": "3.1.1",
-    "es5-shim": "3.3.2"
+    "es5-shim": "3.4.0"
+  },
+  "resolutions": {
+    "es5-shim": "3.4.0"
   }
 }
