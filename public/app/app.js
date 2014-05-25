@@ -28,7 +28,3 @@ divulgaUsadosApp.config(['$routeProvider', function($routeProvider) {
 		});
 	}
 ]);
-
-divulgaUsadosApp.controller('MainCtrl', ['$scope', function ($scope) {
-
-}]);

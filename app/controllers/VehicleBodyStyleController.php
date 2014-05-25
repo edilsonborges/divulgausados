@@ -22,6 +22,12 @@ class VehicleBodyStyleController extends \BaseController {
 		$name = Input::get('name');
 		$category = VehicleBodyStyle::create(array('name' => $name));
 		$category->save();
+		return Response::json(array("status" => "success", "message" => "Adicionado com sucesso!"));
+	}
+
+	public function show($id)
+	{
+		return Response::json(VehicleBodyStyle::find($id));
 	}
 
 	/**
@@ -35,6 +41,7 @@ class VehicleBodyStyleController extends \BaseController {
 		$category = VehicleBodyStyle::find($id);
 		$category->name = Input::get('name');
 		$category->save();
+		return Response::json(array("status" => "success", "message" => "Atualizado com sucesso!"));
 	}
 
 	/**
@@ -46,6 +53,7 @@ class VehicleBodyStyleController extends \BaseController {
 	public function destroy($id)
 	{
 		VehicleBodyStyle::find($id)->delete();
+		return Response::json(array("status" => "success", "message" => "Excluído com sucesso!"));
 	}
 
 }

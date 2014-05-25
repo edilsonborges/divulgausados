@@ -1,7 +1,18 @@
 {
   "name": "divulgausados/divulgausados",
-  "description": "Uma aplicação para compartilhar e divulgar dados de veiculos usados.",
-  "keywords": ["divulgacao", "veiculos", "automoveis", "carro", "usados"],
+  "version": "0.0.2",
+  "homepage": "https://github.com/murilocosta/divulgausados",
+  "authors": [
+    "Murilo Nunes José da Costa <murilo.nunes.jose@gmail.com>"
+  ],
+  "description": "Uma aplicação para compartilhar e divulgar dados de veículos usados.",
+  "keywords": [
+    "divulgacao", 
+    "veiculos", 
+    "automoveis", 
+    "carro", 
+    "usados"
+  ],
   "license": "MIT",
   "require": {
     "laravel/framework": "4.1.*"

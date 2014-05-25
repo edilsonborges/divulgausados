@@ -13,11 +13,16 @@ divulgaUsadosApp.service('VehicleBodyStyle', ['$http', function ($http) {
 			});
 		},
 
-		update: function (id, bodyStyle) {
-			var updateUrl = '/service/body-style/' + id;
+		show: function (id) {
+			var requestUrl = '/service/body-style/' + id;
+			return $http.get(requestUrl);
+		},
+
+		update: function (bodyStyle) {
+			var requestUrl = '/service/body-style/' + bodyStyle.id;
 			return $http({
 				method: 'PUT',
-				url: updateUrl,
+				url: requestUrl,
 				headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
 				data: $.param(bodyStyle)
 			});

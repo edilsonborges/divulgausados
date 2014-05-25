@@ -1,10 +1,15 @@
-divulgaUsadosApp.controller('VehicleBodyStyleCreateCtrl', ['$scope', '$http', '$location', 'VehicleBodyStyle', function ($scope, $http, $location, VehicleBodyStyle) {
+divulgaUsadosApp.controller('VehicleBodyStyleCreateCtrl', ['$scope', '$location', 'VehicleBodyStyle', function ($scope, $location, VehicleBodyStyle) {
+	$scope.form = {
+		title: 'Incluir uma categoria de veículo',
 
-	$scope.bodyStyleFormData = {};
+		submit: function (bodyStyle) {
+			VehicleBodyStyle.store(bodyStyle).success(function (response) {
+				$scope.form.model = {};
+				$scope.form.status = response.status
+				$scope.form.message = response.message;
+			});
+		},
 
-	$scope.submitCategory = function () {
-		VehicleBodyStyle.store($scope.bodyStyleFormData).success(function (response) {
-			$location.path('/vehicle-body-style');
-		});
+		model: {}
 	};
 }]);

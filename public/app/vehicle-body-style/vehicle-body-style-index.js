@@ -8,6 +8,9 @@ divulgaUsadosApp.controller('VehicleBodyStyleListCtrl', ['$scope', '$http', 'Veh
 
 	$scope.destroyBodyStyle = function (id) {
 		VehicleBodyStyle.destroy(id).success(function (response) {
+			$scope.message = response.message;
+			$scope.status = response.status;
+
 			VehicleBodyStyle.get().success(function (bodyStyleList) {
 				$scope.bodyStyleList = bodyStyleList;
 			});

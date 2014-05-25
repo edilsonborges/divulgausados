@@ -1,7 +1,19 @@
 {
   "name": "divulgausados",
   "version": "0.0.2",
-  "description": "Uma aplicacao para divulgar informacoes de veiculos usados.",
+  "homepage": "https://github.com/murilocosta/divulgausados",
+  "authors": [
+    "Murilo Nunes José da Costa <murilo.nunes.jose@gmail.com>"
+  ],
+  "description": "Uma aplicação para compartilhar e divulgar dados de veículos usados.",
+  "keywords": [
+    "divulgacao", 
+    "veiculos", 
+    "automoveis", 
+    "carro", 
+    "usados"
+  ],
+  "license": "MIT",
   "main": "public/index.php",
   "scripts": {
     "test": "npm test"
@@ -10,8 +22,6 @@
     "type": "git",
     "url": "https://github.com/murilocosta/divulgausados.git"
   },
-  "author": "",
-  "license": "MIT",
   "dependencies": {
     
   },
