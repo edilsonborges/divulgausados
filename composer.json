@@ -2,9 +2,7 @@
   "name": "divulgausados/divulgausados",
   "version": "0.0.2",
   "homepage": "https://github.com/murilocosta/divulgausados",
-  "authors": [
-    "Murilo Nunes José da Costa <murilo.nunes.jose@gmail.com>"
-  ],
+  "author": "Murilo Nunes José da Costa <murilo.nunes.jose@gmail.com>",
   "description": "Uma aplicação para compartilhar e divulgar dados de veículos usados.",
   "keywords": [
     "divulgacao", 

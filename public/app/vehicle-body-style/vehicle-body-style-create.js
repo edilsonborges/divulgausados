@@ -5,7 +5,7 @@ divulgaUsadosApp.controller('VehicleBodyStyleCreateCtrl', ['$scope', '$location'
 		submit: function (bodyStyle) {
 			VehicleBodyStyle.store(bodyStyle).success(function (response) {
 				$scope.form.model = {};
-				$scope.form.status = response.status
+				$scope.form.status = response.status;
 				$scope.form.message = response.message;
 			});
 		},
