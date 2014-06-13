@@ -13,15 +13,25 @@
 
 Route::get('/', function()
 {
-    return View::make('index');
+    return View::make('layout');
+});
+
+Route::filter('csrf', function () 
+{
+	if (Request::forged()) {
+		return Response::error('500');
+	}
 });
 
 Route::group(array('prefix' => 'service'), function() 
 {
     Route::resource('body-style', 'VehicleBodyStyleController');
+    Route::resource('make', 'VehicleMakeController');
+    Route::post('authentication/login', 'AuthenticationController@login');
+	Route::get('authentication/logout', 'AuthenticationController@logout');
 });
 
 App::missing(function($exception)
 {
-    return View::make('index');
+    return View::make('layout');
 });

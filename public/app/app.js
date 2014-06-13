@@ -4,23 +4,33 @@ divulgaUsadosApp.config(['$routeProvider', function($routeProvider) {
 
 	$routeProvider.
 		when('/', {
-			templateUrl: 'app/views/index.html',
-			controller: 'MainCtrl'
+			templateUrl: 'app/home/home-view-index.html',
+			controller: 'HomeCtrl'
 		}).
 
 		when('/vehicle-body-style', {
-			templateUrl: 'app/vehicle-body-style/vehicle-body-style-index.html',
+			templateUrl: 'app/body-style/body-style-view-list.html',
 			controller: 'VehicleBodyStyleListCtrl'
 		}).
 
 		when('/vehicle-body-style/create', {
-			templateUrl: 'app/vehicle-body-style/vehicle-body-style-create.html',
+			templateUrl: 'app/body-style/body-style-view-create.html',
 			controller: 'VehicleBodyStyleCreateCtrl'
 		}).
 
 		when('/vehicle-body-style/edit/:id', {
-			templateUrl: 'app/vehicle-body-style/vehicle-body-style-edit.html',
+			templateUrl: 'app/body-style/body-style-view-edit.html',
 			controller: 'VehicleBodyStyleEditCtrl'
+		}).
+
+		when('/vehicle-make', {
+			templateUrl: 'app/make/make-view-list.html',
+			controller: 'VehicleMakeListCtrl'
+		}).
+
+		when('/vehicle-make/create', {
+			templateUrl: 'app/make/make-view-create.html',
+			controller: 'VehicleMakeCreateCtrl'
 		}).
 		
 		otherwise({
@@ -28,3 +38,10 @@ divulgaUsadosApp.config(['$routeProvider', function($routeProvider) {
 		});
 	}
 ]);
+
+divulgaUsadosApp.filter('standardDateFormat', ['$filter', function standardDateFormat($filter) {
+	return function(date){
+		var temporary = new Date(date);
+		return $filter('date')(temporary, "dd/MM/yyyy HH:mm");
+	};
+}]);

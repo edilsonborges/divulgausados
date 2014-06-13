@@ -2,6 +2,8 @@
 
 class VehicleBodyStyleController extends \BaseController {
 
+	const DISPLAY_PAGE_SIZE = 9;
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -9,7 +11,7 @@ class VehicleBodyStyleController extends \BaseController {
 	 */
 	public function index()
 	{
-		return Response::json(VehicleBodyStyle::all());
+		return Response::json(VehicleBodyStyle::orderBy('name')->paginate(self::DISPLAY_PAGE_SIZE));
 	}
 
 	/**
@@ -19,10 +21,13 @@ class VehicleBodyStyleController extends \BaseController {
 	 */
 	public function store()
 	{
-		$name = Input::get('name');
-		$category = VehicleBodyStyle::create(array('name' => $name));
-		$category->save();
-		return Response::json(array("status" => "success", "message" => "Adicionado com sucesso!"));
+		$attributes = $this->retrieve();
+		if (VehicleBodyStyle::validate($attributes)) {
+			VehicleBodyStyle::create($attributes)->save();
+			return $this->getSuccessMessage('Adicionado com sucesso!');
+		} else {
+			return $this->getWarningMessage(VehicleBodyStyle::getValidationMessages());
+		}
 	}
 
 	public function show($id)
@@ -38,10 +43,15 @@ class VehicleBodyStyleController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$category = VehicleBodyStyle::find($id);
-		$category->name = Input::get('name');
-		$category->save();
-		return Response::json(array("status" => "success", "message" => "Atualizado com sucesso!"));
+		$attributes = $this->retrieve();
+		if (VehicleBodyStyle::validate($attributes)) {
+			$category = VehicleBodyStyle::find($id);
+			$category->name = $attributes['name'];
+			$category->save();
+			return $this->getSuccessMessage('Atualizado com sucesso!');
+		} else {
+			return $this->getWarningMessage(VehicleBodyStyle::getValidationMessages());
+		}
 	}
 
 	/**
@@ -53,7 +63,14 @@ class VehicleBodyStyleController extends \BaseController {
 	public function destroy($id)
 	{
 		VehicleBodyStyle::find($id)->delete();
-		return Response::json(array("status" => "success", "message" => "Excluído com sucesso!"));
+		return $this->getSuccessMessage('Excluído com sucesso!');
+	}
+
+	protected function retrieve()
+	{
+		return array(
+			'name' => ucwords(Input::get('name'))
+		);
 	}
 
 }
