@@ -1,0 +1,23 @@
+<div class="pagination-centered">
+	<ul class="pagination">
+		<li data-ng-class="{ disabled: pg.isFirstPage() }">
+			<a href="" data-ng-click="pg.getFirstPage()">&laquo; Primeira</a>
+		</li>
+
+		<li data-ng-class="{ disabled: pg.isFirstPage() }">
+			<a href="" data-ng-click="pg.getPreviousPage()">&lsaquo; Anterior</a>
+		</li>
+
+		<li data-ng-repeat="page in pg.pages" data-ng-class="{ active: pg.isCurrentPage(page) }">
+			<a href="" data-ng-bind="page" data-ng-click="pg.setCurrentPage(page)">1</a>
+		</li>
+
+		<li data-ng-class="{ disabled: pg.isLastPage() }">
+			<a href="" data-ng-click="pg.getNextPage()">Próxima &rsaquo;</a>
+		</li>
+
+		<li data-ng-class="{ disabled: pg.isLastPage() }">
+			<a href="" data-ng-click="pg.getLastPage()">Última &raquo;</a>
+		</li>
+	</ul>
+</div>
