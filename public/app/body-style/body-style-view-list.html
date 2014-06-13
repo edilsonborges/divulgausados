@@ -1,0 +1,59 @@
+<section data-ng-controller="VehicleBodyStyleListCtrl">
+	<h2>Lista de categorias de veículos</h2>
+
+	<message-box message="messageSource" status="status"></message-box>
+
+	<div class="input-group">
+		<span class="input-group-addon">Busca</span>
+		<input type="text" class="form-control" placeholder="Nome" data-ng-model="name" />
+	</div>
+
+	<div class="table-responsive">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th colspan="2">Ações</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr data-ng-repeat="bodyStyle in bodyStyleList.data | filter:name">
+					<td>{{ bodyStyle.name }}</td>
+
+					<td>
+						<a class="btn btn-default" href="#/vehicle-body-style/edit/{{ bodyStyle.id }}">
+							<span class="glyphicon glyphicon-pencil"></span>
+							Alterar
+						</a>
+					</td>
+
+					<td>
+						<button type="button" class="btn btn-danger" data-ng-click="destroyBodyStyle(bodyStyle.id)">
+							<span class="glyphicon glyphicon-trash"></span>
+							Excluir
+						</button>
+					</td>
+				</tr>
+			</tbody>
+
+			<tfoot>
+				<tr>
+					<td colspan="3">
+						<div pagination="bodyStyleList"></div>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+
+		<a class="btn btn-default" href="#/">
+			<span class="glyphicon glyphicon-remove"></span>
+			Sair
+		</a>
+
+		<a class="btn btn-primary" href="#/vehicle-body-style/create">
+			<span class="glyphicon glyphicon-plus"></span>
+			Novo
+		</a>
+	</div>
+</section>

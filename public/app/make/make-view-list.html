@@ -1,0 +1,78 @@
+<section id="vehicle-make-list-ctrl" data-ng-controller="VehicleMakeListCtrl">
+	<h2>Lista de fabricantes de veículos</h2>
+
+	<message-box message="messageSource" status="status"></message-box>
+
+	<div class="table-responsive">
+		<div class="form-group">
+			<label for="show-deleted-make">Mostrar excluídos</label>
+			<input type="checkbox" name="show-deleted-record" data-on-text="Sim" data-off-text="Não" data-ng-click="showDestroyed(this)" />
+		</div>
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<td>Nome</td>
+					<td data-ng-show="isShowingDestroyed">Excluído</td>
+					<td colspan="2">Ações</td>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr data-ng-repeat="make in makeList">
+					<td>{{ make.name }}</td>
+
+					<td data-ng-show="isShowingDestroyed">{{ make.deleted_at | standardDateFormat }}</td>
+
+					<td>
+						<a class="btn btn-default" href="#/vehicle-make/edit/{{ make.id }}">
+							<span class="glyphicon glyphicon-pencil"></span>
+							Alterar
+						</a>
+					</td>
+
+					<td>
+						<button data-ng-show="isShowingDestroyed" type="button" class="btn btn-success" data-ng-click="restoreMake(make.id)">
+							<span class="glyphicon glyphicon-repeat"></span>
+							Restaurar
+						</button>
+
+						<button data-ng-show="!isShowingDestroyed" type="button" class="btn btn-danger" data-ng-click="destroyMake(make.id)">
+							<span class="glyphicon glyphicon-trash"></span>
+							Excluir
+						</button>
+					</td>
+				</tr>
+			</tbody>
+
+			<tfoot>
+				<tr>
+					<td colspan="3">
+						<a class="btn btn-default" href="#/">
+							<span class="glyphicon glyphicon-remove"></span>
+							Sair
+						</a>
+
+						<a class="btn btn-primary" href="#/vehicle-make/create">
+							<span class="glyphicon glyphicon-plus"></span>
+							Novo
+						</a>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('input[name="show-deleted-record"]').bootstrapSwitch();
+
+			$('input[name="show-deleted-record"]').on('switchChange.bootstrapSwitch', function(event, state) {
+				var scope = angular.element($('#vehicle-make-list-ctrl')).scope();
+				scope.$apply(function () {
+					scope.showDestroyed(state);
+				});
+			});
+		});
+	</script>
+</section>
