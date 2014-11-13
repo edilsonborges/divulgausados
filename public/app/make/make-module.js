@@ -1,4 +1,6 @@
-divulgaUsadosApp.controller('VehicleMakeListCtrl', ['$scope', 'VehicleMake', function($scope, VehicleMake) {
+'use strict';
+
+angular.module('divulgausados').controller('VehicleMakeListCtrl', ['$scope', 'VehicleMake', function($scope, VehicleMake) {
 	
 	$scope.makeList = {};
 
@@ -28,11 +30,8 @@ divulgaUsadosApp.controller('VehicleMakeListCtrl', ['$scope', 'VehicleMake', fun
 	};
 
 	$scope.showDestroyed($scope.isShowingDestroyed);
-}]);
-
-
-
-divulgaUsadosApp.controller('VehicleMakeCreateCtrl', ['$scope', 'VehicleMake', function($scope, VehicleMake) {
+}])
+.controller('VehicleMakeCreateCtrl', ['$scope', 'VehicleMake', function($scope, VehicleMake) {
 	$scope.form = {
 		title: 'Incluir um fabricante de veículos',
 
@@ -51,4 +50,44 @@ divulgaUsadosApp.controller('VehicleMakeCreateCtrl', ['$scope', 'VehicleMake', f
 		model: {}
 
 	};
-}]);
+}])
+.service('VehicleMake', ['$http', function ($http) {
+	var request = '/service/make';
+
+	this.get = function (showDestroyed) {
+		return $http.get(request, { 
+			params: { 'showDestroyed': showDestroyed } 
+		});
+	};
+
+	this.show = function (id) {
+		return $http.get(request + '/' + id);
+	};
+
+	this.store = function (make) {
+		return $http.post(request, make);
+	};
+
+	this.update = function (make) {
+		return $http.put(request + '/' + id, make);
+	};
+
+	this.restore = function (id) {
+		return $http.get(request + '/' + id + '/edit');
+	};
+
+	this.destroy = function (id) {
+		return $http.delete(request + '/' + id);
+	};
+
+}]).directive('makeForm', function(){
+	return {
+		restrict: 'E',
+		scope: {
+			form: "=form",
+			make: '=model',
+			submit: '&submit'
+		},
+		templateUrl: 'app/make/make-view-form.html'
+	};
+});

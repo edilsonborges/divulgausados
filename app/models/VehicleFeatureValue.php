@@ -1,6 +1,6 @@
 <?php
 
-class VehicleBodyStyle extends Eloquent {
+class VehicleFeatureValue extends Eloquent {
 
     protected $table = 'vehiclefeaturevalue';
 

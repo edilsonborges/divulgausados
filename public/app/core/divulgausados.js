@@ -1,6 +1,7 @@
-var divulgaUsadosApp = angular.module('DivulgaUsadosApp', ['ngRoute', 'ngResource']);
+'use strict';
 
-divulgaUsadosApp.config(['$routeProvider', function($routeProvider) {
+angular.module('divulgausados', ['ngRoute', 'ngResource'])
+.config(['$routeProvider', function($routeProvider) {
 
 	$routeProvider.
 		when('/', {
@@ -37,9 +38,7 @@ divulgaUsadosApp.config(['$routeProvider', function($routeProvider) {
 			redirectTo: '/'
 		});
 	}
-]);
-
-divulgaUsadosApp.filter('standardDateFormat', ['$filter', function standardDateFormat($filter) {
+]).filter('standardDateFormat', ['$filter', function standardDateFormat($filter) {
 	return function(date){
 		var temporary = new Date(date);
 		return $filter('date')(temporary, "dd/MM/yyyy HH:mm");

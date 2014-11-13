@@ -3,14 +3,14 @@
 /**
  * Represents the generated message level, changes the color of display accordingly.
  */
-class ViewMessageStatus {
-	
-	const SUCCESS = 'success';
+class ViewMessageStatus
+{
 
-	const INFO = 'info';
+    const SUCCESS = 'success';
 
-	const WARNING = 'warning';
+    const INFO = 'info';
 
-	const DANGER = 'danger';
+    const WARNING = 'warning';
 
+    const DANGER = 'danger';
 }

@@ -1,46 +1,51 @@
 {
-  "name": "divulgausados/divulgausados",
-  "version": "0.0.2",
-  "homepage": "https://github.com/murilocosta/divulgausados",
-  "author": "Murilo Nunes José da Costa <murilo.nunes.jose@gmail.com>",
-  "description": "Uma aplicação para compartilhar e divulgar dados de veículos usados.",
-  "keywords": [
-    "divulgacao", 
-    "veiculos", 
-    "automoveis", 
-    "carro", 
+  "name":"divulgausados/divulgausados",
+  "version":"1.0.0",
+  "homepage":"https://github.com/murilocosta/divulgausados",
+  "authors":[
+    {
+      "name":"Murilo Nunes José da Costa",
+      "email":"murilo.nunes.jose@gmail.com",
+      "role":"Developer"
+    }
+  ],
+  "description":"Uma aplicação para compartilhar e divulgar dados de veículos usados.",
+  "keywords":[
+    "divulgacao",
+    "veiculos",
+    "automoveis",
+    "carro",
     "usados"
   ],
-  "license": "MIT",
-  "require": {
-    "laravel/framework": "4.1.*"
+  "license":"MIT",
+  "require":{
+    "laravel/framework":"4.1.*"
   },
-  "autoload": {
-    "classmap": [
+  "autoload":{
+    "classmap":[
       "app/commands",
       "app/controllers",
       "app/libraries",
       "app/models",
       "app/database/migrations",
       "app/database/seeds",
-      "app/tests/php/TestCase.php"
+      "app/tests/TestCase.php"
     ]
   },
-  "scripts": {
-    "post-install-cmd": [
+  "scripts":{
+    "post-install-cmd":[
       "php artisan clear-compiled",
       "php artisan optimize"
     ],
-    "post-update-cmd": [
+    "post-update-cmd":[
       "php artisan clear-compiled",
       "php artisan optimize"
     ],
-    "post-create-project-cmd": [
+    "post-create-project-cmd":[
       "php artisan key:generate"
     ]
   },
-  "config": {
-    "preferred-install": "dist"
-  },
-  "minimum-stability": "stable"
+  "config":{
+    "preferred-install":"dist"
+  }
 }

@@ -1,39 +1,32 @@
 {
-  "name": "divulgausados",
-  "version": "0.0.2",
-  "homepage": "https://github.com/murilocosta/divulgausados",
-  "authors": [
+  "name":"divulgausados",
+  "version":"1.0.0",
+  "homepage":"https://github.com/murilocosta/divulgausados",
+  "authors":[
     "Murilo Nunes José da Costa <murilo.nunes.jose@gmail.com>"
   ],
-  "description": "Uma aplicação para compartilhar e divulgar dados de veículos usados.",
-  "main": "public/index.php",
-  "keywords": [
+  "description":"Uma aplicação para compartilhar e divulgar dados de veículos usados.",
+  "keywords":[
     "divulgacao",
     "veiculos",
     "automoveis",
     "carro",
     "usados"
   ],
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "public/vendor"
-  ],
-  "dependencies": {
-    "qunit": "1.14.0",
-    "jshint": "2.5.0",
-    "jquery": "2.1.0",
-    "angular": "1.2.16",
-    "angular-route": "1.2.16",
-    "angular-resource": "1.2.16",
-    "angular-mocks": "1.2.16",
-    "angular-file-upload": "0.5.6",
-    "es5-shim": "3.4.0",
-    "bootstrap": "3.1.1",
-    "bootstrap-switch": "3.0.1"
+  "license":"MIT",
+  "dependencies":{
+    "angular":"1.2.16",
+    "angular-route":"1.2.16",
+    "angular-resource":"1.2.16",
+    "angular-bootstrap":"0.11.2",
+    "angular-file-upload":"0.5.6",
+    "angular-local-storage":"0.1.4",
+    "restangular":"1.4.0",
+    "bootstrap":"3.3.0",
+    "es5-shim":"3.4.0",
+    "angular-toggle-switch":"1.0.0"
   },
-  "resolutions": {
-    "es5-shim": "3.4.0"
+  "resolutions":{
+    "es5-shim":"3.4.0"
   }
 }
