@@ -1,37 +1,71 @@
-'use strict';
-
-angular.module('divulgausados').directive('pagination',
-	[ 'PaginationService', function(PaginationService) {
-	    return {
-		retrict : 'AE',
-		scope : {
-		    paginate : '=pagination'
-		},
-		link : function(scope, element, attribute) {
-		    var doPaginate = function(settings, oldSettings) {
-			PaginationService.init(settings);
-			scope.pg = PaginationService.getPaginator();
-		    };
-
-		    var doPageChange = function(newPage, oldPage) {
-			if (newPage != oldPage) {
-			    scope.$emit('changePage', newPage);
+angular.module('divulgausados')
+	.directive('hasAllRoles', function(AuthService) {
+		return {
+			restrict: 'A',
+			link: function(scope, element, attrs) {
+				var roles = attrs.hasAllRoles.split(/\s*,\s*/);
+				scope.$watch(function() {
+					if (AuthService.hasAllRoles(roles)) {
+						element.removeClass('hidden');
+					} else {
+						element.addClass('hidden');
+					}
+				});
 			}
-		    };
-
-		    scope.$watch('paginate', doPaginate);
-		    scope.$watch('pg.currentPage', doPageChange);
-		},
-		templateUrl : 'app/common/pagination/pagination.html'
-	    };
-	} ])
- 	.directive('messageBox', function() {
-	    return {
-		restrict : 'E',
-		scope : {
-		    messageSource : '=message',
-		    status : '='
-		},
-		templateUrl : 'app/common/message-box/message-box.html'
-	    };
-	});;
+		};
+	})
+	.directive('hasAnyRole', function(AuthService) {
+		return {
+			restrict: 'A',
+			link: function(scope, element, attrs) {
+				var roles = attrs.hasAnyRole.split(/\s*,\s*/);
+				scope.$watch(function() {
+					if (AuthService.hasAnyRole(roles)) {
+						element.removeClass('hidden');
+					} else {
+						element.addClass('hidden');
+					}
+				});
+			}
+		};
+	})
+	.directive('authenticated', function(AuthService) {
+		return {
+			restrict: 'A',
+			link: function(scope, element, attrs) {
+				var needAuthentication = 'true' === attrs.authenticated;
+				var noAuthentication = 'false' === attrs.authenticated;
+				scope.$watch(function() {
+					if ((needAuthentication && !AuthService.isAuthenticated()) || (noAuthentication && AuthService.isAuthenticated())) {
+						element.addClass('hidden');
+					} else {
+						element.removeClass('hidden');
+					}
+				});
+			}
+		};
+	})
+	.directive('messageBox', function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'app/core/message-box.html',
+			controller: function($scope) {
+				$scope.isCollapsed = true;
+			}
+		};
+	})
+	.directive('showErrors', function() {
+		return {
+			restrict: 'A',
+			require: '^form',
+			link: function(scope, element, attrs, controller) {
+				var inputElement = element[0].querySelector("[name]");
+				var inputNgElement = angular.element(inputElement);
+				var inputName = inputNgElement.attr('name');
+				inputNgEl.bind('keyup', function() {
+					element.toggleClass('has-success', controller[inputName].$valid);
+					element.toggleClass('has-error', controller[inputName].$invalid);
+				});
+			}
+		};
+	});

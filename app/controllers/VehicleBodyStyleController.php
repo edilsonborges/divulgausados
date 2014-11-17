@@ -3,6 +3,18 @@
 class VehicleBodyStyleController extends \BaseController
 {
 
+    private $bodyStyleService;
+
+    public function __construct()
+    {
+        $this->bodyStyleService = new BodyStyleService();
+    }
+
+    public function getService()
+    {
+        return $this->bodyStyleService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -10,7 +22,7 @@ class VehicleBodyStyleController extends \BaseController
      */
     public function index()
     {
-        return $this->jsonResponse(VehicleBodyStyle::orderBy('name')->paginate(self::DISPLAY_PAGE_SIZE));
+        return $this->jsonResponse($this->getService()->findAll());
     }
 
     /**
@@ -20,19 +32,13 @@ class VehicleBodyStyleController extends \BaseController
      */
     public function store()
     {
-        $attributes = $this->retrieve();
-        if (VehicleBodyStyle::validate($attributes)) {
-            VehicleBodyStyle::create($attributes)->save();
-            $this->addSuccessMessage('Adicionado com sucesso!');
-        } else {
-            $this->addWarningMessage(VehicleBodyStyle::getValidationMessages());
-        }
+        $this->getService()->save($this->retrieve());
         return $this->jsonResponse(null);
     }
 
     public function show($id)
     {
-        return $this->jsonResponse(VehicleBodyStyle::find($id));
+        return $this->jsonResponse($this->getService()->findOne($id));
     }
 
     /**
@@ -43,15 +49,7 @@ class VehicleBodyStyleController extends \BaseController
      */
     public function update($id)
     {
-        $attributes = $this->retrieve();
-        if (VehicleBodyStyle::validate($attributes)) {
-            $category = VehicleBodyStyle::find($id);
-            $category->name = $attributes['name'];
-            $category->save();
-            $this->addSuccessMessage('Atualizado com sucesso!');
-        } else {
-            $this->addWarningMessage(VehicleBodyStyle::getValidationMessages());
-        }
+        $this->getService()->update($id, $this->retrieve());
         return $this->jsonResponse(null);
     }
 
@@ -63,11 +61,7 @@ class VehicleBodyStyleController extends \BaseController
      */
     public function destroy($id)
     {
-        $category = VehicleBodyStyle::find($id);
-        if (! is_null($category)) {
-            $category->delete();
-        }
-        $this->addSuccessMessage('Excluído com sucesso!');
+        $this->getService()->delete($id);
         return $this->jsonResponse(null);
     }
 

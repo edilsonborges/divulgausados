@@ -1,20 +1,27 @@
-<div>
-	<h2>{{ form.title }}</h2>
+<form role="form" class="form-horizontal" data-ng-submit="submit()">
+	<fieldset>
+		<legend ng-hide="bodyStyle.id">Inclusão de categoria</legend>
+		<legend ng-show="bodyStyle.id">Alteração de categoria</legend>
 
-	<message-box message="form.messageSource" status="form.status"></message-box>
-
-	<form role="form" data-ng-submit="submit()">
 		<div class="form-group">
-			<label for="name">Nome</label> <input type="text" id="name"
-				name="name" class="form-control" data-ng-model="bodyStyle.name" />
+			<label for="name" class="col-sm-2 control-label">Nome</label> 
+			<div class="col-sm-6">
+				<input type="text" id="name" name="name" class="form-control" data-ng-model="bodyStyle.name" />
+			</div>
 		</div>
 
-		<a class="btn btn-default" href="#/vehicle-body-style"> <span
-			class="glyphicon glyphicon-arrow-left"></span> <span>Voltar</span>
-		</a>
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+	            <div class="btn-group">
+					<a class="btn btn-default" href="#/body-style"> 
+						<span class="glyphicon glyphicon-arrow-left"></span> Voltar
+					</a>
 
-		<button type="submit" class="btn btn-success">
-			<span class="glyphicon glyphicon-ok"></span> <span>Confirmar</span>
-		</button>
-	</form>
-</div>
+					<button type="submit" class="btn btn-success">
+						<span class="glyphicon glyphicon-ok"></span> Confirmar
+					</button>
+				</div>
+			</div>
+		</div>
+	</fieldset>
+</form>

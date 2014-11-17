@@ -1,68 +1,64 @@
 <?php
 
+use Illuminate\Database\Eloquent\Collection;
+
 /**
  * Represents the RESTful API service response
  */
+
 class RestfulResponse
 {
 
-    private $successMessages;
+    private $response;
 
-    private $warningMessages;
-
-    private $errorMessages;
-
-    private $userInfo;
-
-    private $data;
+    public function __construct()
+    {
+        $this->response = new Collection();
+    }
 
     public function getSuccessMessages()
     {
-        return $this->successMessages;
+        return $this->response['successMessages'];
     }
 
-    public function setSuccessMessages(ViewMessageHolder $successMessages)
+    public function setSuccessMessages(array $successMessages)
     {
-        $this->successMessages = $successMessages;
+        $this->response['successMessages'] = $successMessages;
     }
 
     public function getWarningMessages()
     {
-        return $this->warningMessages;
+        return $this->response['warningMessages'];
     }
 
-    public function setWarningMessages($warningMessages)
+    public function setWarningMessages(array $warningMessages)
     {
-        $this->warningMessages = $warningMessages;
+        $this->response['warningMessages'] = $warningMessages;
     }
 
     public function getErrorMessages()
     {
-        return $this->errorMessages;
+        return $this->response['errorMessages'];
     }
 
-    public function setErrorMessages(ViewMessageHolder $errorMessages)
+    public function setErrorMessages(array $errorMessages)
     {
-        $this->errorMessages = $errorMessages;
+        $this->response['errorMessages'] = $errorMessages;
     }
 
-    public function getUserInfo()
+    public function getContent()
     {
-        return $this->userInfo;
+        return $this->response['content'];
     }
 
-    public function setUserInfo($userInfo)
+    public function setContent($content)
     {
-        $this->userInfo = $userInfo;
+        $this->response['content'] = $content;
     }
 
-    public function getData()
+    public function toJson()
     {
-        return $this->data;
+        return $this->response;
     }
 
-    public function setData($data)
-    {
-        $this->data = $data;
-    }
 }

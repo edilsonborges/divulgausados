@@ -1,9 +1,11 @@
 <?php
+
 use Illuminate\Support\Contracts\ArrayableInterface;
 
 /**
  * Utility class for message handling, used to store system validation, success or informational messages.
  */
+
 class ViewMessageHolder implements ArrayableInterface
 {
 
@@ -34,6 +36,9 @@ class ViewMessageHolder implements ArrayableInterface
 
     public function getMessageList()
     {
+        if (is_null($this->messageList)) {
+            $this->messageList = array();
+        }
         return $this->messageList;
     }
 

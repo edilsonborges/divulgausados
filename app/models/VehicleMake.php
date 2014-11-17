@@ -3,7 +3,8 @@
 /**
  * Model class to represent vehicle makes.
  */
-class VehicleMake extends BaseModel {
+class VehicleMake extends BaseModel
+{
 
     protected $table = 'vehiclemake';
 
@@ -18,9 +19,14 @@ class VehicleMake extends BaseModel {
      *
      * @return array
      */
-    public function vehicles() 
+    public function vehicles()
     {
         return $this->hasMany('Vehicle', 'vehiclemake_id');
+    }
+
+    public function scopeFilter($query)
+    {
+        $this->createLikeFilter($query, 'filterByName', 'name');
     }
 
 }

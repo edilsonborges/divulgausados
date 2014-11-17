@@ -3,6 +3,18 @@
 class VehicleMakeController extends \BaseController
 {
 
+    private $makeService;
+
+    public function __construct()
+    {
+        $this->makeService = new MakeService();
+    }
+
+    public function getService()
+    {
+        return $this->makeService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -10,13 +22,7 @@ class VehicleMakeController extends \BaseController
      */
     public function index()
     {
-        $resultSet = array();
-        if ($this->isTrue(Input::get('showDestroyed'))) {
-            $resultSet = VehicleMake::onlyTrashed()->orderBy('name')->paginate(self::DISPLAY_PAGE_SIZE);
-        } else {
-            $resultSet = VehicleMake::orderBy('name')->paginate(self::DISPLAY_PAGE_SIZE);
-        }
-        return $this->jsonResponse($resultSet);
+        return $this->jsonResponse($this->getService()->findAll());
     }
 
     /**
@@ -26,13 +32,7 @@ class VehicleMakeController extends \BaseController
      */
     public function store()
     {
-        $attributes = $this->retrieve();
-        if (VehicleMake::validate($attributes)) {
-            VehicleMake::create($attributes)->save();
-            $this->addSuccessMessage('Fabricante adicionado com sucesso!');
-        } else {
-            $this->addWarningMessage(VehicleMake::getValidationMessages());
-        }
+        $this->getService()->save($this->retrieve());
         return $this->jsonResponse(null);
     }
 
@@ -44,7 +44,7 @@ class VehicleMakeController extends \BaseController
      */
     public function show($id)
     {
-        return $this->jsonResponse(null);
+        return $this->jsonResponse($this->getService()->findOne($id));
     }
 
     /**
@@ -55,16 +55,7 @@ class VehicleMakeController extends \BaseController
      */
     public function update($id)
     {
-        return $this->jsonResponse(null);
-    }
-
-    public function activate($vehicleMakeId)
-    {
-        $make = VehicleMake::withTrashed()->where('id', $id);
-        if (! is_null($make)) {
-            $make->restore();
-            $this->addSuccessMessage('Fabricante restaurado com sucesso!');
-        }
+        $this->getService()->update($id, $this->retrieve());
         return $this->jsonResponse(null);
     }
 
@@ -76,11 +67,8 @@ class VehicleMakeController extends \BaseController
      */
     public function destroy($id)
     {
-        $make = VehicleMake::find($id);
-        if (! is_null($make)) {
-            $make->delete();
-            $this->addSuccessMessage('Fabricante excluído com sucesso!');
-        }
+        $this->getService()->delete($id);
+
         return $this->jsonResponse(null);
     }
 

@@ -17,6 +17,7 @@ before_script:
   - npm install -g grunt-cli
 
 script: 
+  - bower install
   - grunt
   - php artisan migrate
   - phpunit 

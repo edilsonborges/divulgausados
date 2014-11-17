@@ -3,7 +3,8 @@
 /**
  * Model class to represent vehicle body styles.
  */
-class VehicleBodyStyle extends BaseModel {
+class VehicleBodyStyle extends BaseModel
+{
 
     protected $table = 'vehiclebodystyle';
 
@@ -21,6 +22,11 @@ class VehicleBodyStyle extends BaseModel {
     public function vehicles()
     {
         return $this->hasMany('Vehicle', 'vehiclebodystyle_id');
+    }
+
+    public function scopeFilter($query)
+    {
+        $this->createLikeFilter($query, 'filterByName', 'name');
     }
 
 }

@@ -6,14 +6,12 @@
     <meta name="description" content="Um website para divulgação de veículos usados">
     <title>Divulga Usados</title>
 
-    <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="vendor/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css" />
-    <link rel="stylesheet" href="styles/divulgausados.css" />
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="app/core/divulgausados.css" />
 
     <!--[if lt IE 9]>
     <script type="text/javascript" src="vendor/es5-shim/es5-shim.js"></script>
     <![endif]-->
-
 </head>
 <body>
 
@@ -23,8 +21,8 @@
 
     <nav class="navbar navbar-default" role="navigation">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu-navegacao-principal">
-                <span class="sr-only">Menu</span>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1">
+                <span class="sr-only">Navegação</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -35,30 +33,32 @@
             </a>
         </div>
 
-        <div class="container-fluid">
-            <div id="menu-navegacao-principal" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li class="dropdown">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown">Cadastros <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#/vehicle-body-style">Categorias de veículo</a></li>
-                            <li><a href="#/vehicle-make">Fabricantes de veículo</a></li>
-                            <li><a href="#/vehicle-model">Modelos de veículo</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Cadastros <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#/body-style">Categorias de veículo</a></li>
+                        <li><a href="#/make">Fabricantes de veículo</a></li>
+                        <li><a href="#/model">Modelos de veículo</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </nav>
 
+    <message-box></message-box>
     <div class="container-fluid" data-ng-view=""></div>
 
-    <script type="text/javascript" src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="vendor/bootstrap-switch/dist/js/bootstrap-switch.min.js"></script>
     <script type="text/javascript" src="vendor/angular/angular.min.js"></script>
     <script type="text/javascript" src="vendor/angular-route/angular-route.min.js"></script>
     <script type="text/javascript" src="vendor/angular-resource/angular-resource.min.js"></script>
+    <script type="text/javascript" src="vendor/angular-local-storage/dist/angular-local-storage.min.js"></script>
+    <script type="text/javascript" src="vendor/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script type="text/javascript" src="vendor/angular-file-upload/angular-file-upload.min.js"></script>
+
+    <script type="text/javascript" src="vendor/lodash/dist/lodash.min.js"></script>
+    <script type="text/javascript" src="vendor/restangular/dist/restangular.min.js"></script>
 
     <script type="text/javascript" src="app/core/divulgausados.js"></script>
     <script type="text/javascript" src="app/core/services.js"></script>

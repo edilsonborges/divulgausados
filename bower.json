@@ -23,8 +23,7 @@
     "angular-local-storage":"0.1.4",
     "restangular":"1.4.0",
     "bootstrap":"3.3.0",
-    "es5-shim":"3.4.0",
-    "angular-toggle-switch":"1.0.0"
+    "es5-shim":"3.4.0"
   },
   "resolutions":{
     "es5-shim":"3.4.0"
