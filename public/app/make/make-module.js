@@ -1,107 +1,61 @@
 angular.module('divulgausados')
-	.config(
-		['$routeProvider', function($routeProvider) {
-			$routeProvider.when('/make', {
-				templateUrl: 'app/make/make-view-list.html',
-				controller: 'VehicleMakeListCtrl'
-			}).
-
-			when('/make/create', {
-				templateUrl: 'app/make/make-view-create.html',
-				controller: 'VehicleMakeCreateCtrl'
-			});
-		}])
-	.controller('VehicleMakeListCtrl', ['$scope', 'VehicleMake', function($scope, VehicleMake) {
-
-		$scope.makeList = {};
-
-		$scope.isShowingDestroyed = false;
-
-		var findMakeList = function(makeList) {
-			$scope.makeList = makeList;
-		};
-
-		$scope.showDestroyed = function(showDestroyed) {
-			$scope.isShowingDestroyed = showDestroyed;
-			VehicleMake.get(showDestroyed).success(findMakeList);
-		};
-
-		var updateTable = function(response) {
-			$scope.messageSource = response.messageList;
-			$scope.status = response.status;
-			$scope.showDestroyed($scope.isShowingDestroyed);
-		};
-
-		$scope.restoreMake = function(id) {
-			VehicleMake.restore(id).success(updateTable);
-		};
-
-		$scope.destroyMake = function(id) {
-			VehicleMake.destroy(id).success(updateTable);
-		};
-
-		$scope.showDestroyed($scope.isShowingDestroyed);
+	.config(['$routeProvider', function ($routeProvider) {
+		$routeProvider.when('/make', {
+			templateUrl: 'app/make/make-view-list.html',
+			controller: 'VehicleMakeListCtrl'
+		})
+		.when('/make/create', {
+			templateUrl: 'app/make/make-view-form.html',
+			controller: 'VehicleMakeCreateCtrl'
+		})
+		.when('/make/:makeId', {
+			templateUrl: 'app/make/make-view-form.html',
+			controller: 'VehicleMakeEditCtrl'
+		});
 	}])
-	.controller('VehicleMakeCreateCtrl', ['$scope', 'VehicleMake', function($scope, VehicleMake) {
-		$scope.form = {
-			title: 'Incluir um fabricante de veículos',
+	.controller('VehicleMakeListCtrl', ['$scope', 'VehicleMake', 'PaginationService', function ($scope, VehicleMake, PaginationService) {
+		$scope.paginator = PaginationService;
 
-			submit: function(make) {
-				console.log(make);
-				VehicleMake.store(make).success(function(response) {
-					$scope.form.messageSource = response.messageList;
-					$scope.form.status = response.status;
-
-					if (!response.isError) {
-						$scope.form.model = {};
-					}
+		$scope.search = function () {
+			$scope.paginator.load(function (pagination) {
+				var queryParams = {
+					page: pagination.getCurrentPage(),
+					filterByName: $scope.filterByName
+				};
+				VehicleMake.getList(queryParams).then(function (response) {
+					$scope.bodyStyleList = response;
+					$scope.paginator.setup(response.meta);
 				});
-			},
-
-			model: {}
-
-		};
-	}])
-	.service('VehicleMake', ['$http', function($http) {
-		var request = '/service/make';
-
-		this.get = function(showDestroyed) {
-			return $http.get(request, {
-				params: {
-					'showDestroyed': showDestroyed
-				}
 			});
 		};
+		$scope.search();
 
-		this.show = function(id) {
-			return $http.get(request + '/' + id);
+		$scope.destroy = function (id) {
+			VehicleMake.one(id).remove().then(function () {
+				$scope.init();
+			});
 		};
-
-		this.store = function(make) {
-			return $http.post(request, make);
-		};
-
-		this.update = function(make) {
-			return $http.put(request + '/' + id, make);
-		};
-
-		this.restore = function(id) {
-			return $http.get(request + '/' + id + '/edit');
-		};
-
-		this.destroy = function(id) {
-			return $http.delete(request + '/' + id);
-		};
-
 	}])
-	.directive('makeForm', function() {
-		return {
-			restrict: 'E',
-			scope: {
-				form: "=form",
-				make: '=model',
-				submit: '&submit'
-			},
-			templateUrl: 'app/make/make-view-form.html'
+	.controller('VehicleMakeCreateCtrl', ['$scope', 'VehicleMake', function ($scope, VehicleMake) {
+		$scope.make = {};
+
+		$scope.submit = function () {
+			VehicleMake.post($scope.make).then(function () {
+				$scope.make = {};
+			});
 		};
-	});
+	}])
+	.controller('VehicleMakeEditCtrl', ['$scope', '$location', '$routeParams', 'VehicleMake', function ($scope, $location, $routeParams, VehicleMake) {
+		VehicleMake.one($routeParams.makeId).get().then(function (make) {
+			$scope.make = make;
+		});
+
+		$scope.submit = function () {
+			$scope.make.put().then(function () {
+				$location.path('/make');
+			});
+		};
+	}])
+	.factory('VehicleMake', ['RestfulFactory', function (RestfulFactory) {
+		return RestfulFactory.service('make');
+	}]);

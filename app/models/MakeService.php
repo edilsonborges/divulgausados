@@ -1,6 +1,6 @@
 <?php
 
-class MakeService
+class MakeService extends BaseService
 {
 
     public function save($attributes)

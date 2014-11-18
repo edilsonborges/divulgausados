@@ -1,27 +1,34 @@
-<div>
-	<h2>{{ form.title }}</h2>
+<form role="form" class="form-horizontal" data-ng-submit="submit()" enctype="multipart/form-data">
+	<fieldset>
+		<legend data-ng-hide="make.id">Inclusão de fabricante</legend>
+		<legend data-ng-show="make.id">Alteração de fabricante</legend>
 
-	<message-box message="form.messageSource" status="form.status"></message-box>
-
-	<form role="form" data-ng-submit="submit()" enctype="multipart/form-data">
 		<div class="form-group">
-			<label for="name">Nome</label>
-			<input type="text" id="name" name="name" class="form-control" data-ng-model="make.name" />
+			<label for="name" class="col-sm-2 control-label">Nome</label>
+			<div class="col-sm-6">
+				<input type="text" id="name" name="name" class="form-control" data-ng-model="make.name" />
+			</div>
 		</div>
 
 		<div class="form-group">
-			<label for="logo">Logo</label>
-			<input type="file" id="logo" name="logo" class="form-control" data-ng-model="make.logo" />
+			<label for="logo" class="col-sm-2 control-label">Logo</label>
+			<div class="col-sm-6">
+				<input type="file" id="logo" name="logo" class="form-control" nv-file-select="" uploader="uploader" />
+			</div>
 		</div>
 		
-		<a class="btn btn-default" href="#/vehicle-make">
-			<span class="glyphicon glyphicon-arrow-left"></span>
-			<span>Voltar</span>
-		</a>
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+	            <div class="btn-group">
+					<a class="btn btn-default" href="#/make">
+						<span class="glyphicon glyphicon-arrow-left"></span> Voltar
+					</a>
 
-		<button type="submit" class="btn btn-success">
-			<span class="glyphicon glyphicon-ok"></span>
-			<span>Confirmar</span>
-		</button>
-	</form>
-</div>
+					<button type="submit" class="btn btn-success">
+						<span class="glyphicon glyphicon-ok"></span> Confirmar
+					</button>
+				</div>
+			</div>
+		</div>
+	</fieldset>
+</form>

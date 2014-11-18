@@ -18,7 +18,7 @@ angular.module('divulgausados')
 	.controller('VehicleBodyStyleListCtrl', ['$scope', 'PaginationService', 'VehicleBodyStyle', function($scope, PaginationService, VehicleBodyStyle) {
 		$scope.paginator = PaginationService;
 
-		$scope.init = function() {
+		$scope.search = function() {
 			$scope.paginator.load(function(pagination) {
 				var queryParams = {
 					page: pagination.getCurrentPage(),
@@ -30,11 +30,7 @@ angular.module('divulgausados')
 				});
 			});
 		};
-		$scope.init();
-
-		$scope.search = function() {
-			$scope.init();
-		};
+		$scope.search();
 
 		$scope.destroy = function(id) {
 			VehicleBodyStyle.one(id).remove().then(function() {

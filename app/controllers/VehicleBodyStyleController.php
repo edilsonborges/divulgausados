@@ -10,7 +10,7 @@ class VehicleBodyStyleController extends \BaseController
         $this->bodyStyleService = new BodyStyleService();
     }
 
-    public function getService()
+    protected function getService()
     {
         return $this->bodyStyleService;
     }

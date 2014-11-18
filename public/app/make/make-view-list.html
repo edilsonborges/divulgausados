@@ -1,78 +1,65 @@
-<section id="vehicle-make-list-ctrl" data-ng-controller="VehicleMakeListCtrl">
-	<h2>Lista de fabricantes de veículos</h2>
+<section>
+	<h2>Listagem de fabricantes de veículos</h2>
 
-	<message-box message="messageSource" status="status"></message-box>
-
-	<div class="table-responsive">
-		<div class="form-group">
-			<label for="show-deleted-make">Mostrar excluídos</label>
-			<input type="checkbox" name="show-deleted-record" data-on-text="Sim" data-off-text="Não" data-ng-click="showDestroyed(this)" />
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="input-group">
+				<span class="input-group-addon">Nome</span>
+				<input type="text" class="form-control" data-ng-model="filterByName" />
+				<span class="input-group-btn">
+					<a href="" class="btn btn-default" data-ng-click="search()">
+						<span class="glyphicon glyphicon-search"></span> Buscar
+					</a>
+		        </span>
+			</div>
 		</div>
-
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<td>Nome</td>
-					<td data-ng-show="isShowingDestroyed">Excluído</td>
-					<td colspan="2">Ações</td>
-				</tr>
-			</thead>
-			
-			<tbody>
-				<tr data-ng-repeat="make in makeList">
-					<td>{{ make.name }}</td>
-
-					<td data-ng-show="isShowingDestroyed">{{ make.deleted_at | standardDateFormat }}</td>
-
-					<td>
-						<a class="btn btn-default" href="#/vehicle-make/edit/{{ make.id }}">
-							<span class="glyphicon glyphicon-pencil"></span>
-							Alterar
-						</a>
-					</td>
-
-					<td>
-						<button data-ng-show="isShowingDestroyed" type="button" class="btn btn-success" data-ng-click="restoreMake(make.id)">
-							<span class="glyphicon glyphicon-repeat"></span>
-							Restaurar
-						</button>
-
-						<button data-ng-show="!isShowingDestroyed" type="button" class="btn btn-danger" data-ng-click="destroyMake(make.id)">
-							<span class="glyphicon glyphicon-trash"></span>
-							Excluir
-						</button>
-					</td>
-				</tr>
-			</tbody>
-
-			<tfoot>
-				<tr>
-					<td colspan="3">
-						<a class="btn btn-default" href="#/">
-							<span class="glyphicon glyphicon-remove"></span>
-							Sair
-						</a>
-
-						<a class="btn btn-primary" href="#/vehicle-make/create">
-							<span class="glyphicon glyphicon-plus"></span>
-							Novo
-						</a>
-					</td>
-				</tr>
-			</tfoot>
-		</table>
 	</div>
 
-	<script type="text/javascript">
-		$(document).ready(function () {
-			$('input[name="show-deleted-record"]').bootstrapSwitch();
+	<br>
 
-			$('input[name="show-deleted-record"]').on('switchChange.bootstrapSwitch', function(event, state) {
-				var scope = angular.element($('#vehicle-make-list-ctrl')).scope();
-				scope.$apply(function () {
-					scope.showDestroyed(state);
-				});
-			});
-		});
-	</script>
+	<table class="table table-striped table-condensed">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th colspan="2" class="text-center">Ações</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr data-ng-repeat="make in makeList" data-ng-show="makeList.length">
+				<td>{{ make.name }}</td>
+				<td class="text-center">
+					<a class="btn btn-default" href="#/vehicle-make/{{ make.id }}">
+						<span class="glyphicon glyphicon-pencil"></span> Alterar
+					</a>
+				</td>
+				<td class="text-center">
+					<button type="button" class="btn btn-danger" data-ng-click="destroy(make.id)">
+						<span class="glyphicon glyphicon-trash"></span> Excluir
+					</button>
+				</td>
+			</tr>
+			<tr data-ng-hide="makeList.length">
+				<td colspan=3>Não há fabricantes cadastrados</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div class="text-center">
+		<pagination ng-show="paginator.show()" total-items="paginator.getTotalItems()" items-per-page="paginator.getPageSize()"
+			ng-model="paginator.params.current_page" ng-change="search()" max-size="5" boundary-links="true" rotate="false" class="pagination"
+		    previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+		</pagination>
+	</div>
+
+	<div class="btn-toolbar" role="toolbar">
+		<div class="btn-group">
+			<a class="btn btn-default" href="#/"> 
+				<span class="glyphicon glyphicon-remove"></span> Sair
+			</a>
+			<a class="btn btn-primary" href="#/make/create"> 
+				<span class="glyphicon glyphicon-plus"></span> Novo
+			</a>
+		</div>
+	</div>
 </section>

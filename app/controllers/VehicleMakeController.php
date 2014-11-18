@@ -10,7 +10,7 @@ class VehicleMakeController extends \BaseController
         $this->makeService = new MakeService();
     }
 
-    public function getService()
+    protected function getService()
     {
         return $this->makeService;
     }
