@@ -1,6 +1,6 @@
 <?php
 
-class BaseController extends Controller
+abstract class BaseController extends Controller
 {
 
     /**
@@ -31,4 +31,7 @@ class BaseController extends Controller
     {
         return filter_var($boolean, FILTER_VALIDATE_BOOLEAN) == true;
     }
+
+    protected abstract function retrieve();
+
 }

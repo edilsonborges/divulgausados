@@ -44,9 +44,9 @@ class BodyStyleService extends BaseService
         return VehicleBodyStyle::find($id);
     }
 
-    public function findAll($pageSize = 10)
+    public function findAll()
     {
-        return VehicleBodyStyle::orderBy('name')->filter()->paginate($pageSize);
+        return VehicleBodyStyle::orderBy('name')->filter()->paginate(self::DEFAULT_PAGINATION_PAGE_SIZE);
     }
 
 }

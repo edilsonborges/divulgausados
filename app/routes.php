@@ -23,9 +23,9 @@ Route::filter('csrf', function () {
 
 Route::group(array('prefix' => 'service'), function () {
     Route::resource('body-style', 'VehicleBodyStyleController');
-    Route::post('body-style/activate/{bodyStyleId}', 'VehicleBodyStyleController@activate');
     Route::resource('make', 'VehicleMakeController');
-    Route::post('make/activate/{makeId}', 'VehicleMakeController@activate');
+    Route::resource('model', 'VehicleModelController');
+    Route::resource('model-series', 'VehicleModelSeriesController');
     Route::post('authentication/login', 'AuthenticationController@login');
     Route::get('authentication/logout', 'AuthenticationController@logout');
 });

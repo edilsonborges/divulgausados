@@ -1,14 +1,19 @@
 <?php
 
-class VehicleModel extends Eloquent {
+class VehicleModel extends BaseModel {
 
     protected $table = 'vehiclemodel';
 
     protected $softDelete = true;
 
-    public function vehicles() 
+    public function make() 
     {
-        return $this->hasMany('Vehicle', 'vehiclemodel_id');
+        return $this->hasOne('VehicleMake', 'vehiclemake_id');
+    }
+
+    public function modelSeries()
+    {
+    	return $this->hasMany('VehicleModelSeries', 'vehiclemodelseries_id');
     }
 
 }

@@ -12,23 +12,24 @@ class CreateVehicleModelTable extends Migration {
      */
     public function up()
     {
-        Schema::create('vehiclemodelseries', function ($table) {
-            $table->increments('id');
-            $table->string('name', 80);
-            $table->timestamps();
-            $table->softDeletes();
-        });
-
         Schema::create('vehiclemodel', function ($table) {
             $table->increments('id');
             $table->integer('vehiclemake_id')->unsigned();
-            $table->integer('vehiclemodelseries_id')->unsigned()->nullable();
             $table->string('name', 80);
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('vehiclemake_id')->references('id')->on('vehiclemake');
-            $table->foreign('vehiclemodelseries_id')->references('id')->on('vehiclemodelseries');
+        });
+
+        Schema::create('vehiclemodelseries', function ($table) {
+            $table->increments('id');
+            $table->integer('vehiclemodel_id')->unsigned()->nullable();
+            $table->string('name', 80);
+            $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('vehiclemodel_id')->references('id')->on('vehiclemodel');
         });
     }
 

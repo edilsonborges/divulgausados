@@ -1,7 +1,9 @@
 <?php
 
-class BaseService
+abstract class BaseService implements BaseServiceInterface
 {
+
+    const DEFAULT_PAGINATION_PAGE_SIZE = 10;
 
     protected function addSuccessMessage($message)
     {

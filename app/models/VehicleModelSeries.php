@@ -1,6 +1,6 @@
 <?php
 
-class VehicleModelSeries extends Eloquent {
+class VehicleModelSeries extends BaseModel {
 
     protected $table = 'vehiclemodelseries';
 
@@ -8,7 +8,7 @@ class VehicleModelSeries extends Eloquent {
 
     public function models() 
     {
-        return $this->hasMany('VehicleModel', 'vehiclemodelseries_id');
+        return $this->hasOne('VehicleModel', 'vehiclemodel_id');
     }
 
 }

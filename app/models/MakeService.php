@@ -44,9 +44,9 @@ class MakeService extends BaseService
         return VehicleMake::find($id);
     }
 
-    public function findAll($pageSize = 10)
+    public function findAll()
     {
-        return VehicleMake::orderBy('name')->filter()->paginate($pageSize);
+        return VehicleMake::orderBy('name')->filter()->paginate(self::DEFAULT_PAGINATION_PAGE_SIZE);
     }
 
 }
