@@ -36,11 +36,10 @@
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Cadastros <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-list-alt"></span> Cadastros <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#/body-style">Categorias de veículo</a></li>
-                        <li><a href="#/make">Fabricantes de veículo</a></li>
-                        <li><a href="#/model">Modelos de veículo</a></li>
+                        <li><a href="#/body-style"><span class="glyphicon glyphicon-list-alt"></span> Categorias de veículo</a></li>
+                        <li><a href="#/make"><span class="glyphicon glyphicon-list-alt"></span> Fabricantes de veículo</a></li>
                     </ul>
                 </li>
             </ul>
@@ -67,5 +66,6 @@
     <script type="text/javascript" src="app/home/home-module.js"></script>
     <script type="text/javascript" src="app/body-style/body-style-module.js"></script>
     <script type="text/javascript" src="app/make/make-module.js"></script>
+    <script type="text/javascript" src="app/make/model/model-module.js"></script>
 </body>
 </html>

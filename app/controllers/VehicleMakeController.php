@@ -68,14 +68,13 @@ class VehicleMakeController extends \BaseController
     public function destroy($id)
     {
         $this->getService()->delete($id);
-
         return $this->jsonResponse(null);
     }
 
     protected function retrieve()
     {
         return array(
-            'name' => ucwords(Input::get('name'))
+            'name' => ucwords(Input::get('name')),
         );
     }
 }

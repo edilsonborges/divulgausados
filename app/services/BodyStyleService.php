@@ -46,7 +46,11 @@ class BodyStyleService extends BaseService
 
     public function findAll()
     {
-        return VehicleBodyStyle::orderBy('name')->filter()->paginate(self::DEFAULT_PAGINATION_PAGE_SIZE);
+        if ($this->hasPagination()) {
+            return VehicleBodyStyle::orderBy('name')->filter()->paginate($this->getPageSize());
+        } else {
+            return VehicleBodyStyle::orderBy('name')->filter()->get();
+        }
     }
 
 }

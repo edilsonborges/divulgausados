@@ -35,7 +35,29 @@ abstract class BaseModel extends Eloquent
         }
     }
 
-    protected function createLikeFilter($query, $filterBy, $field)
+    protected function equalToFilter($query, $field, $filterBy)
+    {
+        $this->createGenericFilter($query, $field, $filterBy, '=');
+    }
+
+    protected function greaterThanFilter($query, $field, $filterBy)
+    {
+        $this->createGenericFilter($query, $field, $filterBy, '>');
+    }
+
+    protected function lessThanFilter($query, $field, $filterBy)
+    {
+        $this->createGenericFilter($query, $field, $filterBy, '<');
+    }
+
+    private function createGenericFilter($query, $field, $filterBy, $operation)
+    {
+        if (Input::has($filterBy)) {
+            $query->where($field, $operation, Input::get($filterBy));
+        }
+    }
+
+    protected function likeFilter($query, $field, $filterBy)
     {
         if (Input::has($filterBy)) {
             $filteredValue = '%' . Input::get($filterBy) . '%';

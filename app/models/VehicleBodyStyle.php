@@ -26,7 +26,7 @@ class VehicleBodyStyle extends BaseModel
 
     public function scopeFilter($query)
     {
-        $this->createLikeFilter($query, 'filterByName', 'name');
+        $this->likeFilter($query, 'name', 'filter_by_name');
     }
 
 }

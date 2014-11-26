@@ -68,7 +68,7 @@ class VehicleBodyStyleController extends \BaseController
     protected function retrieve()
     {
         return array(
-            'name' => ucwords(Input::get('name'))
+            'name' => ucwords(Input::get('name')),
         );
     }
 }

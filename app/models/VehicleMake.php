@@ -24,9 +24,14 @@ class VehicleMake extends BaseModel
         return $this->hasMany('Vehicle', 'vehiclemake_id');
     }
 
+    public function models()
+    {
+        return $this->hasMany('VehicleModel', 'vehiclemake_id');
+    }
+
     public function scopeFilter($query)
     {
-        $this->createLikeFilter($query, 'filterByName', 'name');
+        $this->likeFilter($query, 'name', 'filter_by_name');
     }
 
 }

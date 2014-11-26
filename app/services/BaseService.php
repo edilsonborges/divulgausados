@@ -3,8 +3,6 @@
 abstract class BaseService implements BaseServiceInterface
 {
 
-    const DEFAULT_PAGINATION_PAGE_SIZE = 10;
-
     protected function addSuccessMessage($message)
     {
         MessageControlCenter::getInstance()->addSuccessMessage($message);
@@ -18,6 +16,16 @@ abstract class BaseService implements BaseServiceInterface
     protected function addErrorMessage($message)
     {
         MessageControlCenter::getInstance()->addErrorMessage($message);
+    }
+
+    protected function hasPagination()
+    {
+        return Input::has('page') && Input::has('page_size');
+    }
+
+    protected function getPageSize()
+    {
+        return Input::get('page_size');
     }
 
 }

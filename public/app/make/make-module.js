@@ -1,17 +1,17 @@
 angular.module('divulgausados')
 	.config(['$routeProvider', function ($routeProvider) {
 		$routeProvider.when('/make', {
-			templateUrl: 'app/make/make-view-list.html',
-			controller: 'VehicleMakeListCtrl'
-		})
-		.when('/make/create', {
-			templateUrl: 'app/make/make-view-form.html',
-			controller: 'VehicleMakeCreateCtrl'
-		})
-		.when('/make/:makeId', {
-			templateUrl: 'app/make/make-view-form.html',
-			controller: 'VehicleMakeEditCtrl'
-		});
+				templateUrl: 'app/make/make-view-list.html',
+				controller: 'VehicleMakeListCtrl'
+			})
+			.when('/make/create', {
+				templateUrl: 'app/make/make-view-form.html',
+				controller: 'VehicleMakeCreateCtrl'
+			})
+			.when('/make/:makeId', {
+				templateUrl: 'app/make/make-view-form.html',
+				controller: 'VehicleMakeEditCtrl'
+			});
 	}])
 	.controller('VehicleMakeListCtrl', ['$scope', 'VehicleMake', 'PaginationService', function ($scope, VehicleMake, PaginationService) {
 		$scope.paginator = PaginationService;
@@ -20,10 +20,11 @@ angular.module('divulgausados')
 			$scope.paginator.load(function (pagination) {
 				var queryParams = {
 					page: pagination.getCurrentPage(),
-					filterByName: $scope.filterByName
+					page_size: pagination.getPageSize(),
+					filter_by_name: $scope.filterByName
 				};
 				VehicleMake.getList(queryParams).then(function (response) {
-					$scope.bodyStyleList = response;
+					$scope.makeList = response;
 					$scope.paginator.setup(response.meta);
 				});
 			});
@@ -32,7 +33,7 @@ angular.module('divulgausados')
 
 		$scope.destroy = function (id) {
 			VehicleMake.one(id).remove().then(function () {
-				$scope.init();
+				$scope.search();
 			});
 		};
 	}])

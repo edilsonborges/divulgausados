@@ -1,0 +1,46 @@
+<section>
+	<h2>Listagem de modelos do fabricante {{ make.name }}</h2>
+
+	<table class="table table-striped table-condensed">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr data-ng-repeat="model in modelList" data-ng-show="modelList.length">
+				<td>{{ model.name }}</td>
+				<td class="text-right">
+					<a class="btn btn-default" href="#/make/{{ make.id }}/model/{{ model.id }}">
+						<span class="glyphicon glyphicon-pencil"></span> Alterar
+					</a>
+					<button type="button" class="btn btn-danger" data-ng-click="destroy(model.id)">
+						<span class="glyphicon glyphicon-trash"></span> Excluir
+					</button>
+				</td>
+			</tr>
+			<tr data-ng-hide="modelList.length">
+				<td colspan="2">Não há modelos cadastrados para esse fabricante</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div class="text-center">
+		<pagination ng-show="paginator.show()" total-items="paginator.getTotalItems()" items-per-page="paginator.getPageSize()"
+			ng-model="paginator.params.current_page" ng-change="search()" max-size="5" boundary-links="true" rotate="false" class="pagination"
+		    previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+		</pagination>
+	</div>
+
+	<div class="btn-toolbar" role="toolbar">
+		<div class="btn-group">
+			<a class="btn btn-default" href="#/make"> 
+				<span class="glyphicon glyphicon-arrow-left"></span> Voltar
+			</a>
+			<a class="btn btn-primary" href="#/make/{{ make.id }}/model/create"> 
+				<span class="glyphicon glyphicon-floppy-disk"></span> Novo
+			</a>
+		</div>
+	</div>
+</section>

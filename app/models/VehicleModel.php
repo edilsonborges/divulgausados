@@ -1,19 +1,30 @@
 <?php
 
-class VehicleModel extends BaseModel {
+class VehicleModel extends BaseModel
+{
 
     protected $table = 'vehiclemodel';
 
     protected $softDelete = true;
 
-    public function make() 
+    protected $fillable = array('id', 'name', 'vehiclemake_id');
+
+    protected static $rules = array('name' => 'required|unique:vehiclemodel');
+
+    public function make()
     {
-        return $this->hasOne('VehicleMake', 'vehiclemake_id');
+        return $this->belongsTo('VehicleMake', 'vehiclemake_id');
     }
 
     public function modelSeries()
     {
-    	return $this->hasMany('VehicleModelSeries', 'vehiclemodelseries_id');
+        return $this->hasMany('VehicleModelSeries', 'vehiclemodel_id');
+    }
+
+    public function scopeFilter($query)
+    {
+        $this->equalToFilter($query, 'vehiclemake_id', 'filter_by_make_id');
+        $this->likeFilter($query, 'name', 'filter_by_name');
     }
 
 }

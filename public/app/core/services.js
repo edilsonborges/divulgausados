@@ -1,61 +1,61 @@
 angular.module('divulgausados')
-	.service('MessageService', function($rootScope, $timeout) {
+	.service('MessageService', function ($rootScope, $timeout) {
 		var that = this;
 		$rootScope.alerts = [];
-		var Alert = function(type, message) {
+		var Alert = function (type, message) {
 			this.type = type;
 			this.message = message;
 		};
-		var addAlert = function(alert) {
+		var addAlert = function (alert) {
 			$rootScope.alerts.push(alert);
-			$timeout(function() {
+			$timeout(function () {
 				$rootScope.alerts.splice($rootScope.alerts.indexOf(alert), 1);
 			}, 5000);
 		};
-		this.addError = function(error) {
+		this.addError = function (error) {
 			addAlert(new Alert('danger', error));
 		};
-		this.addErrors = function(errors) {
-			angular.forEach(errors, function(error) {
+		this.addErrors = function (errors) {
+			angular.forEach(errors, function (error) {
 				that.addError(error);
 			});
 		};
-		this.addWarning = function(warning) {
+		this.addWarning = function (warning) {
 			addAlert(new Alert('warning', warning));
 		};
-		this.addWarnings = function(warnings) {
-			angular.forEach(warnings, function(warning) {
+		this.addWarnings = function (warnings) {
+			angular.forEach(warnings, function (warning) {
 				that.addWarning(warning);
 			});
 		};
-		this.addSuccess = function(success) {
+		this.addSuccess = function (success) {
 			addAlert(new Alert('success', success));
 		};
-		this.addSuccesses = function(successes) {
-			angular.forEach(successes, function(success) {
+		this.addSuccesses = function (successes) {
+			angular.forEach(successes, function (success) {
 				that.addSuccess(success);
 			});
 		};
 	})
-	.service('AuthenticationService', ['$http', '$location', '$rootScope', '$route', 'localStorageService', 'MessageService', function($http, $location, $rootScope, $route, localStorageService, MessageService) {
-		this.login = function(credentials) {
+	.service('AuthenticationService', ['$http', '$location', '$rootScope', '$route', 'localStorageService', 'MessageService', function ($http, $location, $rootScope, $route, localStorageService, MessageService) {
+		this.login = function (credentials) {
 			$http.post('/service/authentication/login', credentials).success(cacheSession);
 		};
-		this.logout = function() {
+		this.logout = function () {
 			$http.post('/service/authentication/logout', credentials).success(uncacheSession);
 		};
-		this.user = function(userInfo) {
+		this.user = function (userInfo) {
 			if (userInfo === undefined) {
 				return localStorageService.get('authenticated-user');
 			} else {
 				localStorageService.set('authenticated-user', userInfo);
 			}
 		};
-		this.isAuthenticated = function() {
+		this.isAuthenticated = function () {
 			// return !!(httpHeaders.common['Authorization'] && this.user()); // if the app is stateless (if there is no session cookie)
 			return !!(document.cookie && document.cookie.indexOf('PHPSESSIONID') >= 0 && this.user());
 		};
-		this.hasAllRoles = function(neededRoles) {
+		this.hasAllRoles = function (neededRoles) {
 			if (!neededRoles || neededRoles.length === 0) {
 				return true;
 			}
@@ -69,7 +69,7 @@ angular.module('divulgausados')
 			}
 			return true;
 		};
-		this.hasAnyRole = function(neededRoles) {
+		this.hasAnyRole = function (neededRoles) {
 			if (!neededRoles || neededRoles.length === 0) {
 				return true;
 			}
@@ -84,14 +84,14 @@ angular.module('divulgausados')
 			return false;
 		};
 	}])
-	.service('PaginationService', [function() {
+	.service('PaginationService', [function () {
 		this.params = {
 			current_page: 1,
 			page_size: 10,
 			total_items: 0
 		};
 
-		this.load = function(callback) {
+		this.load = function (callback) {
 			return callback(this);
 		};
 
@@ -99,25 +99,25 @@ angular.module('divulgausados')
 			this.params = params;
 		};
 
-		this.getCurrentPage = function() {
+		this.getCurrentPage = function () {
 			return this.params.current_page;
 		};
 
-		this.getPageSize = function() {
+		this.getPageSize = function () {
 			return this.params.page_size;
 		};
 
-		this.getTotalItems = function() {
+		this.getTotalItems = function () {
 			return this.params.total_items;
 		};
 
-		this.show = function() {
+		this.show = function () {
 			return this.params.total_items > this.params.page_size;
 		};
 	}])
-	.factory('RestfulFactory', ['Restangular', 'MessageService', function(Restangular, MessageService) {
-		return Restangular.withConfig(function(RestangularConfigurer) {
-			RestangularConfigurer.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
+	.factory('RestfulFactory', ['Restangular', 'MessageService', function (Restangular, MessageService) {
+		return Restangular.withConfig(function (RestangularConfigurer) {
+			RestangularConfigurer.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
 				var extractedData;
 				if (operation === "getList") {
 					extractedData = data.content.data;
