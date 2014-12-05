@@ -1,0 +1,27 @@
+<form role="form" class="form-horizontal" data-ng-submit="submit()">
+	<fieldset>
+		<legend data-ng-hide="modelSeries.id">Inclusão de uma versão ao modelo {{ modelSeries.model.name }}</legend>
+		<legend data-ng-show="modelSeries.id">Alteração de uma versão do modelo {{ modelSeries.model.name }}</legend>
+
+		<div class="form-group">
+			<label for="name" class="col-sm-2 control-label">Nome</label>
+			<div class="col-sm-6">
+				<input type="text" id="name" name="name" class="form-control" data-ng-model="modelSeries.name" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+	            <div class="btn-group">
+					<a class="btn btn-default" href="#/make/{{ modelSeries.model.vehiclemake_id }}/model/{{ modelSeries.model.id }}">
+						<span class="glyphicon glyphicon-remove"></span> Cancelar
+					</a>
+
+					<button type="submit" class="btn btn-success">
+						<span class="glyphicon glyphicon-ok"></span> Confirmar
+					</button>
+				</div>
+			</div>
+		</div>
+	</fieldset>
+</form>	

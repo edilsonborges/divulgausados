@@ -6,30 +6,42 @@ class ModelService extends BaseService
     public function save($attributes)
     {
         $make = VehicleMake::find($attributes['make']['id']);
-        $this->persist(array('name' => $attributes['model']['name']), function ($params) use ($make) {
+        $this->persist($this->getAttributes($attributes), function ($params) use ($make) {
             $model = new VehicleModel($params);
             $make->models()->save($model);
-            $this->addSuccessMessage("Modelo adicionado ao fabricante {$make->name} com sucesso!");
+            $this->addSuccessMessage("O modelo foi adicionado ao fabricante {$make->name} com sucesso!");
         });
     }
 
     public function update($id, $attributes)
     {
-
+        $make = VehicleMake::find($attributes['make']['id']);
+        $this->persist($this->getAttributes($attributes), function ($params) use ($make, $id) {
+            $model = VehicleModel::find($id);
+            $model->name = $params['name'];
+            $model->save();
+            $this->addSuccessMessage("O modelo do fabricante {$make->name} foi alterado com sucesso!");
+        });
     }
 
     protected function persist($attributes, $callback)
     {
-        if (VehicleMake::validate($attributes)) {
+        if (VehicleModel::validate($attributes)) {
             $callback($attributes);
         } else {
-            $this->addWarningMessage(VehicleMake::getValidationMessages());
+            $this->addWarningMessage(VehicleModel::getValidationMessages());
         }
     }
 
     public function delete($id)
     {
-
+        $model = VehicleModel::find($id);
+        if (!is_null($model)) {
+            $model->delete();
+            $this->addSuccessMessage('Excluído com sucesso!');
+        } else {
+            $this->addWarningMessage('Não pôde ser excluído porque não existe!');
+        }
     }
 
     public function findOne($id)
@@ -44,6 +56,11 @@ class ModelService extends BaseService
         } else {
             return VehicleModel::orderBy('name')->filter()->get();
         }
+    }
+
+    protected function getAttributes($attributes)
+    {
+        return array('name' => $attributes['model']['name']);
     }
 
 }

@@ -35,8 +35,10 @@ class BodyStyleService extends BaseService
         $category = VehicleBodyStyle::find($id);
         if (!is_null($category)) {
             $category->delete();
+            $this->addSuccessMessage('Excluído com sucesso!');
+        } else {
+            $this->addWarningMessage('Não pode ser excluído, porque não existe!');
         }
-        $this->addSuccessMessage('Excluído com sucesso!');
     }
 
     public function findOne($id)

@@ -67,5 +67,6 @@
     <script type="text/javascript" src="app/body-style/body-style-module.js"></script>
     <script type="text/javascript" src="app/make/make-module.js"></script>
     <script type="text/javascript" src="app/make/model/model-module.js"></script>
+    <script type="text/javascript" src="app/make/model/model-series/model-series-module.js"></script>
 </body>
 </html>

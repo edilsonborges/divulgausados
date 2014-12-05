@@ -1,5 +1,5 @@
 <section>
-	<h2>Listagem de modelos do fabricante {{ make.name }}</h2>
+	<h2>Listagem de versões do modelo {{ model.name }}</h2>
 
 	<div class="row">
 		<div class="col-lg-12">
@@ -25,22 +25,19 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr data-ng-repeat="model in modelList" data-ng-show="modelList.length">
-				<td>{{ model.name }}</td>
+			<tr data-ng-repeat="modelSeries in modelSeriesList" ng-show="modelSeriesList.length">
+				<td>{{ modelSeries.name }}</td>
 				<td class="text-right">
-					<a class="btn btn-default" href="#/make/{{ make.id }}/model/{{ model.id }}/model-series">
-			        	<span class="glyphicon glyphicon-leaf"></span> Versões
-		        	</a>
-					<a class="btn btn-default" href="#/make/{{ make.id }}/model/{{ model.id }}">
+					<a class="btn btn-default" href="#/make/{{ model.vehiclemake_id }}/model/{{ model.id }}/model-series/{{ modelSeries.id }}">
 						<span class="glyphicon glyphicon-pencil"></span> Alterar
 					</a>
-					<button type="button" class="btn btn-danger" data-ng-click="destroy(model.id)">
+					<button type="button" class="btn btn-danger" data-ng-click="destroy(modelSeries.id)">
 						<span class="glyphicon glyphicon-trash"></span> Excluir
-					</button>
+					</button>					
 				</td>
 			</tr>
-			<tr data-ng-hide="modelList.length">
-				<td colspan="2">Não há modelos cadastrados para esse fabricante</td>
+			<tr ng-hide="modelSeriesList.length">
+				<td>Não existem versões cadastradas para esse modelo</td>
 			</tr>
 		</tbody>
 	</table>
@@ -54,10 +51,10 @@
 
 	<div class="btn-toolbar" role="toolbar">
 		<div class="btn-group">
-			<a class="btn btn-default" href="#/make"> 
+			<a class="btn btn-default" href="#/make/{{ model.vehiclemake_id }}/model"> 
 				<span class="glyphicon glyphicon-arrow-left"></span> Voltar
 			</a>
-			<a class="btn btn-primary" href="#/make/{{ make.id }}/model/create"> 
+			<a class="btn btn-primary" href="#/make/{{ model.vehiclemake_id }}/model/{{ model.id }}/model-series/create"> 
 				<span class="glyphicon glyphicon-floppy-disk"></span> Novo
 			</a>
 		</div>

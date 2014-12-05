@@ -52,12 +52,6 @@ angular.module('divulgausados')
 		};
 		$scope.init();
 
-		$scope.search = function () {
-			return VehicleMake.getList().then(function (makeList) {
-				return makeList;
-			});
-		};
-
 		$scope.submit = function () {
 			VehicleModel.post($scope.model).then(function () {
 				$scope.init();

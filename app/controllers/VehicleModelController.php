@@ -47,6 +47,30 @@ class VehicleModelController extends BaseController
         return $this->jsonResponse($this->getService()->findOne($id));
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param int $id
+     * @return Response
+     */
+    public function update($id)
+    {
+        $this->getService()->update($id, $this->retrieve());
+        return $this->jsonResponse(null);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        $this->getService()->delete($id);
+        return $this->jsonResponse(null);
+    }
+
     protected function retrieve()
     {
         return array(
