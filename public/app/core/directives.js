@@ -1,5 +1,5 @@
 angular.module('divulgausados')
-	.directive('hasAllRoles', function (AuthService) {
+	.directive('hasAllRoles', ['AuthService', function (AuthService) {
 		return {
 			restrict: 'A',
 			link: function (scope, element, attrs) {
@@ -13,8 +13,8 @@ angular.module('divulgausados')
 				});
 			}
 		};
-	})
-	.directive('hasAnyRole', function (AuthService) {
+	}])
+	.directive('hasAnyRole',['AuthService', function (AuthService) {
 		return {
 			restrict: 'A',
 			link: function (scope, element, attrs) {
@@ -28,8 +28,8 @@ angular.module('divulgausados')
 				});
 			}
 		};
-	})
-	.directive('authenticated', function (AuthService) {
+	}])
+	.directive('authenticated', ['AuthService', function (AuthService) {
 		return {
 			restrict: 'A',
 			link: function (scope, element, attrs) {
@@ -44,8 +44,8 @@ angular.module('divulgausados')
 				});
 			}
 		};
-	})
-	.directive('messageBox', function () {
+	}])
+	.directive('messageBox', [function () {
 		return {
 			restrict: 'E',
 			templateUrl: 'app/core/message-box.html',
@@ -53,8 +53,8 @@ angular.module('divulgausados')
 				$scope.isCollapsed = true;
 			}
 		};
-	})
-	.directive('showErrors', function () {
+	}])
+	.directive('showErrors', [function () {
 		return {
 			restrict: 'A',
 			require: '^form',
@@ -68,4 +68,62 @@ angular.module('divulgausados')
 				});
 			}
 		};
-	});
+	}])
+	/**
+    * The ng-thumb directive
+    * @author: nerv
+    * @version: 0.1.2, 2014-01-09
+    */
+    .directive('ngThumb', ['$window', function($window) {
+        var helper = {
+            support: !!($window.FileReader && $window.CanvasRenderingContext2D),
+            isFile: function(item) {
+                return angular.isObject(item) && item instanceof $window.File;
+            },
+            isImage: function(file) {
+                var type =  '|' + file.type.slice(file.type.lastIndexOf('/') + 1) + '|';
+                return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+            }
+        };
+
+        return {
+            restrict: 'A',
+            template: '<canvas/>',
+            link: function(scope, element, attributes) {
+                if (!helper.support) return;
+
+                var params = scope.$eval(attributes.ngThumb);
+
+                if (!helper.isFile(params.file)) return;
+                if (!helper.isImage(params.file)) return;
+
+                var canvas = element.find('canvas');
+                var reader = new FileReader();
+
+                reader.onload = onLoadFile;
+                reader.readAsDataURL(params.file);
+
+                function onLoadFile(event) {
+                    var img = new Image();
+                    img.onload = onLoadImage;
+                    img.src = event.target.result;
+                }
+
+                function onLoadImage() {
+                    var width = params.width || this.width / this.height * params.height;
+                    var height = params.height || this.height / this.width * params.width;
+                    canvas.attr({ width: width, height: height });
+                    canvas[0].getContext('2d').drawImage(this, 0, 0, width, height);
+                }
+            }
+        };
+    }])
+    .directive('fileUpload', [function(){
+    	return {
+    		restrict: 'E',
+    		templateUrl: 'app/core/file-upload.html',
+    		link: function($scope, element, attributes, controller) {
+    			
+    		}
+    	};
+    }]);

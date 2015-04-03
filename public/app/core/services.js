@@ -120,12 +120,16 @@ angular.module('divulgausados')
 			RestangularConfigurer.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
 				var extractedData;
 				if (operation === "getList") {
-					extractedData = data.content.data;
-					extractedData.meta = {
-						'current_page': data.content.current_page,
-						'page_size': data.content.per_page,
-						'total_items': data.content.total
-					};
+					if (data.content.data) {
+						extractedData = data.content.data;
+						extractedData.meta = {
+							'current_page': data.content.current_page,
+							'page_size': data.content.per_page,
+							'total_items': data.content.total
+						};
+					} else {
+						extractedData = data.content;
+					}
 				} else {
 					extractedData = data.content;
 				}

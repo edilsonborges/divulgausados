@@ -12,24 +12,26 @@
  */
 
 Route::get('/', function () {
-	return View::make('layout');
+    return View::make('layout');
 });
 
 Route::filter('csrf', function () {
-	if (Request::forged()) {
-		return Response::error('500');
-	}
+    if (Request::forged()) {
+        return Response::error('500');
+    }
 });
 
 Route::group(array('prefix' => 'v1'), function () {
-	Route::resource('body-style', 'VehicleBodyStyleController');
-	Route::resource('make', 'VehicleMakeController');
-	Route::resource('model', 'VehicleModelController');
-	Route::resource('model-series', 'VehicleModelSeriesController');
-	Route::post('authentication/login', 'AuthenticationController@login');
-	Route::get('authentication/logout', 'AuthenticationController@logout');
+    Route::resource('body-style', 'VehicleBodyStyleController');
+    Route::resource('make', 'VehicleMakeController');
+    Route::resource('model', 'VehicleModelController');
+    Route::resource('model-series', 'VehicleModelSeriesController');
+    Route::resource('vehicle', 'VehicleController');
+    Route::post('upload-vehicle', 'VehicleController@upload');
+    Route::post('authentication/login', 'AuthenticationController@login');
+    Route::get('authentication/logout', 'AuthenticationController@logout');
 });
 
 App::missing(function ($exception) {
-	return View::make('layout');
+    return View::make('layout');
 });

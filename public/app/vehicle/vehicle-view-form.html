@@ -1,0 +1,76 @@
+	<form role="form" class="form-horizontal" data-ng-submit="submit()">
+		<fieldset>
+			<legend>Inclusão de veículo</legend>
+
+			<div class="form-group">
+				<label for="bodyStyle" class="col-sm-2 control-label">Categoria</label> 
+				<div class="col-sm-6">
+					<select class="form-control" data-ng-model="vehicle.vehiclebodystyle_id" data-ng-options="bodyStyle.name for bodyStyle in bodyStyleList">
+						<option>Selecione uma categoria</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="make" class="col-sm-2 control-label">Fabricante</label> 
+				<div class="col-sm-6">
+					<select class="form-control" data-ng-model="vehicle.vehiclemake_id" data-ng-options="make.name for make in makeList">
+						<option>Selecione um fabricante</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="model" class="col-sm-2 control-label">Modelo</label> 
+				<div class="col-sm-3">
+					<select class="form-control" data-ng-model="selectedModel" data-ng-options="model.name for model in modelList" data-ng-change="findModelSeries()">
+						<option>Selecione um modelo</option>
+					</select>
+				</div>
+
+				<label for="modelSeries" class="col-sm-1 control-label">Versão</label> 
+				<div class="col-sm-2">
+					<select class="form-control" data-ng-model="vehicle.vehiclemodelseries_id" data-ng-options="modelSeries.name for modelSeries in modelSeriesList">
+						<option>Selecione uma versão</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="price" class="col-sm-2 control-label">Preço</label> 
+				<div class="col-sm-6">
+					<input type="text" id="price" name="price" data-ng-model="vehicle.price" class="form-control" data-ng-model="vehicle.price" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="kilometres" class="col-sm-2 control-label">Quilometragem</label> 
+				<div class="col-sm-6">
+					<input type="text" id="kilometres" name="kilometres" class="form-control" data-ng-model="vehicle.kilometres" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="color" class="col-sm-2 control-label">Cor</label> 
+				<div class="col-sm-6">
+					<input type="text" id="color" name="color" class="form-control" data-ng-model="vehicle.color" />
+				</div>
+			</div>
+
+			<file-upload></file-upload>
+
+			<div class="form-group text-right">
+				<div class="col-sm-offset-2 col-sm-6">
+		            <div class="btn-group">
+						<a class="btn btn-default" href="#/"> 
+							<span class="glyphicon glyphicon glyphicon-remove"></span> Cancelar
+						</a>
+
+						<button type="submit" class="btn btn-success">
+							<span class="glyphicon glyphicon-ok"></span> Confirmar
+						</button>
+					</div>
+				</div>
+			</div>
+		</fieldset>		
+	</form>

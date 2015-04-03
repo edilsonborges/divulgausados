@@ -79,7 +79,7 @@ class ViewMessageHolder implements ArrayableInterface
         return array(
             'messageList' => $this->messageList,
             'status' => $this->status,
-            'isError' => $this->isErrorMessage()
+            'isError' => $this->isErrorMessage(),
         );
     }
 

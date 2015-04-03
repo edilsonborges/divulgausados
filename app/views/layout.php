@@ -42,6 +42,9 @@
                         <li><a href="#/make"><span class="glyphicon glyphicon-list-alt"></span> Fabricantes de veículo</a></li>
                     </ul>
                 </li>
+                <li>
+                    <a href="#/vehicle/create"><span class="glyphicon glyphicon-road"></span> Veículos</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -68,5 +71,6 @@
     <script type="text/javascript" src="app/make/make-module.js"></script>
     <script type="text/javascript" src="app/make/model/model-module.js"></script>
     <script type="text/javascript" src="app/make/model/model-series/model-series-module.js"></script>
+    <script type="text/javascript" src="app/vehicle/vehicle-module.js"></script>
 </body>
 </html>

@@ -54,7 +54,7 @@ class ModelSeriesService extends BaseService
         if ($this->hasPagination()) {
             return VehicleModelSeries::orderBy('name')->filter()->paginate($this->getPageSize());
         } else {
-            return VehicleModelSeries::orderBy('name')->filter()->one();
+            return VehicleModelSeries::orderBy('name')->filter()->get();
         }
     }
 
