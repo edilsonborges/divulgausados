@@ -3,7 +3,6 @@
 class VehicleDataUploadHelper
 {
     private $vehicle;
-
     private $uploadImages = array();
 
     public function getVehicle()
@@ -20,7 +19,7 @@ class VehicleDataUploadHelper
     {
         $destinationPath = public_path() . '/img/vehicle/';
         $uploadSuccess = false;
-        foreach ($this->uploadImages : $uploadedImage) {
+        foreach ($this->uploadImages as $uploadedImage) {
             $filename = str_random(6) . '_' . md5($uploadedImage->getClientOriginalName());
             $uploadSuccess = $uploadedImage->move($destinationPath, $filename);
         }
@@ -36,5 +35,4 @@ class VehicleDataUploadHelper
     {
         array_pop($this->uploadImages);
     }
-
 }

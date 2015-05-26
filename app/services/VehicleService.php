@@ -12,22 +12,12 @@ class VehicleService extends BaseService
 
     public function save($attributes)
     {
-        $this->persist($attributes, function ($params) {
-            $vehicle = Vehicle::create($params);
-            $vehicle->save();
-            $this->addSuccessMessage('Adicionado com sucesso!');
-            return $vehicle;
-        });
-    }
-
-    public function update($id, $attributes)
-    {
-        $this->persist($attributes, function ($params) use ($id) {
-            $category = Vehicle::find($id);
-            $category->name = $params['name'];
-            $category->save();
-            $this->addSuccessMessage('Atualizado com sucesso!');
-        });
+        return $this->persist($attributes,
+            function ($params) {
+                $vehicle = Vehicle::create($params);
+                $this->addSuccessMessage('Adicionado com sucesso!');
+                return $vehicle;
+            });
     }
 
     protected function persist($attributes, $callback)
@@ -37,6 +27,22 @@ class VehicleService extends BaseService
         } else {
             $this->addWarningMessage(Vehicle::getValidationMessages());
         }
+    }
+
+    public function update($id, $attributes)
+    {
+        $this->persist($attributes,
+            function ($params) use ($id) {
+                $vehicle = Vehicle::find($id);
+                $vehicle->color = $params['color'];
+                $vehicle->kilometres = $params['kilometres'];
+                $vehicle->price = $params['price'];
+                $vehicle->vehiclebodystyle_id = $params['vehiclebodystyle_id'];
+                $vehicle->vehiclemake_id = $params['vehiclemake_id'];
+                $vehicle->vehiclemodelseries_id = $params['vehiclemodelseries_id'];
+                $vehicle->save();
+                $this->addSuccessMessage('Atualizado com sucesso!');
+            });
     }
 
     public function delete($id)
@@ -57,11 +63,14 @@ class VehicleService extends BaseService
 
     public function findAll()
     {
+        $resultSet = null;
+        $query = Vehicle::orderBy('vehiclemake_id')->filter();
         if ($this->hasPagination()) {
-            return Vehicle::orderBy('name')->filter()->paginate($this->getPageSize());
+            $resultSet = $query->paginate($this->getPageSize());
         } else {
-            return Vehicle::orderBy('name')->filter()->get();
+            $resultSet = $query->get();
         }
+        $resultSet->load('make', 'modelSeries');
+        return $resultSet;
     }
-
 }

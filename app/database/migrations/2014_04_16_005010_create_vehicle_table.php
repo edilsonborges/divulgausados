@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVehicleTable extends Migration {
+class CreateVehicleTable extends Migration
+{
 
     /**
      * Run the migrations.

@@ -2,17 +2,11 @@
 
 class VehicleMakeController extends \BaseController
 {
-
     private $makeService;
 
     public function __construct()
     {
         $this->makeService = new MakeService();
-    }
-
-    protected function getService()
-    {
-        return $this->makeService;
     }
 
     /**
@@ -25,6 +19,11 @@ class VehicleMakeController extends \BaseController
         return $this->jsonResponse($this->getService()->findAll());
     }
 
+    protected function getService()
+    {
+        return $this->makeService;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -34,6 +33,13 @@ class VehicleMakeController extends \BaseController
     {
         $this->getService()->save($this->retrieve());
         return $this->jsonResponse(null);
+    }
+
+    protected function retrieve()
+    {
+        return array(
+            'name' => ucwords(Input::get('name')),
+        );
     }
 
     /**
@@ -69,12 +75,5 @@ class VehicleMakeController extends \BaseController
     {
         $this->getService()->delete($id);
         return $this->jsonResponse(null);
-    }
-
-    protected function retrieve()
-    {
-        return array(
-            'name' => ucwords(Input::get('name')),
-        );
     }
 }

@@ -2,7 +2,6 @@
 
 abstract class BaseModel extends Eloquent
 {
-
     /**
      * Model validation messages, only filled if error occurs.
      */
@@ -64,5 +63,4 @@ abstract class BaseModel extends Eloquent
             $query->whereRaw('lower(' . $field . ') like lower(?)', array($filteredValue));
         }
     }
-
 }

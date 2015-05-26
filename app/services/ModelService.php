@@ -6,22 +6,24 @@ class ModelService extends BaseService
     public function save($attributes)
     {
         $make = VehicleMake::find($attributes['make']['id']);
-        $this->persist($this->getAttributes($attributes), function ($params) use ($make) {
-            $model = new VehicleModel($params);
-            $make->models()->save($model);
-            $this->addSuccessMessage("O modelo foi adicionado ao fabricante {$make->name} com sucesso!");
-        });
+        $this->persist($this->getAttributes($attributes),
+            function ($params) use ($make) {
+                $model = new VehicleModel($params);
+                $make->models()->save($model);
+                $this->addSuccessMessage("O modelo foi adicionado ao fabricante {$make->name} com sucesso!");
+            });
     }
 
     public function update($id, $attributes)
     {
         $make = VehicleMake::find($attributes['make']['id']);
-        $this->persist($this->getAttributes($attributes), function ($params) use ($make, $id) {
-            $model = VehicleModel::find($id);
-            $model->name = $params['name'];
-            $model->save();
-            $this->addSuccessMessage("O modelo do fabricante {$make->name} foi alterado com sucesso!");
-        });
+        $this->persist($this->getAttributes($attributes),
+            function ($params) use ($make, $id) {
+                $model = VehicleModel::find($id);
+                $model->name = $params['name'];
+                $model->save();
+                $this->addSuccessMessage("O modelo do fabricante {$make->name} foi alterado com sucesso!");
+            });
     }
 
     protected function persist($attributes, $callback)
@@ -62,5 +64,4 @@ class ModelService extends BaseService
     {
         return array('name' => $attributes['model']['name']);
     }
-
 }

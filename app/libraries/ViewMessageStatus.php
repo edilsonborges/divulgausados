@@ -5,12 +5,9 @@
  */
 class ViewMessageStatus
 {
-
     const SUCCESS = 'success';
-
     const INFO = 'info';
-
     const WARNING = 'warning';
-
     const DANGER = 'danger';
+
 }

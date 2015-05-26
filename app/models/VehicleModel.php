@@ -2,14 +2,10 @@
 
 class VehicleModel extends BaseModel
 {
-
-    protected $table = 'vehiclemodel';
-
-    protected $softDelete = true;
-
-    protected $fillable = array('id', 'name', 'vehiclemake_id');
-
     protected static $rules = array('name' => 'required|unique:vehiclemodel');
+    protected $table = 'vehiclemodel';
+    protected $softDelete = true;
+    protected $fillable = array('id', 'name', 'vehiclemake_id');
 
     public function make()
     {
@@ -26,5 +22,4 @@ class VehicleModel extends BaseModel
         $this->equalToFilter($query, 'vehiclemake_id', 'filter_by_make_id');
         $this->likeFilter($query, 'name', 'filter_by_name');
     }
-
 }

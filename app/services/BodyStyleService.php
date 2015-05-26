@@ -5,20 +5,22 @@ class BodyStyleService extends BaseService
 
     public function save($attributes)
     {
-        $this->persist($attributes, function ($params) {
-            VehicleBodyStyle::create($params)->save();
-            $this->addSuccessMessage('Adicionado com sucesso!');
-        });
+        $this->persist($attributes,
+            function ($params) {
+                VehicleBodyStyle::create($params);
+                $this->addSuccessMessage('Adicionado com sucesso!');
+            });
     }
 
     public function update($id, $attributes)
     {
-        $this->persist($attributes, function ($params) use ($id) {
-            $category = VehicleBodyStyle::find($id);
-            $category->name = $params['name'];
-            $category->save();
-            $this->addSuccessMessage('Atualizado com sucesso!');
-        });
+        $this->persist($attributes,
+            function ($params) use ($id) {
+                $category = VehicleBodyStyle::find($id);
+                $category->name = $params['name'];
+                $category->save();
+                $this->addSuccessMessage('Atualizado com sucesso!');
+            });
     }
 
     protected function persist($attributes, $callback)
@@ -54,5 +56,4 @@ class BodyStyleService extends BaseService
             return VehicleBodyStyle::orderBy('name')->filter()->get();
         }
     }
-
 }

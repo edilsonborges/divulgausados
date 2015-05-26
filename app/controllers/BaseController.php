@@ -32,6 +32,16 @@ abstract class BaseController extends Controller
         return filter_var($boolean, FILTER_VALIDATE_BOOLEAN) == true;
     }
 
-    protected abstract function retrieve();
+    protected function extractId($value)
+    {
+        if (!is_null($value) && is_array($value)) {
+            return $value['id'];
+        } else if (!is_null($value) && is_object($value)) {
+            return $value->id;
+        } else {
+            return null;
+        }
+    }
 
+    protected abstract function retrieve();
 }

@@ -5,20 +5,22 @@ class MakeService extends BaseService
 
     public function save($attributes)
     {
-        $this->persist($attributes, function ($params) {
-            VehicleMake::create($params)->save();
-            $this->addSuccessMessage('Fabricante adicionado com sucesso!');
-        });
+        $this->persist($attributes,
+            function ($params) {
+                VehicleMake::create($params);
+                $this->addSuccessMessage('Fabricante adicionado com sucesso!');
+            });
     }
 
     public function update($id, $attributes)
     {
-        $this->persist($attributes, function ($params) use ($id) {
-            $make = VehicleMake::find($id);
-            $make->name = $params['name'];
-            $make->save();
-            $this->addSuccessMessage('Atualizado com sucesso!');
-        });
+        $this->persist($attributes,
+            function ($params) use ($id) {
+                $make = VehicleMake::find($id);
+                $make->name = $params['name'];
+                $make->save();
+                $this->addSuccessMessage('Atualizado com sucesso!');
+            });
     }
 
     protected function persist($attributes, $callback)
@@ -52,5 +54,4 @@ class MakeService extends BaseService
             return VehicleMake::orderBy('name')->filter()->get();
         }
     }
-
 }

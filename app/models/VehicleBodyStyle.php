@@ -5,14 +5,10 @@
  */
 class VehicleBodyStyle extends BaseModel
 {
-
-    protected $table = 'vehiclebodystyle';
-
-    protected $softDelete = true;
-
-    protected $fillable = array('id', 'name');
-
     protected static $rules = array('name' => 'required|unique:vehiclebodystyle');
+    protected $table = 'vehiclebodystyle';
+    protected $softDelete = true;
+    protected $fillable = array('id', 'name');
 
     /**
      * Retrieve a vehicle list that belongs to this body style.
@@ -28,5 +24,4 @@ class VehicleBodyStyle extends BaseModel
     {
         $this->likeFilter($query, 'name', 'filter_by_name');
     }
-
 }

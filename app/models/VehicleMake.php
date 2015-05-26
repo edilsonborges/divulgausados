@@ -5,14 +5,10 @@
  */
 class VehicleMake extends BaseModel
 {
-
-    protected $table = 'vehiclemake';
-
-    protected $softDelete = true;
-
-    protected $fillable = array('id', 'name');
-
     protected static $rules = array('name' => 'required|unique:vehiclemake');
+    protected $table = 'vehiclemake';
+    protected $softDelete = true;
+    protected $fillable = array('id', 'name');
 
     /**
      * Retrieve a vehicle list that belongs to this make.
@@ -33,5 +29,4 @@ class VehicleMake extends BaseModel
     {
         $this->likeFilter($query, 'name', 'filter_by_name');
     }
-
 }

@@ -2,11 +2,6 @@
 
 class Vehicle extends BaseModel
 {
-
-    protected $table = 'vehicle';
-
-    protected $softDelete = true;
-
     protected static $rules = array(
         'vehiclebodystyle_id' => 'required',
         'vehiclemake_id' => 'required',
@@ -14,6 +9,9 @@ class Vehicle extends BaseModel
         'price' => 'required',
         'kilometres' => 'required',
     );
+    protected $table = 'vehicle';
+    protected $softDelete = true;
+    protected $fillable = array('id', 'user_id', 'vehiclebodystyle_id', 'vehiclemake_id', 'vehiclemodelseries_id', 'price', 'kilometres', 'color');
 
     public function owner()
     {
@@ -30,19 +28,20 @@ class Vehicle extends BaseModel
         return $this->belongsTo('VehicleMake');
     }
 
-    public function model()
+    public function modelSeries()
     {
-        return $this->belongsTo('VehicleModel');
+        return $this->belongsTo('VehicleModelSeries');
     }
 
     public function features()
     {
-        return $this->belongsToMany('VehicleFeature', 'vehicleafeaturevalue', 'vehiclefeature_id', 'vehicle_id');
+        return $this->belongsToMany('VehicleFeature', 'vehiclefeaturevalue', 'vehiclefeature_id', 'vehicle_id');
     }
 
     public function scopeFilter($query)
     {
-        $this->likeFilter($query, 'make', 'filter_by_make');
+        $this->equalToFilter($query, 'vehiclebodystyle_id', 'filter_by_body_style_id');
+        $this->equalToFilter($query, 'vehiclemake_id', 'filter_by_make_id');
+        $this->equalToFilter($query, 'vehiclemodelseries_id', 'filter_by_model_series_id');
     }
-
 }

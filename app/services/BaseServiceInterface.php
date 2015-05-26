@@ -12,5 +12,4 @@ interface BaseServiceInterface
     public function findOne($id);
 
     public function findAll();
-
 }

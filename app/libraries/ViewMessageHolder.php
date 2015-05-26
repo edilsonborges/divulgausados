@@ -5,10 +5,8 @@ use Illuminate\Support\Contracts\ArrayableInterface;
 /**
  * Utility class for message handling, used to store system validation, success or informational messages.
  */
-
 class ViewMessageHolder implements ArrayableInterface
 {
-
     private $messageList;
 
     /**
@@ -16,17 +14,17 @@ class ViewMessageHolder implements ArrayableInterface
      */
     private $status;
 
-    public function __constructor(array $messageList, $status)
-    {
-        $this->messageList = $messageList;
-        $this->status = $status;
-    }
-
     public static function getInstance($status)
     {
         $viewMessageHolder = new ViewMessageHolder();
         $viewMessageHolder->setStatus($status);
         return $viewMessageHolder;
+    }
+
+    public function __constructor(array $messageList, $status)
+    {
+        $this->messageList = $messageList;
+        $this->status = $status;
     }
 
     public function getMessage()
@@ -69,9 +67,9 @@ class ViewMessageHolder implements ArrayableInterface
         $this->status = $status;
     }
 
-    public function isErrorMessage()
+    public function toJson()
     {
-        return (strcmp($this->status, ViewMessageStatus::WARNING) == 0) || (strcmp($this->status, ViewMessageStatus::DANGER) == 0);
+        return json_encode($this->toArray());
     }
 
     public function toArray()
@@ -83,8 +81,8 @@ class ViewMessageHolder implements ArrayableInterface
         );
     }
 
-    public function toJson()
+    public function isErrorMessage()
     {
-        return json_encode($this->toArray());
+        return (strcmp($this->status, ViewMessageStatus::WARNING) == 0) || (strcmp($this->status, ViewMessageStatus::DANGER) == 0);
     }
 }

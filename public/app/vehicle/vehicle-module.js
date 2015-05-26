@@ -3,8 +3,20 @@ angular.module('divulgausados')
 		$routeProvider.when('/vehicle/create', {
 			templateUrl: 'app/vehicle/vehicle-view-form.html',
 			controller: 'TheVehicleCreateCtrl'
-		});
+		})
+        .when('/vehicle', {
+            templateUrl: 'app/vehicle/vehicle-view-list.html',
+            controller: 'TheVehicleListCtrl'
+        });
 	}])
+    .controller('TheVehicleListCtrl', ['$scope', 'Vehicle', function ($scope, Vehicle) {
+        $scope.vehicleList = [];
+
+        Vehicle.getList().then(function (response) {
+            console.log(response);
+            $scope.vehicleList = response;
+        });
+    }])
 	.controller('TheVehicleCreateCtrl', ['$scope', 'Vehicle', 'VehicleBodyStyle', 'VehicleMake', 'VehicleModel', 'VehicleModelSeries', 'FileUploader', function ($scope, Vehicle, VehicleBodyStyle, VehicleMake, VehicleModel, VehicleModelSeries, FileUploader) {
 		$scope.vehicle = {};
 
@@ -33,9 +45,9 @@ angular.module('divulgausados')
 			$scope.modelList = response;
 		});
 
-		$scope.findModelSeries = function () {
+		$scope.findModelSeries = function (selectedModelId) {
 			VehicleModelSeries.getList({
-				filter_by_model_id: $scope.selectedModel.id
+				filter_by_model_id: selectedModelId
 			}).then(function (response) {
 				$scope.modelSeriesList = response;
 			});

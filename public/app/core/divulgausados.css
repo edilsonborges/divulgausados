@@ -1,13 +1,18 @@
 @import url(http://fonts.googleapis.com/css?family=Alef:400,700);
 
 * {
-	font-family: 'Alef', sans-serif;
+    font-family: 'Alef', sans-serif;
+}
+
+body {
+    padding-top: 70px;
 }
 
 .btn-file {
     position: relative;
     overflow: hidden;
 }
+
 .btn-file input[type=file] {
     position: absolute;
     top: 0;

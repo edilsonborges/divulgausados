@@ -2,17 +2,11 @@
 
 class VehicleController extends \BaseController
 {
-
     private $vehicleService;
 
     public function __construct()
     {
-        $this->vehicleService = new vehicleService();
-    }
-
-    public function getService()
-    {
-        return $this->vehicleService;
+        $this->vehicleService = new VehicleService();
     }
 
     public function index()
@@ -20,10 +14,28 @@ class VehicleController extends \BaseController
         return $this->jsonResponse($this->getService()->findAll());
     }
 
+    public function getService()
+    {
+        return $this->vehicleService;
+    }
+
     public function store()
     {
         $vehicle = $this->getService()->save($this->retrieve());
         return $this->jsonResponse(!is_null($vehicle) ? $vehicle->id : null);
+    }
+
+    protected function retrieve()
+    {
+        return array(
+            'user_id' => 1,
+            'vehiclebodystyle_id' => $this->extractId(Input::get('vehiclebodystyle_id')),
+            'vehiclemake_id' => $this->extractId(Input::get('vehiclemake_id')),
+            'vehiclemodelseries_id' => $this->extractId(Input::get('vehiclemodelseries_id')),
+            'kilometres' => Input::get('kilometres'),
+            'price' => Input::get('price'),
+            'color' => Input::get('color'),
+        );
     }
 
     public function show($id)
@@ -44,17 +56,4 @@ class VehicleController extends \BaseController
         }
         return $this->jsonResponse(null);
     }
-
-    protected function retrieve()
-    {
-        return array(
-            'vehiclebodystyle_id' => Input::get('vehiclebodystyle_id'),
-            'vehiclemake_id' => Input::get('vehiclemake_id'),
-            'vehiclemodelseries_id' => Input::get('vehiclemodelseries_id'),
-            'kilometres' => Input::get('kilometres'),
-            'price' => Input::get('price'),
-            'color' => Input::get('color'),
-        );
-    }
-
 }

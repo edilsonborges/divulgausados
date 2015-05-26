@@ -5,10 +5,8 @@ use Illuminate\Database\Eloquent\Collection;
 /**
  * Represents the RESTful API service response
  */
-
 class RestfulResponse
 {
-
     private $response;
 
     public function __construct()
@@ -60,5 +58,4 @@ class RestfulResponse
     {
         return $this->response;
     }
-
 }

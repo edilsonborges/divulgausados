@@ -2,17 +2,11 @@
 
 class VehicleBodyStyleController extends \BaseController
 {
-
     private $bodyStyleService;
 
     public function __construct()
     {
         $this->bodyStyleService = new BodyStyleService();
-    }
-
-    protected function getService()
-    {
-        return $this->bodyStyleService;
     }
 
     /**
@@ -25,6 +19,11 @@ class VehicleBodyStyleController extends \BaseController
         return $this->jsonResponse($this->getService()->findAll());
     }
 
+    protected function getService()
+    {
+        return $this->bodyStyleService;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -34,6 +33,13 @@ class VehicleBodyStyleController extends \BaseController
     {
         $this->getService()->save($this->retrieve());
         return $this->jsonResponse(null);
+    }
+
+    protected function retrieve()
+    {
+        return array(
+            'name' => ucwords(Input::get('name')),
+        );
     }
 
     public function show($id)
@@ -63,12 +69,5 @@ class VehicleBodyStyleController extends \BaseController
     {
         $this->getService()->delete($id);
         return $this->jsonResponse(null);
-    }
-
-    protected function retrieve()
-    {
-        return array(
-            'name' => ucwords(Input::get('name')),
-        );
     }
 }

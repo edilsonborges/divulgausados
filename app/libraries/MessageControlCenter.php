@@ -2,13 +2,9 @@
 
 class MessageControlCenter
 {
-
     private static $instance = null;
-
     private $errorMessageHolder;
-
     private $warningMessageHolder;
-
     private $successMessageHolder;
 
     private function __construct()
@@ -24,30 +20,6 @@ class MessageControlCenter
         return self::$instance;
     }
 
-    protected function getSuccessMessageHolder()
-    {
-        if (is_null($this->successMessageHolder)) {
-            $this->successMessageHolder = ViewMessageHolder::getInstance(ViewMessageStatus::SUCCESS);
-        }
-        return $this->successMessageHolder;
-    }
-
-    protected function getWarningMessageHolder()
-    {
-        if (is_null($this->warningMessageHolder)) {
-            $this->warningMessageHolder = ViewMessageHolder::getInstance(ViewMessageStatus::WARNING);
-        }
-        return $this->warningMessageHolder;
-    }
-
-    protected function getErrorMessageHolder()
-    {
-        if (is_null($this->errorMessageHolder)) {
-            $this->errorMessageHolder = ViewMessageHolder::getInstance(ViewMessageStatus::DANGER);
-        }
-        return $this->errorMessageHolder;
-    }
-
     /**
      * Build a success message.
      *
@@ -56,6 +28,14 @@ class MessageControlCenter
     public function addSuccessMessage($message)
     {
         $this->getSuccessMessageHolder()->addMessage($message);
+    }
+
+    protected function getSuccessMessageHolder()
+    {
+        if (is_null($this->successMessageHolder)) {
+            $this->successMessageHolder = ViewMessageHolder::getInstance(ViewMessageStatus::SUCCESS);
+        }
+        return $this->successMessageHolder;
     }
 
     public function getSuccessMessages()
@@ -71,6 +51,14 @@ class MessageControlCenter
     public function addWarningMessage($message)
     {
         $this->getWarningMessageHolder()->addMessage($message);
+    }
+
+    protected function getWarningMessageHolder()
+    {
+        if (is_null($this->warningMessageHolder)) {
+            $this->warningMessageHolder = ViewMessageHolder::getInstance(ViewMessageStatus::WARNING);
+        }
+        return $this->warningMessageHolder;
     }
 
     public function getWarningMessages()
@@ -93,11 +81,18 @@ class MessageControlCenter
         return $this->getErrorMessageHolder()->getMessageList();
     }
 
+    protected function getErrorMessageHolder()
+    {
+        if (is_null($this->errorMessageHolder)) {
+            $this->errorMessageHolder = ViewMessageHolder::getInstance(ViewMessageStatus::DANGER);
+        }
+        return $this->errorMessageHolder;
+    }
+
     public function clear()
     {
         $this->errorMessageHolder = null;
         $this->warningMessageHolder = null;
         $this->successMessageHolder = null;
     }
-
 }

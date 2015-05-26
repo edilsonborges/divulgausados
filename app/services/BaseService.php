@@ -27,5 +27,4 @@ abstract class BaseService implements BaseServiceInterface
     {
         return Input::get('page_size');
     }
-
 }

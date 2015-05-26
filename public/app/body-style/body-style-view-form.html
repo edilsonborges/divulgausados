@@ -1,27 +1,29 @@
-<form role="form" class="form-horizontal" data-ng-submit="submit()">
-	<fieldset>
-		<legend data-ng-hide="bodyStyle.id">Inclusão de categoria</legend>
-		<legend data-ng-show="bodyStyle.id">Alteração de categoria</legend>
+<section-with-side-menu>
+    <form role="form" class="form-horizontal" data-ng-submit="submit()">
+        <fieldset>
+            <legend data-ng-hide="bodyStyle.id">Inclusão de categoria</legend>
+            <legend data-ng-show="bodyStyle.id">Alteração de categoria</legend>
 
-		<div class="form-group">
-			<label for="name" class="col-sm-2 control-label">Nome</label> 
-			<div class="col-sm-6">
-				<input type="text" id="name" name="name" class="form-control" data-ng-model="bodyStyle.name" />
-			</div>
-		</div>
+            <div class="form-group">
+                <label for="name" class="col-sm-2 control-label">Nome</label> 
+                <div class="col-sm-6">
+                    <input type="text" id="name" name="name" class="form-control" data-ng-model="bodyStyle.name" />
+                </div>
+            </div>
 
-		<div class="form-group">
-			<div class="col-sm-offset-2 col-sm-10">
-	            <div class="btn-group">
-					<a class="btn btn-default" href="#/body-style"> 
-						<span class="glyphicon glyphicon glyphicon-remove"></span> Cancelar
-					</a>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <div class="btn-group">
+                        <a class="btn btn-default" href="#/body-style"> 
+                            <span class="glyphicon glyphicon glyphicon-remove"></span> Cancelar
+                        </a>
 
-					<button type="submit" class="btn btn-success">
-						<span class="glyphicon glyphicon-ok"></span> Confirmar
-					</button>
-				</div>
-			</div>
-		</div>
-	</fieldset>
-</form>
+                        <button type="submit" class="btn btn-success">
+                            <span class="glyphicon glyphicon-ok"></span> Confirmar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</section-with-side-menu>
