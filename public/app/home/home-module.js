@@ -13,8 +13,8 @@ angular.module('divulgausados')
 		});
 	}])
 	.controller('HomeCtrl', ['$scope', 'Vehicle', function ($scope, Vehicle) {
-		$scope.vehicles = [];
+		$scope.vehicleList = [];
 		Vehicle.getList().then(function (vehicles) {
-			$scope.vehicles = vehicles;
+			$scope.vehicleList = vehicles;
 		});
 	}]);

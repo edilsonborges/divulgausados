@@ -1,3 +1,39 @@
 <section>
 	<p>Um lugar para mostrar seu veículo e quem sabe fazer um bom negócio.</p>
+
+	<div class="">
+		<carousel interval="5000">
+			<slide data-ng-repeat="vehicle in vehicleList" active="vehicle.active">
+				<img src="img/vehicle/{{vehicle.id}}.jpg">
+				<div class="carousel-caption">
+					<h4>{{vehicle.make.name}} {{vehicle.price}}</h4>
+					<p>{{vehicle.kilometers}}</p>
+				</div>
+			</slide>
+		</carousel>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-4" data-ng-repeat="vehicle in vehicleList">
+			<div class="thumbnail">
+				<img src="img/vehicle/{{vehicle.id}}.jpg" alt="{{vehicle.owner.name}}">
+				<div class="caption">
+					<h3>{{vehicle.make.name}} {{vehicle.model_series.model.name}} {{vehicle.model_series.name}}</h3>
+
+					<div style="font-size: 1.2em">
+						<p><b>Preço:</b> {{vehicle.price}}</p>
+					</div>
+					<p>
+						<b>Quilometragem:</b> {{vehicle.kilometres}}
+					</p>
+					<p>
+						<b>Cor:</b> <span style="display: inline-block; vertical-align: middle; width: 50px; height: 25px; background-color: {{vehicle.colour}};"></span></p>
+					</p>
+					<p>
+						<b>Anunciante</b> {{vehicle.owner.name}}
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>

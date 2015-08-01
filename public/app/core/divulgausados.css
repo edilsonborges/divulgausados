@@ -1,7 +1,7 @@
-@import url(http://fonts.googleapis.com/css?family=Alef:400,700);
+@import url(http://fonts.googleapis.com/css?family=Expletus+Sans:700,400);
 
 * {
-    font-family: 'Alef', sans-serif;
+    font-family: "Expletus Sans", Arial;
 }
 
 body {
@@ -27,4 +27,20 @@ body {
     background: white;
     cursor: inherit;
     display: block;
+}
+
+.carousel-caption {
+    background-color: #D4D4D4;
+    color: #000000;
+}
+
+.carousel-caption h4 {
+    font-size: 1.7em !important;
+}
+
+.vehicle-color-block {
+    display: inline-block;
+    width: 200px;
+    height: 30px;
+    vertical-align: middle;
 }

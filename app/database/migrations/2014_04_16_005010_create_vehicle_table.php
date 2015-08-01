@@ -20,7 +20,7 @@ class CreateVehicleTable extends Migration
             $table->integer('vehiclemodelseries_id')->unsigned();
             $table->decimal('price', 10, 2);
             $table->bigInteger('kilometres');
-            $table->bigInteger('colour');
+            $table->string('colour', 10);
             $table->timestamps();
             $table->softDeletes();
 

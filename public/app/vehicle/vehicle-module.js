@@ -4,6 +4,10 @@ angular.module('divulgausados')
 			templateUrl: 'app/vehicle/vehicle-view-form.html',
 			controller: 'TheVehicleCreateCtrl'
 		})
+		.when('/vehicle/edit/:vehicleId', {
+			templateUrl: 'app/vehicle/vehicle-view-form.html',
+			controller: 'TheVehicleEditCtrl'
+		})
         .when('/vehicle', {
             templateUrl: 'app/vehicle/vehicle-view-list.html',
             controller: 'TheVehicleListCtrl'
@@ -13,13 +17,10 @@ angular.module('divulgausados')
         $scope.vehicleList = [];
 
         Vehicle.getList().then(function (response) {
-            console.log(response);
             $scope.vehicleList = response;
         });
     }])
-	.controller('TheVehicleCreateCtrl', ['$scope', 'Vehicle', 'VehicleBodyStyle', 'VehicleMake', 'VehicleModel', 'VehicleModelSeries', 'FileUploader', function ($scope, Vehicle, VehicleBodyStyle, VehicleMake, VehicleModel, VehicleModelSeries, FileUploader) {
-		$scope.vehicle = {};
-
+	.controller('TheVehicleMechanicsCtrl', ['$scope', 'VehicleBodyStyle', 'VehicleMake', 'VehicleModel', 'VehicleModelSeries', 'FileUploader', function ($scope, VehicleBodyStyle, VehicleMake, VehicleModel, VehicleModelSeries, FileUploader) {
 		$scope.uploader = new FileUploader({
 			url: '/v1/upload-vehicle',
 			removeAfterUpload: true,
@@ -52,12 +53,26 @@ angular.module('divulgausados')
 				$scope.modelSeriesList = response;
 			});
 		};
+	}])
+	.controller('TheVehicleCreateCtrl', ['$scope', 'Vehicle', function ($scope, Vehicle) {
+		$scope.vehicle = {};
 
 		$scope.submit = function () {
 			Vehicle.post($scope.vehicle).then(function (vehicle_id) {
 				$scope.uploader.formData = { vehicle_id: vehicle_id };
 				$scope.uploader.uploadAll();
 				$scope.vehicle = {};
+			});
+		};
+	}])
+	.controller('TheVehicleEditCtrl', ['$scope', '$routeParams', '$location', 'Vehicle', function ($scope, $routeParams, $location, Vehicle) {
+		Vehicle.one($routeParams.vehicleId).get().then(function (vehicle) {
+			$scope.vehicle = vehicle;
+		});
+
+		$scope.submit = function () {
+			Vehicle.put().then(function () {
+				$location.path('/vehicle');
 			});
 		};
 	}])

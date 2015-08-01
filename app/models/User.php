@@ -2,10 +2,11 @@
 
 use Illuminate\Auth\UserInterface;
 
-class User extends Eloquent implements UserInterface, RemindableInterface
+class User extends Eloquent implements UserInterface
 {
     protected $table = 'user';
     protected $softDelete = true;
+    protected $hidden = array('password');
 
     public function vehicles()
     {
@@ -37,8 +38,4 @@ class User extends Eloquent implements UserInterface, RemindableInterface
 
     }
 
-    public function getReminderEmail()
-    {
-
-    }
 }

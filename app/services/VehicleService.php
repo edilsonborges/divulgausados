@@ -58,19 +58,18 @@ class VehicleService extends BaseService
 
     public function findOne($id)
     {
-        return Vehicle::find($id);
+        return Vehicle::with('bodyStyle', 'make', 'modelSeries', 'modelSeries.model')->find($id);
     }
 
     public function findAll()
     {
         $resultSet = null;
-        $query = Vehicle::orderBy('vehiclemake_id')->filter();
+        $query = Vehicle::orderBy('vehiclemake_id')->filter()->with('make', 'modelSeries', 'modelSeries.model', 'owner');
         if ($this->hasPagination()) {
             $resultSet = $query->paginate($this->getPageSize());
         } else {
             $resultSet = $query->get();
         }
-        $resultSet->load('make', 'modelSeries');
         return $resultSet;
     }
 }

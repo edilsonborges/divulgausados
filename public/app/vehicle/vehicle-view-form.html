@@ -1,37 +1,51 @@
 <section-with-side-menu>
-    <form role="form" class="form-horizontal" data-ng-submit="submit()">
+    <form role="form" class="form-horizontal" data-ng-submit="submit()" data-ng-controller="TheVehicleMechanicsCtrl">
 		<fieldset>
 			<legend>Inclusão de veículo</legend>
 
 			<div class="form-group">
 				<label for="bodyStyle" class="col-sm-2 control-label">Categoria</label>
-				<div class="col-sm-6">
+				<div class="col-sm-6" data-ng-hide="vehicle.id">
 					<select id="bodyStyle" class="form-control" data-ng-model="vehicle.vehiclebodystyle_id" data-ng-options="bodyStyle.name for bodyStyle in bodyStyleList">
 						<option>Selecione uma categoria</option>
 					</select>
+				</div>
+				<div class="col-sm-6" data-ng-show="vehicle.id">
+					<input type="text" id="bodyStyleName" name="bodyStyleName" class="form-control" value="{{vehicle.body_style.name}}" disabled="disabled">
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label for="make" class="col-sm-2 control-label">Fabricante</label>
-				<div class="col-sm-6">
+				<div class="col-sm-6" data-ng-hide="vehicle.id">
 					<select id="make" class="form-control" data-ng-model="vehicle.vehiclemake_id" data-ng-options="make.name for make in makeList">
 						<option>Selecione um fabricante</option>
 					</select>
+				</div>
+				<div class="col-sm-6" data-ng-show="vehicle.id">
+					<input type="text" id="makeName" name="makeName" class="form-control" value="{{vehicle.make.name}}" disabled="disabled">
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label for="model" class="col-sm-2 control-label">Modelo</label>
-				<div class="col-sm-3">
+				<div class="col-sm-3" data-ng-hide="vehicle.id">
 					<select id="model" class="form-control" data-ng-model="selectedModel" data-ng-options="model.name for model in modelList" data-ng-change="findModelSeries(selectedModel.id)">
 						<option>Selecione um modelo</option>
 					</select>
 				</div>
+				<div class="col-sm-3" data-ng-show="vehicle.id">
+					<input type="text" id="modelName" name="modelName" class="form-control" value="{{vehicle.model_series.model.name}}" disabled="disabled">
+				</div>
 
-				<label for="modelSeries" class="col-sm-1 control-label">Versão</label>
-				<div class="col-sm-2">
+				<label for="modelSeries" class="col-sm-1 control-label" data-ng-show="modelSeriesList.length || vehicle.id">Versão</label>
+				<div class="col-sm-2" data-ng-show="modelSeriesList.length">
 					<select id="modelSeries" class="form-control" data-ng-model="vehicle.vehiclemodelseries_id" data-ng-options="modelSeries.name for modelSeries in modelSeriesList">
+						<option>Selecione uma versão</option>
+					</select>
+				</div>
+				<div class="col-sm-2" data-ng-show="vehicle.id">
+					<select id="modelSeriesUpdate" class="form-control" data-ng-model="vehicle.vehiclemodelseries_id" data-ng-options="modelSeries.name for modelSeries in modelSeriesList">
 						<option>Selecione uma versão</option>
 					</select>
 				</div>
@@ -40,21 +54,29 @@
 			<div class="form-group">
 				<label for="price" class="col-sm-2 control-label">Preço</label>
 				<div class="col-sm-6">
-					<input type="text" id="price" name="price" data-ng-model="vehicle.price" class="form-control" data-ng-model="vehicle.price" />
+					<div class="input-group">
+						<div class="input-group-addon">R$</div>
+						<input type="text" id="price" name="price" data-ng-model="vehicle.price" class="form-control" data-ng-model="vehicle.price" ui-number-mask maxlength="16">
+					</div>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label for="kilometres" class="col-sm-2 control-label">Quilometragem</label>
 				<div class="col-sm-6">
-					<input type="text" id="kilometres" name="kilometres" class="form-control" data-ng-model="vehicle.kilometres" />
+					<div class="input-group">
+						<input type="text" id="kilometres" name="kilometres" class="form-control" data-ng-model="vehicle.kilometres" ui-number-mask="2" maxlength="12">
+						<div class="input-group-addon">km</div>
+					</div>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label for="color" class="col-sm-2 control-label">Cor</label>
+				<label for="colour" class="col-sm-2 control-label">Cor</label>
 				<div class="col-sm-6">
-					<input type="text" id="color" name="color" class="form-control" data-ng-model="vehicle.color" />
+					<button id="colour" name="colour" ng-model="vehicle.colour" colorpicker colorpicker-position="top"
+							class="btn btn-default" type="button">Escolher uma cor</button>
+					<div class="vehicle-color-block" style="background-color: {{vehicle.colour}} !important;"></div>
 				</div>
 			</div>
 

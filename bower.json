@@ -21,10 +21,11 @@
     "angular-bootstrap": "0.11.2",
     "angular-file-upload": "1.1.5",
     "angular-local-storage": "0.1.4",
+    "angular-input-masks": "1.5.2",
+    "angular-bootstrap-colorpicker": "3.0.18",
     "restangular": "1.4.0",
     "bootstrap": "3.3.0",
-    "es5-shim": "3.4.0",
-    "ng-currency": "0.8.3"
+    "es5-shim": "3.4.0"
   },
   "resolutions": {
     "es5-shim": "3.4.0",

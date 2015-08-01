@@ -34,7 +34,7 @@ class VehicleController extends \BaseController
             'vehiclemodelseries_id' => $this->extractId(Input::get('vehiclemodelseries_id')),
             'kilometres' => Input::get('kilometres'),
             'price' => Input::get('price'),
-            'color' => Input::get('color'),
+            'colour' => Input::get('colour'),
         );
     }
 

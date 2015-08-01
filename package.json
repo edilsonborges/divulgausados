@@ -1,35 +1,36 @@
 {
-  "name":"divulgausados",
-  "version":"1.0.0",
-  "homepage":"https://github.com/murilocosta/divulgausados",
-  "authors":[
+  "name": "divulgausados",
+  "version": "1.0.0",
+  "homepage": "https://github.com/murilocosta/divulgausados",
+  "authors": [
     "Murilo Nunes José da Costa <murilo.nunes.jose@gmail.com>"
   ],
-  "description":"Uma aplicação para compartilhar e divulgar dados de veículos usados.",
-  "keywords":[
+  "description": "Uma aplicação para compartilhar e divulgar dados de veículos usados.",
+  "keywords": [
     "divulgacao",
     "veiculos",
     "automoveis",
     "carro",
     "usados"
   ],
-  "license":"MIT",
-  "repository":{
-    "type":"git",
-    "url":"https://github.com/murilocosta/divulgausados.git"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/murilocosta/divulgausados.git"
   },
-  "devDependencies":{
-    "grunt":"0.4.4",
-    "load-grunt-tasks":"1.0.0",
-    "grunt-contrib-watch":"0.6.1",
-    "grunt-contrib-uglify":"0.4.0",
-    "grunt-contrib-jshint":"0.10.0",
-    "grunt-contrib-concat":"0.4.0"
+  "devDependencies": {
+    "grunt": "0.4.4",
+    "grunt-contrib-concat": "0.4.0",
+    "grunt-contrib-jshint": "0.10.0",
+    "grunt-contrib-uglify": "0.4.0",
+    "grunt-contrib-watch": "0.6.1",
+    "grunt-wiredep": "2.0.0",
+    "load-grunt-tasks": "1.0.0"
   },
-  "engines":{
-    "node":">=0.10.0"
+  "engines": {
+    "node": ">=0.10.0"
   },
-  "bugs":{
-    "url":"https://github.com/murilocosta/divulgausados/issues"
+  "bugs": {
+    "url": "https://github.com/murilocosta/divulgausados/issues"
   }
 }
