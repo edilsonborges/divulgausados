@@ -1,12 +1,45 @@
-<section>
+<div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
     <div class="row">
-        <div class="col-sm-2">
-            <ul class="nav nav-pills nav-stacked">
-                <li><a href="#/body-style">Gerenciar categorias</a></li>
-                <li><a href="#/make">Gerenciar fabricantes</a></li>
-                <li><a href="#/vehicle">Gerenciar veículos</a></li>
-            </ul>
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Dashboard <small>Controle seu conteúdo</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="/#">Principal</a>
+                </li>
+                <li class="active">Dashboard</li>
+            </ol>
         </div>
-        <div class="col-sm-10" data-ng-transclude=""></div>
     </div>
-</section>
+    <!-- /.row -->
+
+    <!-- Content Row -->
+    <div class="row">
+        <!-- Sidebar Column -->
+        <div class="col-md-3">
+            <div class="list-group">
+                <a href="#/body-style" class="list-group-item">Gerenciar categorias</a>
+                <a href="#/make" class="list-group-item">Gerenciar fabricantes</a>
+                <a href="#/vehicle" class="list-group-item">Gerenciar veículos</a>
+            </div>
+        </div>
+
+        <!-- Content Column -->
+        <div class="col-md-9">
+            <div data-ng-transclude=""></div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="row">
+            <div class="col-lg-12">
+                <p>Copyright &copy; Divulga Usados 2013</p>
+            </div>
+        </div>
+    </footer>
+</div>

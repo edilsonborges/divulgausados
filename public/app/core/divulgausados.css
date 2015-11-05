@@ -1,12 +1,75 @@
 @import url(http://fonts.googleapis.com/css?family=Expletus+Sans:700,400);
 
 * {
-    font-family: "Expletus Sans", Arial;
+    font-family: "Expletus Sans", Arial, serif;
+}
+
+html,
+body {
+    height: 100%;
 }
 
 body {
-    padding-top: 70px;
+    padding-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
+
+/* Responsive Styles */
+
+@media (max-width: 991px) {
+    .customer-img,
+    .img-related {
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 767px) {
+    .img-portfolio {
+        margin-bottom: 15px;
+    }
+}
+
+/* Portfolio Styles */
+
+.img-portfolio {
+    margin-bottom: 30px;
+}
+
+.img-hover:hover {
+    opacity: 0.8;
+}
+
+/* 404 Page Styles */
+
+.error-404 {
+    font-size: 100px;
+}
+
+/* Pricing Page Styles */
+
+.price {
+    display: block;
+    font-size: 50px;
+    line-height: 50px;
+}
+
+.price sup {
+    top: -20px;
+    left: 2px;
+    font-size: 20px;
+}
+
+.period {
+    display: block;
+    font-style: italic;
+}
+
+/* Footer Styles */
+
+footer {
+    margin: 50px 0;
+}
+
+/* Upload Styles */
 
 .btn-file {
     position: relative;
@@ -29,18 +92,16 @@ body {
     display: block;
 }
 
-.carousel-caption {
-    background-color: #D4D4D4;
-    color: #000000;
-}
-
-.carousel-caption h4 {
-    font-size: 1.7em !important;
-}
-
 .vehicle-color-block {
     display: inline-block;
     width: 200px;
     height: 30px;
     vertical-align: middle;
+}
+
+.center-login-panel-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

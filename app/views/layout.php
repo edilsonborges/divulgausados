@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Um website para divulgação de veículos usados">
+    <meta name="author" content="Murilo Costa <murilo.nunes.jose@outlook.com>">
     <title>Divulga Usados</title>
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/angular-bootstrap-colorpicker/css/colorpicker.css" />
@@ -17,37 +18,47 @@
 </head>
 <body>
 
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1">
-            <span class="sr-only">Navegação</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <span class="navbar-brand">
-            Divulga Usados
-        </span>
-    </div>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-navbar-divulga-usados">
+                <span class="sr-only">Navegação</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/#">Divulga Usados</a>
+        </div>
 
-    <div class="collapse navbar-collapse" id="navbar-collapse-1">
-        <ul class="nav navbar-nav">
-            <li>
-                <a href="#/vehicle/gallery/{{user.id}}">
-                    <span class="glyphicon glyphicon-picture"></span> Galeria de veículos
-                </a>
-            </li>
-            <li>
-                <a href="#/dashboard">
-                    <span class="glyphicon glyphicon-th-large"></span> Dashboard
-                </a>
-            </li>
-        </ul>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-navbar-divulga-usados">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#/vehicle/gallery/{{user.id}}">
+                        <span class="glyphicon glyphicon-picture"></span> Galeria de veículos
+                    </a>
+                </li>
+                <li>
+                    <a href="#/dashboard">
+                        <span class="glyphicon glyphicon-th-large"></span> Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="#/login">
+                        <span class="glyphicon glyphicon-log-in"></span> Login
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
     </div>
+    <!-- /.container -->
 </nav>
 
 <message-box></message-box>
-<div class="container-fluid" data-ng-view=""></div>
+<section data-ng-view=""></section>
 
 <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
 <script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
@@ -70,6 +81,7 @@
 <script type="text/javascript" src="app/core/directives.js"></script>
 
 <script type="text/javascript" src="app/home/home-module.js"></script>
+<script type="text/javascript" src="app/login/login-module.js"></script>
 <script type="text/javascript" src="app/body-style/body-style-module.js"></script>
 <script type="text/javascript" src="app/make/make-module.js"></script>
 <script type="text/javascript" src="app/make/model/model-module.js"></script>

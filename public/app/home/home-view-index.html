@@ -1,39 +1,57 @@
-<section>
-	<p>Um lugar para mostrar seu veículo e quem sabe fazer um bom negócio.</p>
+<!-- Header Carousel -->
+<header>
+	<carousel interval="5000">
+		<slide data-ng-repeat="vehicle in vehicleList" active="vehicle.active">
+			<div style="background: url('img/vehicle/{{vehicle.id}}.jpg') center; background-size: cover; height: 300px;"></div>
 
-	<div class="">
-		<carousel interval="5000">
-			<slide data-ng-repeat="vehicle in vehicleList" active="vehicle.active">
-				<img src="img/vehicle/{{vehicle.id}}.jpg">
-				<div class="carousel-caption">
-					<h4>{{vehicle.make.name}} {{vehicle.price}}</h4>
-					<p>{{vehicle.kilometers}}</p>
-				</div>
-			</slide>
-		</carousel>
-	</div>
-
-	<div class="row">
-		<div class="col-sm-4" data-ng-repeat="vehicle in vehicleList">
-			<div class="thumbnail">
-				<img src="img/vehicle/{{vehicle.id}}.jpg" alt="{{vehicle.owner.name}}">
-				<div class="caption">
-					<h3>{{vehicle.make.name}} {{vehicle.model_series.model.name}} {{vehicle.model_series.name}}</h3>
-
-					<div style="font-size: 1.2em">
-						<p><b>Preço:</b> {{vehicle.price}}</p>
-					</div>
-					<p>
-						<b>Quilometragem:</b> {{vehicle.kilometres}}
-					</p>
-					<p>
-						<b>Cor:</b> <span style="display: inline-block; vertical-align: middle; width: 50px; height: 25px; background-color: {{vehicle.colour}};"></span></p>
-					</p>
-					<p>
-						<b>Anunciante</b> {{vehicle.owner.name}}
-					</p>
-				</div>
+			<div class="carousel-caption">
+				<h3>{{vehicle.make.name}} {{vehicle.price | currency:'R$ '}}</h3>
+				<p>{{vehicle.kilometres | number}} km</p>
 			</div>
+		</slide>
+	</carousel>
+</header>
+
+<!-- Page Content -->
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header">
+				A melhor chance de espalhar notícia sobre seu veículo
+			</h1>
 		</div>
 	</div>
-</section>
+
+	<!-- Projects Row -->
+	<div class="row">
+		<div class="col-md-6 img-portfolio" data-ng-repeat="vehicle in vehicleList">
+			<a href="#/vehicle/showroom/{{vehicle.id}}">
+				<img class="img-responsive img-hover" src="img/vehicle/{{vehicle.id}}.jpg" alt="{{vehicle.owner.name}}">
+			</a>
+			<h3>
+				<a href="#/vehicle/showroom/{{vehicle.id}}">
+					{{vehicle.make.name}} {{vehicle.model_series.model.name}} {{vehicle.model_series.name}}
+				</a>
+			</h3>
+			<p style="font-size: 1.2em;">
+                <b>Preço:</b> {{vehicle.price | currency:'R$ '}}
+            </p>
+			<p>
+                <span style="float: left;"><b>Quilometragem:</b> {{vehicle.kilometres | number}} km</span>
+                <span style="float: right;"><b>Anunciante:</b> {{vehicle.owner.email}}</span>
+            </p>
+		</div>
+	</div>
+	<!-- /.row -->
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="row">
+            <div class="col-lg-12">
+                <p>Copyright &copy; Divulga Usados 2013</p>
+            </div>
+        </div>
+    </footer>
+</div>
