@@ -24,6 +24,7 @@ Route::filter('csrf', function () {
 Route::group(array('prefix' => 'v1'), function () {
     Route::resource('body-style', 'VehicleBodyStyleController');
     Route::resource('make', 'VehicleMakeController');
+    Route::post('upload-make-brand', 'VehicleMakeController@upload');
     Route::resource('model', 'VehicleModelController');
     Route::resource('model-series', 'VehicleModelSeriesController');
     Route::resource('vehicle', 'VehicleController');

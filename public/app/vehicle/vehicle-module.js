@@ -26,6 +26,7 @@ angular.module('divulgausados')
 			removeAfterUpload: true,
 			queueLimit: 3
 		});
+
 		$scope.uploader.filters.push({
 			name: 'imageFilter',
 			fn: function (item, options) {
@@ -71,7 +72,9 @@ angular.module('divulgausados')
 		});
 
 		$scope.submit = function () {
-			Vehicle.put().then(function () {
+			$scope.vehicle.put().then(function () {
+				$scope.uploader.formData = { vehicle_id: $routeParams.vehicleId };
+				$scope.uploader.uploadAll();
 				$location.path('/vehicle');
 			});
 		};

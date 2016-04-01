@@ -99,6 +99,7 @@ return array(
         'vehiclemodelseries_id' => 'Versão',
         'kilometres' => 'Quilometragem',
         'price' => 'Preço',
+        'name' => 'Nome'
     ),
 
 );

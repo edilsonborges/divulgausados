@@ -37,11 +37,27 @@ angular.module('divulgausados')
 			});
 		};
 	}])
-	.controller('VehicleMakeCreateCtrl', ['$scope', 'VehicleMake', function ($scope, VehicleMake) {
+	.controller('VehicleMakeCreateCtrl', ['$scope', 'FileUploader', 'VehicleMake', function ($scope, FileUploader, VehicleMake) {
 		$scope.make = {};
 
+		$scope.uploader = new FileUploader({
+			url: '/v1/upload-make-brand',
+			removeAfterUpload: true,
+			queueLimit: 3
+		});
+
+		$scope.uploader.filters.push({
+			name: 'imageFilter',
+			fn: function (item, options) {
+				var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+				return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+			}
+		});
+
 		$scope.submit = function () {
-			VehicleMake.post($scope.make).then(function () {
+			VehicleMake.post($scope.make).then(function (make_id) {
+				$scope.uploader.formData = { make_id: make_id };
+				$scope.uploader.uploadAll();
 				$scope.make = {};
 			});
 		};

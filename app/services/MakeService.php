@@ -3,33 +3,38 @@
 class MakeService extends BaseService
 {
 
+    public function upload($id, $file)
+    {
+        $this->doUploadFile($id, '/img/make/', $file);
+    }
+
     public function save($attributes)
     {
-        $this->persist($attributes,
-            function ($params) {
-                VehicleMake::create($params);
-                $this->addSuccessMessage('Fabricante adicionado com sucesso!');
-            });
+        return $this->persist($attributes, function ($params) {
+            $make = VehicleMake::create($params);
+            $this->addSuccessMessage('Fabricante adicionado com sucesso!');
+            return $make;
+        });
     }
 
     public function update($id, $attributes)
     {
-        $this->persist($attributes,
-            function ($params) use ($id) {
-                $make = VehicleMake::find($id);
-                $make->name = $params['name'];
-                $make->save();
-                $this->addSuccessMessage('Atualizado com sucesso!');
-            });
+        $this->persist($attributes, function ($params) use ($id) {
+            $make = VehicleMake::find($id);
+            $make->name = $params['name'];
+            $make->save();
+            $this->addSuccessMessage('Atualizado com sucesso!');
+        });
     }
 
     protected function persist($attributes, $callback)
     {
         if (VehicleMake::validate($attributes)) {
-            $callback($attributes);
+            return $callback($attributes);
         } else {
             $this->addWarningMessage(VehicleMake::getValidationMessages());
         }
+        return null;
     }
 
     public function delete($id)

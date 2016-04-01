@@ -18,7 +18,6 @@ angular.module('divulgausados')
 
 		VehicleModel.one($routeParams.modelId).get().then(function (model) {
 			$scope.model = model;
-			console.log(model);
 		});
 
 		$scope.search = function () {

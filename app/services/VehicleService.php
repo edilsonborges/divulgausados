@@ -5,19 +5,16 @@ class VehicleService extends BaseService
 
     public function upload($id, $file)
     {
-        $destinationPath = public_path() . '/img/vehicle/';
-        $filename = $id . '_' . str_random(8) . '_' . date("Ymdhis") . '.' . $file->getClientOriginalExtension();
-        $file->move($destinationPath, $filename);
+        $this->doUploadFile($id, '/img/vehicle/', $file);
     }
 
     public function save($attributes)
     {
-        return $this->persist($attributes,
-            function ($params) {
-                $vehicle = Vehicle::create($params);
-                $this->addSuccessMessage('Adicionado com sucesso!');
-                return $vehicle;
-            });
+        return $this->persist($attributes, function ($params) {
+            $vehicle = Vehicle::create($params);
+            $this->addSuccessMessage('Adicionado com sucesso!');
+            return $vehicle;
+        });
     }
 
     protected function persist($attributes, $callback)
@@ -27,22 +24,22 @@ class VehicleService extends BaseService
         } else {
             $this->addWarningMessage(Vehicle::getValidationMessages());
         }
+        return null;
     }
 
     public function update($id, $attributes)
     {
-        $this->persist($attributes,
-            function ($params) use ($id) {
-                $vehicle = Vehicle::find($id);
-                $vehicle->color = $params['color'];
-                $vehicle->kilometres = $params['kilometres'];
-                $vehicle->price = $params['price'];
-                $vehicle->vehiclebodystyle_id = $params['vehiclebodystyle_id'];
-                $vehicle->vehiclemake_id = $params['vehiclemake_id'];
-                $vehicle->vehiclemodelseries_id = $params['vehiclemodelseries_id'];
-                $vehicle->save();
-                $this->addSuccessMessage('Atualizado com sucesso!');
-            });
+        $this->persist($attributes, function ($params) use ($id) {
+            $vehicle = Vehicle::find($id);
+            $vehicle->color = $params['color'];
+            $vehicle->kilometres = $params['kilometres'];
+            $vehicle->price = $params['price'];
+            $vehicle->vehiclebodystyle_id = $params['vehiclebodystyle_id'];
+            $vehicle->vehiclemake_id = $params['vehiclemake_id'];
+            $vehicle->vehiclemodelseries_id = $params['vehiclemodelseries_id'];
+            $vehicle->save();
+            $this->addSuccessMessage('Atualizado com sucesso!');
+        });
     }
 
     public function delete($id)

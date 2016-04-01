@@ -12,7 +12,7 @@ class VehicleMakeController extends \BaseController
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return RestfulResponse
      */
     public function index()
     {
@@ -27,14 +27,30 @@ class VehicleMakeController extends \BaseController
     /**
      * Store a newly created resource in storage.
      *
-     * @return Response
+     * @return RestfulResponse
      */
     public function store()
     {
-        $this->getService()->save($this->retrieve());
+        $make = $this->getService()->save($this->retrieve());
+        return $this->jsonResponse(!is_null($make) ? $make->id : null);
+    }
+
+    /**
+     * Upload vehicle's make brand.
+     *
+     * @return RestfulResponse
+     */
+    public function upload()
+    {
+        if (Input::hasFile('logo')) {
+            $this->getService()->upload(Input::get('make_id'), Input::file('logo'));
+        }
         return $this->jsonResponse(null);
     }
 
+    /**
+     * Extract model attributes from request.
+     */
     protected function retrieve()
     {
         return array(
@@ -46,7 +62,7 @@ class VehicleMakeController extends \BaseController
      * Display the specified resource.
      *
      * @param int $id
-     * @return Response
+     * @return RestfulResponse
      */
     public function show($id)
     {
@@ -57,7 +73,7 @@ class VehicleMakeController extends \BaseController
      * Update the specified resource in storage.
      *
      * @param int $id
-     * @return Response
+     * @return RestfulResponse
      */
     public function update($id)
     {
@@ -69,7 +85,7 @@ class VehicleMakeController extends \BaseController
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return Response
+     * @return RestfulResponse
      */
     public function destroy($id)
     {
