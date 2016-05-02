@@ -2,7 +2,7 @@
 <header>
 	<carousel interval="5000">
 		<slide data-ng-repeat="vehicle in vehicleList" active="vehicle.active">
-			<div data-ng-style="{'background': 'url(' + getRandomImage(vehicle) + ') center'}" style="background-size: cover; height: 400px;"></div>
+			<div data-ng-style="{'background': 'url(' + getImage(vehicle) + ') center'}" style="background-size: cover; height: 400px;"></div>
 
 			<div class="carousel-caption">
 				<h3>{{vehicle.make.name}} {{vehicle.price | currency:'R$ '}}</h3>
@@ -26,7 +26,7 @@
 	<div class="row">
 		<div class="col-md-6 img-portfolio" data-ng-repeat="vehicle in vehicleList">
 			<a href="#/vehicle/showroom/{{vehicle.id}}">
-				<img class="img-responsive img-hover" src="{{getRandomImage(vehicle)}}" alt="{{vehicle.owner.name}}">
+				<img class="img-responsive img-hover" data-ng-src="{{getImage(vehicle)}}" alt="{{vehicle.owner.name}}">
 			</a>
 			<h3>
 				<a href="#/vehicle/showroom/{{vehicle.id}}">
