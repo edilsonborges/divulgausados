@@ -5,7 +5,10 @@ class MakeService extends BaseService
 
     public function upload($id, $file)
     {
-        $this->doUploadFile($id, '/img/make/', $file);
+        $uploadedFile = $this->doUploadFile($id, '/img/make', $file);
+        $make = VehicleMake::find($id);
+        $make->brand_image_path = $uploadedFile;
+        $make->save();
     }
 
     public function save($attributes)
@@ -19,9 +22,10 @@ class MakeService extends BaseService
 
     public function update($id, $attributes)
     {
-        $this->persist($attributes, function ($params) use ($id) {
+        $this->persist($attributes, function ($validated) use ($id) {
             $make = VehicleMake::find($id);
-            $make->name = $params['name'];
+            $this->setAttributeIfExists($make, $validated, 'name');
+            $this->setAttributeIfExists($make, $validated, 'brand_image_path');
             $make->save();
             $this->addSuccessMessage('Atualizado com sucesso!');
         });

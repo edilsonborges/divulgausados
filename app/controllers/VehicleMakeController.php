@@ -32,7 +32,7 @@ class VehicleMakeController extends \BaseController
     public function store()
     {
         $make = $this->getService()->save($this->retrieve());
-        return $this->jsonResponse(!is_null($make) ? $make->id : null);
+        return $this->jsonResponse($make);
     }
 
     /**
@@ -42,8 +42,8 @@ class VehicleMakeController extends \BaseController
      */
     public function upload()
     {
-        if (Input::hasFile('logo')) {
-            $this->getService()->upload(Input::get('make_id'), Input::file('logo'));
+        if (Input::hasFile('file')) {
+            $this->getService()->upload(Input::get('make_id'), Input::file('file'));
         }
         return $this->jsonResponse(null);
     }

@@ -6,8 +6,10 @@ composer.phar
 Thumbs.db
 .project
 .settings
-.idea
 .buildpath
 /vendor
 /node_modules
 /public/bower_components
+/public/img/*
+/.idea
+/.phpintel

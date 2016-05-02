@@ -11,7 +11,20 @@ class VehicleController extends \BaseController
 
     public function index()
     {
-        return $this->jsonResponse($this->getService()->findAll());
+        $vehicles = $this->getService()->findAll();
+        foreach ($vehicles as $vehicle) {
+            $vehicle->images = $this->fetchImages($vehicle);
+        }
+        return $this->jsonResponse($vehicles);
+    }
+
+    private function fetchImages($vehicle) {
+        $foundImages = [];
+        $images = glob(public_path() . "/img/vehicle/{$vehicle->id}_*");
+        foreach ($images as $image) {
+            $foundImages[] = str_replace(public_path(), '', $image);
+        }
+        return $foundImages;
     }
 
     public function getService()

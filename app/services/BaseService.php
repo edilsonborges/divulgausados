@@ -5,10 +5,16 @@ abstract class BaseService implements BaseServiceInterface
 
     protected function doUploadFile($id, $path, $file)
     {
-        $destinationPath = public_path() . $path;
+        $destinationPath = public_path() . $path . '/';
         $filename = $id . '_' . str_random(8) . '_' . date("Ymdhis") . '.' . $file->getClientOriginalExtension();
-        error_log($filename);
         $file->move($destinationPath, $filename);
+        return $filename;
+    }
+
+    protected function setAttributeIfExists($object, $params, $attribute) {
+        if (array_key_exists($attribute, $params)) {
+            $object->$attribute = $params[$attribute];
+        }
     }
 
     protected function addSuccessMessage($message)

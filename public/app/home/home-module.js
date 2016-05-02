@@ -14,6 +14,14 @@ angular.module('divulgausados')
 	}])
 	.controller('HomeCtrl', ['$scope', 'Vehicle', function ($scope, Vehicle) {
 		$scope.vehicleList = [];
+
+		$scope.getRandomImage = function (vehicle) {
+			if (!!vehicle.images) {
+				return vehicle.images[Math.floor(Math.random() * vehicle.images.length)];
+			}
+			return '';
+		};
+
 		Vehicle.getList().then(function (vehicles) {
 			$scope.vehicleList = vehicles;
 		});

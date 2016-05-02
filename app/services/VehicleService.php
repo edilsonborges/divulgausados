@@ -5,7 +5,7 @@ class VehicleService extends BaseService
 
     public function upload($id, $file)
     {
-        $this->doUploadFile($id, '/img/vehicle/', $file);
+        $this->doUploadFile($id, '/img/vehicle', $file);
     }
 
     public function save($attributes)

@@ -37,35 +37,25 @@ angular.module('divulgausados')
 			});
 		};
 	}])
-	.controller('VehicleMakeCreateCtrl', ['$scope', 'FileUploader', 'VehicleMake', function ($scope, FileUploader, VehicleMake) {
+	.controller('VehicleMakeCreateCtrl', ['$scope', 'MakeUploadService', 'VehicleMake', function ($scope, MakeUploadService, VehicleMake) {
 		$scope.make = {};
 
-		$scope.uploader = new FileUploader({
-			url: '/v1/upload-make-brand',
-			removeAfterUpload: true,
-			queueLimit: 3
-		});
-
-		$scope.uploader.filters.push({
-			name: 'imageFilter',
-			fn: function (item, options) {
-				var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
-				return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
-			}
-		});
+        $scope.uploader = MakeUploadService.create();
 
 		$scope.submit = function () {
-			VehicleMake.post($scope.make).then(function (make_id) {
-				$scope.uploader.formData = { make_id: make_id };
+			VehicleMake.post($scope.make).then(function (make) {
+				MakeUploadService.addFormData($scope.uploader, { make_id: make.id });
 				$scope.uploader.uploadAll();
 				$scope.make = {};
 			});
 		};
 	}])
-	.controller('VehicleMakeEditCtrl', ['$scope', '$location', '$routeParams', 'VehicleMake', function ($scope, $location, $routeParams, VehicleMake) {
+	.controller('VehicleMakeEditCtrl', ['$scope', '$location', '$routeParams', 'MakeUploadService', 'VehicleMake', function ($scope, $location, $routeParams, MakeUploadService, VehicleMake) {
 		VehicleMake.one($routeParams.makeId).get().then(function (make) {
 			$scope.make = make;
 		});
+
+        $scope.uploader = MakeUploadService.create();
 
 		$scope.submit = function () {
 			$scope.make.put().then(function () {
@@ -73,6 +63,33 @@ angular.module('divulgausados')
 			});
 		};
 	}])
+    .service('MakeUploadService', ['FileUploader', function (FileUploader) {
+        this.create = function () {
+            var uploader = new FileUploader({
+                url: '/v1/upload-make-brand',
+                removeAfterUpload: true,
+                queueLimit: 1
+            });
+            this.addFilter(uploader);
+            return uploader;
+        };
+
+        this.addFilter = function (uploader) {
+            uploader.filters.push({
+                name: 'imageFilter',
+                fn: function (item) {
+                    var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+                    return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+                }
+            });
+        };
+
+        this.addFormData = function (uploader, formData) {
+            uploader.onBeforeUploadItem = function (item) {
+                item.formData.push(formData);
+            };
+        };
+    }])
 	.factory('VehicleMake', ['RestfulFactory', function (RestfulFactory) {
 		return RestfulFactory.service('make');
 	}]);
