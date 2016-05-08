@@ -1,6 +1,6 @@
 <?php
 
-class VehicleFeatureValue extends Eloquent
+class VehicleFeatureValue extends BaseModel
 {
     protected $table = 'vehiclefeaturevalue';
     protected $softDelete = true;

@@ -1,9 +1,11 @@
 <?php
 
-class VehicleFeature extends Eloquent
+class VehicleFeature extends BaseModel
 {
+    protected static $rules = array('name' => 'required|unique:vehiclefeaturecategory');
     protected $table = 'vehiclefeature';
     protected $softDelete = true;
+    protected $fillable = array('id', 'name', 'type');
 
     public function vehicles()
     {

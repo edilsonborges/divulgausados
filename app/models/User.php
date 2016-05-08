@@ -2,7 +2,7 @@
 
 use Illuminate\Auth\UserInterface;
 
-class User extends Eloquent implements UserInterface
+class User extends BaseModel implements UserInterface
 {
     protected $table = 'user';
     protected $softDelete = true;
