@@ -26,15 +26,6 @@ class ModelSeriesService extends BaseService
             });
     }
 
-    protected function persist($attributes, $callback)
-    {
-        if (VehicleModelSeries::validate($attributes)) {
-            $callback($attributes);
-        } else {
-            $this->addWarningMessage(VehicleModelSeries::getValidationMessages());
-        }
-    }
-
     public function delete($id)
     {
         $modelSeries = VehicleModelSeries::find($id);
@@ -60,8 +51,18 @@ class ModelSeriesService extends BaseService
         }
     }
 
+    protected function persist($attributes, $callback)
+    {
+        if (VehicleModelSeries::validate($attributes)) {
+            $callback($attributes);
+        } else {
+            $this->addWarningMessage(VehicleModelSeries::getValidationMessages());
+        }
+    }
+
     protected function getAttributes($attributes)
     {
         return array('name' => $attributes['model_series']['name']);
     }
+
 }

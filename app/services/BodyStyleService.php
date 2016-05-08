@@ -5,10 +5,11 @@ class BodyStyleService extends BaseService
 
     public function save($attributes)
     {
-        $this->persist($attributes,
+        return $this->persist($attributes,
             function ($params) {
-                VehicleBodyStyle::create($params);
+                $bodyStyle = VehicleBodyStyle::create($params);
                 $this->addSuccessMessage('Adicionado com sucesso!');
+                return $bodyStyle;
             });
     }
 
@@ -17,19 +18,18 @@ class BodyStyleService extends BaseService
         $this->persist($attributes,
             function ($params) use ($id) {
                 $category = VehicleBodyStyle::find($id);
-                $category->name = $params['name'];
+                $this->setAttributeIfExists($category, $params, 'name');
                 $category->save();
                 $this->addSuccessMessage('Atualizado com sucesso!');
             });
     }
 
-    protected function persist($attributes, $callback)
+    public function upload($id, $file)
     {
-        if (VehicleBodyStyle::validate($attributes)) {
-            $callback($attributes);
-        } else {
-            $this->addWarningMessage(VehicleBodyStyle::getValidationMessages());
-        }
+        $uploadedFile = $this->doUploadFile($id, '/img/body-style', $file);
+        $make = VehicleBodyStyle::find($id);
+        $make->image_path = $uploadedFile;
+        $make->save();
     }
 
     public function delete($id)
@@ -56,4 +56,15 @@ class BodyStyleService extends BaseService
             return VehicleBodyStyle::orderBy('name')->filter()->get();
         }
     }
+
+    protected function persist($attributes, $callback)
+    {
+        if (VehicleBodyStyle::validate($attributes)) {
+            return $callback($attributes);
+        } else {
+            $this->addWarningMessage(VehicleBodyStyle::getValidationMessages());
+        }
+        return null;
+    }
+
 }

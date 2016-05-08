@@ -26,15 +26,6 @@ class ModelService extends BaseService
             });
     }
 
-    protected function persist($attributes, $callback)
-    {
-        if (VehicleModel::validate($attributes)) {
-            $callback($attributes);
-        } else {
-            $this->addWarningMessage(VehicleModel::getValidationMessages());
-        }
-    }
-
     public function delete($id)
     {
         $model = VehicleModel::find($id);
@@ -60,8 +51,18 @@ class ModelService extends BaseService
         }
     }
 
+    protected function persist($attributes, $callback)
+    {
+        if (VehicleModel::validate($attributes)) {
+            $callback($attributes);
+        } else {
+            $this->addWarningMessage(VehicleModel::getValidationMessages());
+        }
+    }
+
     protected function getAttributes($attributes)
     {
         return array('name' => $attributes['model']['name']);
     }
+
 }

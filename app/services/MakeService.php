@@ -3,14 +3,6 @@
 class MakeService extends BaseService
 {
 
-    public function upload($id, $file)
-    {
-        $uploadedFile = $this->doUploadFile($id, '/img/make', $file);
-        $make = VehicleMake::find($id);
-        $make->brand_image_path = $uploadedFile;
-        $make->save();
-    }
-
     public function save($attributes)
     {
         return $this->persist($attributes, function ($params) {
@@ -31,14 +23,12 @@ class MakeService extends BaseService
         });
     }
 
-    protected function persist($attributes, $callback)
+    public function upload($id, $file)
     {
-        if (VehicleMake::validate($attributes)) {
-            return $callback($attributes);
-        } else {
-            $this->addWarningMessage(VehicleMake::getValidationMessages());
-        }
-        return null;
+        $uploadedFile = $this->doUploadFile($id, '/img/make', $file);
+        $make = VehicleMake::find($id);
+        $make->brand_image_path = $uploadedFile;
+        $make->save();
     }
 
     public function delete($id)
@@ -63,4 +53,15 @@ class MakeService extends BaseService
             return VehicleMake::orderBy('name')->filter()->get();
         }
     }
+
+    protected function persist($attributes, $callback)
+    {
+        if (VehicleMake::validate($attributes)) {
+            return $callback($attributes);
+        } else {
+            $this->addWarningMessage(VehicleMake::getValidationMessages());
+        }
+        return null;
+    }
+
 }

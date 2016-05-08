@@ -17,15 +17,7 @@ class VehicleService extends BaseService
         });
     }
 
-    protected function persist($attributes, $callback)
-    {
-        if (Vehicle::validate($attributes)) {
-            return $callback($attributes);
-        } else {
-            $this->addWarningMessage(Vehicle::getValidationMessages());
-        }
-        return null;
-    }
+
 
     public function update($id, $attributes)
     {
@@ -69,4 +61,15 @@ class VehicleService extends BaseService
         }
         return $resultSet;
     }
+
+    protected function persist($attributes, $callback)
+    {
+        if (Vehicle::validate($attributes)) {
+            return $callback($attributes);
+        } else {
+            $this->addWarningMessage(Vehicle::getValidationMessages());
+        }
+        return null;
+    }
+
 }
