@@ -39,6 +39,7 @@ angular.module('divulgausados')
 
 		VehicleMake.getList().then(function (response) {
 			$scope.makeList = response;
+			$scope.modelList = null;
 		});
 
 		$scope.findModels = function (selectedMakeId) {
@@ -46,6 +47,7 @@ angular.module('divulgausados')
 				filter_by_make_id: selectedMakeId
 			}).then(function (response) {
 				$scope.modelList = response;
+				$scope.modelSeriesList = null;
 			});
 		};
 

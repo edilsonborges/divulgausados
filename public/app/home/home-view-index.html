@@ -28,20 +28,27 @@
 	<div class="row">
 		<div class="col-md-6 img-portfolio" data-ng-repeat="vehicle in vehicleList">
 			<a href="#/vehicle/showroom/{{vehicle.id}}">
-				<img class="img-responsive img-hover" data-ng-src="{{getImage(vehicle)}}" alt="{{vehicle.owner.name}}">
+				<div class="application-image-placeholder vehicle-image-limits">
+					<img class="img-hover" data-ng-src="{{getImage(vehicle)}}" alt="{{vehicle.owner.name}}">
+				</div>
 			</a>
-			<h3>
+			<h3 class="vehicle-title-long-content">
 				<a href="#/vehicle/showroom/{{vehicle.id}}">
 					{{vehicle.make.name}} {{vehicle.model_series.model.name}} {{vehicle.model_series.name}}
 				</a>
 			</h3>
-			<p style="font-size: 1.2em;">
-                <b>Preço:</b> {{vehicle.price | currency:'R$ '}}
+			<p class="row" style="font-size: 1.3em;">
+                <b class="col-sm-4">Preço:</b>
+				<span class="col-sm-8 text-right">{{vehicle.price | currency:'R$ '}}</span>
             </p>
-			<p>
-                <span style="float: left;"><b>Quilometragem:</b> {{vehicle.kilometres | number}} km</span>
-                <span style="float: right;"><b>Anunciante:</b> {{vehicle.owner.email}}</span>
+			<p class="row">
+                <b class="col-sm-4">Quilometragem:</b>
+				<span class="col-sm-8 text-right">{{vehicle.kilometres | number}} km</span>
             </p>
+			<p class="row">
+				<b class="col-sm-4">Anunciante:</b>
+				<span class="col-sm-8 text-right">{{vehicle.owner.email}}</span>
+			</p>
 		</div>
 	</div>
 	<!-- /.row -->

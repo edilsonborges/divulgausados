@@ -5,46 +5,46 @@
 
 			<div class="form-group">
 				<label for="bodyStyle" class="col-sm-2 control-label">Categoria</label>
-				<div class="col-sm-6" data-ng-hide="vehicle.id">
+				<div class="col-sm-10" data-ng-hide="vehicle.id">
 					<select id="bodyStyle" class="form-control" data-ng-model="vehicle.vehiclebodystyle_id" data-ng-options="bodyStyle.name for bodyStyle in bodyStyleList">
 						<option>Selecione uma categoria</option>
 					</select>
 				</div>
-				<div class="col-sm-6" data-ng-show="vehicle.id">
+				<div class="col-sm-10" data-ng-show="vehicle.id">
 					<input type="text" id="bodyStyleName" name="bodyStyleName" class="form-control" value="{{vehicle.body_style.name}}" disabled="disabled">
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label for="make" class="col-sm-2 control-label">Fabricante</label>
-				<div class="col-sm-6" data-ng-hide="vehicle.id">
+				<div class="col-sm-10" data-ng-hide="vehicle.id">
 					<select id="make" class="form-control" data-ng-model="vehicle.vehiclemake_id" data-ng-options="make.name for make in makeList" data-ng-change="findModels(vehicle.vehiclemake_id.id)">
 						<option>Selecione um fabricante</option>
 					</select>
 				</div>
-				<div class="col-sm-6" data-ng-show="vehicle.id">
+				<div class="col-sm-10" data-ng-show="vehicle.id">
 					<input type="text" id="makeName" name="makeName" class="form-control" value="{{vehicle.make.name}}" disabled="disabled">
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label for="model" class="col-sm-2 control-label" data-ng-show="modelList.length || vehicle.id">Modelo</label>
-				<div class="col-sm-3" data-ng-hide="!modelList.length || vehicle.id">
+				<div class="col-sm-5" data-ng-hide="!modelList.length || vehicle.id">
 					<select id="model" class="form-control" data-ng-model="selectedModel" data-ng-options="model.name for model in modelList" data-ng-change="findModelSeries(selectedModel.id)">
 						<option>Selecione um modelo</option>
 					</select>
 				</div>
-				<div class="col-sm-3" data-ng-show="vehicle.id">
+				<div class="col-sm-5" data-ng-show="vehicle.id">
 					<input type="text" id="modelName" name="modelName" class="form-control" value="{{vehicle.model_series.model.name}}" disabled="disabled">
 				</div>
 
 				<label for="modelSeries" class="col-sm-1 control-label" data-ng-show="modelSeriesList.length || vehicle.id">Versão</label>
-				<div class="col-sm-2" data-ng-show="modelSeriesList.length">
+				<div class="col-sm-4" data-ng-show="modelSeriesList.length">
 					<select id="modelSeries" class="form-control" data-ng-model="vehicle.vehiclemodelseries_id" data-ng-options="modelSeries.name for modelSeries in modelSeriesList">
 						<option>Selecione uma versão</option>
 					</select>
 				</div>
-				<div class="col-sm-2" data-ng-show="vehicle.id">
+				<div class="col-sm-4" data-ng-show="vehicle.id">
 					<select id="modelSeriesUpdate" class="form-control" data-ng-model="vehicle.vehiclemodelseries_id" data-ng-options="modelSeries.name for modelSeries in modelSeriesList">
 						<option>Selecione uma versão</option>
 					</select>

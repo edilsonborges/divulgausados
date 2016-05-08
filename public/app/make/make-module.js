@@ -31,6 +31,11 @@ angular.module('divulgausados')
 		};
 		$scope.search();
 
+		$scope.fetchImage = function (make) {
+			var imagePath = make.brand_image_path;
+			return !imagePath ? 'https://placehold.it/200x200' : ('/img/make/' + imagePath);
+		};
+
 		$scope.onRowSelect = function (selected) {
 			$scope.selected = selected;
 		};

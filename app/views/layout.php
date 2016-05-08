@@ -87,5 +87,6 @@
 <script type="text/javascript" src="app/make/model/model-module.js"></script>
 <script type="text/javascript" src="app/make/model/model-series/model-series-module.js"></script>
 <script type="text/javascript" src="app/vehicle/vehicle-module.js"></script>
+<script type="text/javascript" src="app/vehicle/showroom/showroom-module.js"></script>
 </body>
 </html>

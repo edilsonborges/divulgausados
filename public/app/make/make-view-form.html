@@ -15,7 +15,7 @@
                 <div class="col-sm-offset-2 col-sm-10">
                     <div class="img-thumbnail">
                         <div class="make-thumbnail application-image-placeholder">
-                            <img ng-src="{{!make.brand_image_path ? 'https://placehold.it/150x150' : ('/img/make/' + make.brand_image_path)}}">
+                            <img ng-src="{{fetchImage(make)}}">
                         </div>
                     </div>
                 </div>

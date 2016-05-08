@@ -132,7 +132,43 @@ footer {
     height: 150px;
 }
 
-.vehicle-image-size {
+.vehicle-title-long-content {
     width: 100%;
-    height: 700px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@media (min-width: 0px) {
+    .vehicle-image-limits {
+        width: 100%;
+        min-height: 210px;
+    }
+
+    .vehicle-image-size {
+        width: 100%;
+        min-height: 200px;
+    }
+
+    .vehicle-image-showroom {
+        width: 100%;
+        min-height: 200px;
+    }
+}
+
+@media (min-width: 1280px) {
+    .vehicle-image-limits {
+        width: 100%;
+        min-height: 320px;
+    }
+
+    .vehicle-image-size {
+        width: 100%;
+        min-height: 700px;
+    }
+
+    .vehicle-image-showroom {
+        width: 100%;
+        min-height: 400px;
+    }
 }

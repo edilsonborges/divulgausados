@@ -26,7 +26,9 @@ class VehicleController extends \BaseController
 
     public function show($id)
     {
-        return $this->jsonResponse($this->getService()->findOne($id));
+        $vehicle = $this->getService()->findOne($id);
+        $vehicle->images = $this->fetchImages($vehicle);
+        return $this->jsonResponse($vehicle);
     }
 
     public function update($id)

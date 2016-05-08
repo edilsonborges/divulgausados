@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="img-thumbnail" style="width: 100%;">
+        <div class="application-image-placeholder vehicle-image-showroom">
+            <img data-ng-src="{{fetchVehicleImage(vehicle)}}">
+        </div>
+    </div>
+
+    <h1 class="page-header">{{vehicle.model_series.model.name}} <small>{{vehicle.model_series.name}}</small></h1>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="media">
+                <div class="media-left">
+                    <div class="img-circle application-image-placeholder" style="width: 150px; height: 150px;">
+                        <img data-ng-src="{{fetchBodyStyleImage(vehicle.body_style)}}">
+                    </div>
+                </div>
+                <div class="media-body" style="vertical-align: middle;">
+                    <h3 class="media-heading">{{vehicle.body_style.name}}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="media">
+                <div class="media-left">
+                    <div class="img-circle application-image-placeholder" style="width: 150px; height: 150px;">
+                        <img data-ng-src="{{fetchMakeImage(vehicle.make)}}">
+                    </div>
+                </div>
+                <div class="media-body" style="vertical-align: middle;">
+                    <h3 class="media-heading">{{vehicle.make.name}}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-sm-offset-6 col-sm-6 text-right">
+            <span style="font-size: 2em; color: #0b97c4">{{vehicle.kilometres | number}} km</span>
+            <br>
+            <span style="font-size: 3em; color: #0b97c4;">{{vehicle.price | currency:'R$ '}}</span>
+        </div>
+    </div>
+</div>
