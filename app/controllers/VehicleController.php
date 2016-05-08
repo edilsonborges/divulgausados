@@ -18,37 +18,10 @@ class VehicleController extends \BaseController
         return $this->jsonResponse($vehicles);
     }
 
-    private function fetchImages($vehicle) {
-        $foundImages = [];
-        $images = glob(public_path() . "/img/vehicle/{$vehicle->id}_*");
-        foreach ($images as $image) {
-            $foundImages[] = str_replace(public_path(), '', $image);
-        }
-        return $foundImages;
-    }
-
-    public function getService()
-    {
-        return $this->vehicleService;
-    }
-
     public function store()
     {
         $vehicle = $this->getService()->save($this->retrieve());
         return $this->jsonResponse(!is_null($vehicle) ? $vehicle->id : null);
-    }
-
-    protected function retrieve()
-    {
-        return array(
-            'user_id' => 1,
-            'vehiclebodystyle_id' => $this->extractId(Input::get('vehiclebodystyle_id')),
-            'vehiclemake_id' => $this->extractId(Input::get('vehiclemake_id')),
-            'vehiclemodelseries_id' => $this->extractId(Input::get('vehiclemodelseries_id')),
-            'kilometres' => Input::get('kilometres'),
-            'price' => Input::get('price'),
-            'colour' => Input::get('colour'),
-        );
     }
 
     public function show($id)
@@ -69,4 +42,33 @@ class VehicleController extends \BaseController
         }
         return $this->jsonResponse(null);
     }
+
+    protected function fetchImages($vehicle)
+    {
+        $foundImages = [];
+        $images = glob(public_path() . "/img/vehicle/{$vehicle->id}_*");
+        foreach ($images as $image) {
+            $foundImages[] = str_replace(public_path(), '', $image);
+        }
+        return $foundImages;
+    }
+
+    protected function retrieve()
+    {
+        return array(
+            'user_id' => 1,
+            'vehiclebodystyle_id' => $this->extractId(Input::get('vehiclebodystyle_id')),
+            'vehiclemake_id' => $this->extractId(Input::get('vehiclemake_id')),
+            'vehiclemodelseries_id' => $this->extractId(Input::get('vehiclemodelseries_id')),
+            'kilometres' => Input::get('kilometres'),
+            'price' => Input::get('price'),
+            'colour' => Input::get('colour'),
+        );
+    }
+
+    protected function getService()
+    {
+        return $this->vehicleService;
+    }
+
 }

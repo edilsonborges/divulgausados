@@ -15,16 +15,29 @@ abstract class BaseController extends Controller
         }
     }
 
+    /**
+     * Creates a JSON as response for RESTful services
+     *
+     * @param $content
+     * @return \Illuminate\Http\Response
+     */
     protected function jsonResponse($content)
     {
+        $status = 200;
         $restfulResponse = new RestfulResponse();
         $restfulResponse->setContent($content);
         $messageCenter = MessageControlCenter::getInstance();
         $restfulResponse->setSuccessMessages($messageCenter->getSuccessMessages());
-        $restfulResponse->setWarningMessages($messageCenter->getWarningMessages());
-        $restfulResponse->setErrorMessages($messageCenter->getErrorMessages());
+        if (!empty($messageCenter->getWarningMessages())) {
+            $restfulResponse->setWarningMessages($messageCenter->getWarningMessages());
+            $status = 400;
+        }
+        if (!empty($messageCenter->getErrorMessages())) {
+            $restfulResponse->setErrorMessages($messageCenter->getErrorMessages());
+            $status = 500;
+        }
         $messageCenter->clear();
-        return $restfulResponse->toJson();
+        return Response::json($restfulResponse->toJson(), $status);
     }
 
     protected function isTrue($boolean)

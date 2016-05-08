@@ -1,12 +1,12 @@
 <?php
 
-class VehicleModelSeriesController extends BaseController
+class VehicleFeatureController extends \BaseController
 {
-    private $modelSeriesService;
+    private $featureService;
 
     public function __construct()
     {
-        $this->modelSeriesService = new ModelSeriesService();
+        $this->$featureService = new FeatureService();
     }
 
     /**
@@ -30,12 +30,13 @@ class VehicleModelSeriesController extends BaseController
         return $this->jsonResponse(null);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
+    protected function retrieve()
+    {
+        return array(
+            'name' => ucwords(Input::get('name')),
+        );
+    }
+
     public function show($id)
     {
         return $this->jsonResponse($this->getService()->findOne($id));
@@ -65,17 +66,9 @@ class VehicleModelSeriesController extends BaseController
         return $this->jsonResponse(null);
     }
 
-    protected function retrieve()
-    {
-        return array(
-            'model_series' => array('name' => Input::get('name')),
-            'model' => Input::get('model'),
-        );
-    }
-
     protected function getService()
     {
-        return $this->modelSeriesService;
+        return $this->$featureService;
     }
 
 }

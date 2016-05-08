@@ -12,22 +12,17 @@ class VehicleModelController extends BaseController
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
         return $this->jsonResponse($this->getService()->findAll());
     }
 
-    protected function getService()
-    {
-        return $this->modelService;
-    }
-
     /**
      * Store a newly created resource in storage.
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function store()
     {
@@ -35,19 +30,11 @@ class VehicleModelController extends BaseController
         return $this->jsonResponse(null);
     }
 
-    protected function retrieve()
-    {
-        return array(
-            'model' => array('name' => Input::get('name')),
-            'make' => Input::get('make'),
-        );
-    }
-
     /**
      * Display the specified resource.
      *
      * @param int $id
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
@@ -58,7 +45,7 @@ class VehicleModelController extends BaseController
      * Update the specified resource in storage.
      *
      * @param int $id
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function update($id)
     {
@@ -70,11 +57,25 @@ class VehicleModelController extends BaseController
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         $this->getService()->delete($id);
         return $this->jsonResponse(null);
     }
+
+    protected function retrieve()
+    {
+        return array(
+            'model' => array('name' => Input::get('name')),
+            'make' => Input::get('make'),
+        );
+    }
+
+    protected function getService()
+    {
+        return $this->modelService;
+    }
+
 }

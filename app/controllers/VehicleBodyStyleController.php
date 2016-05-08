@@ -12,34 +12,30 @@ class VehicleBodyStyleController extends \BaseController
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
         return $this->jsonResponse($this->getService()->findAll());
     }
 
-    protected function getService()
-    {
-        return $this->bodyStyleService;
-    }
-
     /**
      * Store a newly created resource in storage.
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function store()
     {
-        $this->getService()->save($this->retrieve());
-        return $this->jsonResponse(null);
+        $bodyStyle = $this->getService()->save($this->retrieve());
+        return $this->jsonResponse($bodyStyle);
     }
 
-    protected function retrieve()
+    public function upload()
     {
-        return array(
-            'name' => ucwords(Input::get('name')),
-        );
+        if (Input::hasFile('file')) {
+            $this->getService()->upload(Input::get('body_style_id'), Input::file('file'));
+        }
+        return $this->jsonResponse(null);
     }
 
     public function show($id)
@@ -51,7 +47,7 @@ class VehicleBodyStyleController extends \BaseController
      * Update the specified resource in storage.
      *
      * @param int $id
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function update($id)
     {
@@ -63,11 +59,24 @@ class VehicleBodyStyleController extends \BaseController
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         $this->getService()->delete($id);
         return $this->jsonResponse(null);
     }
+
+    protected function retrieve()
+    {
+        return array(
+            'name' => ucwords(Input::get('name')),
+        );
+    }
+
+    protected function getService()
+    {
+        return $this->bodyStyleService;
+    }
+
 }
