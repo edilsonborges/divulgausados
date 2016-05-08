@@ -2,7 +2,9 @@
 <header>
 	<carousel interval="5000">
 		<slide data-ng-repeat="vehicle in vehicleList" active="vehicle.active">
-			<div data-ng-style="{'background': 'url(' + getImage(vehicle) + ') center'}" style="background-size: cover; height: 400px;"></div>
+			<div class="application-image-placeholder vehicle-image-size">
+				<img ng-src="{{getImage(vehicle)}}" style="margin: auto;">
+			</div>
 
 			<div class="carousel-caption">
 				<h3>{{vehicle.make.name}} {{vehicle.price | currency:'R$ '}}</h3>

@@ -1,5 +1,5 @@
-<div class="col-sm-offset-1 col-sm-7">
-    <h3>Upload das imagens</h3>
+<fieldset class="col-sm-12">
+    <legend>Upload das imagens</legend>
 
     <table class="table">
         <thead>
@@ -56,20 +56,22 @@
                 <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
             </div>
         </div>
-        <span class="btn btn-primary btn-file">
-            <span class="glyphicon glyphicon-plus"></span> Selecionar arquivo 
-            <input type="file" nv-file-select="" uploader="uploader">
-        </span>
-        <!-- button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
-            <span class="glyphicon glyphicon-upload"></span> Carregar todos
-        </button -->
-        <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
-            <span class="glyphicon glyphicon-ban-circle"></span> Cancelar todos
-        </button>
-        <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
-            <span class="glyphicon glyphicon-trash"></span> Remover todos
-        </button>
+        <div class="text-right">
+            <span class="btn btn-primary btn-file">
+                <span class="glyphicon glyphicon-plus"></span> Selecionar arquivo
+                <input type="file" nv-file-select="" uploader="uploader">
+            </span>
+            <!-- button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
+                <span class="glyphicon glyphicon-upload"></span> Carregar todos
+            </button -->
+            <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
+                <span class="glyphicon glyphicon-ban-circle"></span> Cancelar todos
+            </button>
+            <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+                <span class="glyphicon glyphicon-trash"></span> Remover todos
+            </button>
+        </div>
     </div>
 
     <br>
-</div>
+</fieldset>

@@ -36,6 +36,14 @@ angular.module('divulgausados')
 		};
 		$scope.search();
 
+		$scope.onRowSelect = function (selected) {
+			$scope.selected = selected;
+		};
+
+		$scope.isRowSelected = function (item) {
+			return $scope.selected == item;
+		};
+
 		$scope.destroy = function (id) {
 			VehicleModel.one(id).remove().then(function () {
 				$scope.search();

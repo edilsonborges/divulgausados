@@ -116,27 +116,58 @@ angular.module('divulgausados')
 		};
 	}])
 	.factory('RestfulFactory', ['Restangular', 'MessageService', function (Restangular, MessageService) {
+		var triggerMessages = function (data) {
+			MessageService.addErrors(data.errorMessages);
+			MessageService.addWarnings(data.warningMessages);
+			MessageService.addSuccesses(data.successMessages);
+		};
+
+		Restangular.setErrorInterceptor(function (response) {
+			triggerMessages(response.data);
+		});
+
 		return Restangular.withConfig(function (RestangularConfigurer) {
-			RestangularConfigurer.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
+			RestangularConfigurer.addResponseInterceptor(function (data, operation) {
 				var extractedData;
-				if (operation === "getList") {
-					if (data.content.data) {
-						extractedData = data.content.data;
-						extractedData.meta = {
-							'current_page': data.content.current_page,
-							'page_size': data.content.per_page,
-							'total_items': data.content.total
-						};
-					} else {
-						extractedData = data.content;
-					}
+				if (operation === "getList" && data.content.data) {
+					extractedData = data.content.data;
+					extractedData.meta = {
+						'current_page': data.content.current_page,
+						'page_size': data.content.per_page,
+						'total_items': data.content.total
+					};
 				} else {
 					extractedData = data.content;
 				}
-				MessageService.addErrors(data.errorMessages);
-				MessageService.addWarnings(data.warningMessages);
-				MessageService.addSuccesses(data.successMessages);
+				triggerMessages(data);
 				return extractedData;
 			});
 		});
+	}])
+	.service('ImageUploadService', ['FileUploader', function (FileUploader) {
+		this.create = function (url) {
+			var uploader = new FileUploader({
+				url: url,
+				removeAfterUpload: true,
+				queueLimit: 1
+			});
+			this.addFilter(uploader);
+			return uploader;
+		};
+
+		this.addFilter = function (uploader) {
+			uploader.filters.push({
+				name: 'imageFilter',
+				fn: function (item) {
+					var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+					return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+				}
+			});
+		};
+
+		this.addFormData = function (uploader, formData) {
+			uploader.onBeforeUploadItem = function (item) {
+				item.formData.push(formData);
+			};
+		};
 	}]);

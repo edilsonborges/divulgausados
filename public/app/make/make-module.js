@@ -31,31 +31,39 @@ angular.module('divulgausados')
 		};
 		$scope.search();
 
+		$scope.onRowSelect = function (selected) {
+			$scope.selected = selected;
+		};
+
+		$scope.isRowSelected = function (item) {
+			return $scope.selected == item;
+		};
+
 		$scope.destroy = function (id) {
 			VehicleMake.one(id).remove().then(function () {
 				$scope.search();
 			});
 		};
 	}])
-	.controller('VehicleMakeCreateCtrl', ['$scope', 'MakeUploadService', 'VehicleMake', function ($scope, MakeUploadService, VehicleMake) {
+	.controller('VehicleMakeCreateCtrl', ['$scope', 'ImageUploadService', 'VehicleMake', function ($scope, ImageUploadService, VehicleMake) {
 		$scope.make = {};
 
-        $scope.uploader = MakeUploadService.create();
+        $scope.uploader = ImageUploadService.create('/v1/upload-make-brand');
 
 		$scope.submit = function () {
 			VehicleMake.post($scope.make).then(function (make) {
-				MakeUploadService.addFormData($scope.uploader, { make_id: make.id });
+				ImageUploadService.addFormData($scope.uploader, { make_id: make.id });
 				$scope.uploader.uploadAll();
 				$scope.make = {};
 			});
 		};
 	}])
-	.controller('VehicleMakeEditCtrl', ['$scope', '$location', '$routeParams', 'MakeUploadService', 'VehicleMake', function ($scope, $location, $routeParams, MakeUploadService, VehicleMake) {
+	.controller('VehicleMakeEditCtrl', ['$scope', '$location', '$routeParams', 'ImageUploadService', 'VehicleMake', function ($scope, $location, $routeParams, ImageUploadService, VehicleMake) {
 		VehicleMake.one($routeParams.makeId).get().then(function (make) {
 			$scope.make = make;
 		});
 
-        $scope.uploader = MakeUploadService.create();
+        $scope.uploader = ImageUploadService.create('/v1/upload-make-brand');
 
 		$scope.submit = function () {
 			$scope.make.put().then(function () {
@@ -63,33 +71,6 @@ angular.module('divulgausados')
 			});
 		};
 	}])
-    .service('MakeUploadService', ['FileUploader', function (FileUploader) {
-        this.create = function () {
-            var uploader = new FileUploader({
-                url: '/v1/upload-make-brand',
-                removeAfterUpload: true,
-                queueLimit: 1
-            });
-            this.addFilter(uploader);
-            return uploader;
-        };
-
-        this.addFilter = function (uploader) {
-            uploader.filters.push({
-                name: 'imageFilter',
-                fn: function (item) {
-                    var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
-                    return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
-                }
-            });
-        };
-
-        this.addFormData = function (uploader, formData) {
-            uploader.onBeforeUploadItem = function (item) {
-                item.formData.push(formData);
-            };
-        };
-    }])
 	.factory('VehicleMake', ['RestfulFactory', function (RestfulFactory) {
 		return RestfulFactory.service('make');
 	}]);

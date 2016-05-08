@@ -31,25 +31,39 @@ angular.module('divulgausados')
 		};
 		$scope.search();
 
+		$scope.onRowSelect = function (selected) {
+			$scope.selected = selected;
+		};
+
+		$scope.isRowSelected = function (item) {
+			return $scope.selected == item;
+		};
+
 		$scope.destroy = function (id) {
 			VehicleBodyStyle.one(id).remove().then(function () {
 				$scope.search();
 			});
 		};
 	}])
-	.controller('VehicleBodyStyleCreateCtrl', ['$scope', 'VehicleBodyStyle', function ($scope, VehicleBodyStyle) {
+	.controller('VehicleBodyStyleCreateCtrl', ['$scope', 'ImageUploadService', 'VehicleBodyStyle', function ($scope, ImageUploadService, VehicleBodyStyle) {
 		$scope.bodyStyle = {};
 
+		$scope.uploader = ImageUploadService.create('/v1/upload-body-style');
+
 		$scope.submit = function () {
-			VehicleBodyStyle.post($scope.bodyStyle).then(function () {
+			VehicleBodyStyle.post($scope.bodyStyle).then(function (bodyStyle) {
+				ImageUploadService.addFormData($scope.uploader, { body_style_id: bodyStyle.id });
+				$scope.uploader.uploadAll();
 				$scope.bodyStyle = {};
 			});
 		};
 	}])
-	.controller('VehicleBodyStyleEditCtrl', ['$scope', '$location', '$routeParams', 'VehicleBodyStyle', function ($scope, $location, $routeParams, VehicleBodyStyle) {
+	.controller('VehicleBodyStyleEditCtrl', ['$scope', '$location', '$routeParams', 'ImageUploadService', 'VehicleBodyStyle', function ($scope, $location, $routeParams, ImageUploadService, VehicleBodyStyle) {
 		VehicleBodyStyle.one($routeParams.bodyStyleId).get().then(function (bodyStyle) {
 			$scope.bodyStyle = bodyStyle;
 		});
+
+		$scope.uploader = ImageUploadService.create('/v1/upload-body-style');
 
 		$scope.submit = function () {
 			$scope.bodyStyle.put().then(function () {

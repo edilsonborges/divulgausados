@@ -17,26 +17,20 @@
 
 	<br>
 
-	<table class="table table-striped table-condensed">
+	<table class="table table-hover table-condensed">
 		<thead>
 			<tr>
 				<th>Nome</th>
-				<th></th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr data-ng-repeat="modelSeries in modelSeriesList" ng-show="modelSeriesList.length">
+			<tr data-ng-repeat="modelSeries in modelSeriesList"
+				data-ng-show="modelSeriesList.length"
+				data-ng-click="onRowSelect(modelSeries)"
+				data-ng-class="{active: isRowSelected(modelSeries)}">
 				<td>{{ modelSeries.name }}</td>
-				<td class="text-right">
-					<a class="btn btn-default" href="#/make/{{ model.vehiclemake_id }}/model/{{ model.id }}/model-series/{{ modelSeries.id }}">
-						<span class="glyphicon glyphicon-pencil"></span> Alterar
-					</a>
-					<button type="button" class="btn btn-danger" data-ng-click="destroy(modelSeries.id)">
-						<span class="glyphicon glyphicon-trash"></span> Excluir
-					</button>					
-				</td>
 			</tr>
-			<tr ng-hide="modelSeriesList.length">
+			<tr data-ng-hide="modelSeriesList.length">
 				<td>Não existem versões cadastradas para esse modelo</td>
 			</tr>
 		</tbody>
@@ -56,6 +50,12 @@
 			</a>
 			<a class="btn btn-primary" href="#/make/{{ model.vehiclemake_id }}/model/{{ model.id }}/model-series/create"> 
 				<span class="glyphicon glyphicon-floppy-disk"></span> Novo
+			</a>
+			<a class="btn btn-default" href="#/make/{{ model.vehiclemake_id }}/model/{{ model.id }}/model-series/{{ selected.id }}" data-ng-disabled="!selected">
+				<span class="glyphicon glyphicon-pencil"></span> Alterar
+			</a>
+			<a class="btn btn-danger" href data-ng-click="destroy(selected.id)" data-ng-disabled="!selected">
+				<span class="glyphicon glyphicon-trash"></span> Excluir
 			</a>
 		</div>
 	</div>

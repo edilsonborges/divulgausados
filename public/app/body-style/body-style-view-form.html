@@ -11,8 +11,20 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" ng-show="bodyStyle.id">
                 <div class="col-sm-offset-2 col-sm-10">
+                    <div class="img-thumbnail">
+                        <div class="body-style-thumbnail application-image-placeholder">
+                            <img ng-src="{{!bodyStyle.image_path ? 'https://placehold.it/300x150' : ('/img/body-style/' + bodyStyle.image_path)}}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <file-upload></file-upload>
+
+            <div class="form-group">
+                <div class="col-sm-12">
                     <div class="btn-group">
                         <a class="btn btn-default" href="#/body-style"> 
                             <span class="glyphicon glyphicon glyphicon-remove"></span> Cancelar
