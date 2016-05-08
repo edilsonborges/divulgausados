@@ -22,15 +22,18 @@ Route::filter('csrf', function () {
 });
 
 Route::group(array('prefix' => 'v1'), function () {
+    Route::post('authentication/login', 'AuthenticationController@login');
+    Route::get('authentication/logout', 'AuthenticationController@logout');
     Route::resource('body-style', 'VehicleBodyStyleController');
+    Route::post('upload-body-style', 'VehicleBodyStyleController@upload');
     Route::resource('make', 'VehicleMakeController');
     Route::post('upload-make-brand', 'VehicleMakeController@upload');
     Route::resource('model', 'VehicleModelController');
     Route::resource('model-series', 'VehicleModelSeriesController');
     Route::resource('vehicle', 'VehicleController');
     Route::post('upload-vehicle', 'VehicleController@upload');
-    Route::post('authentication/login', 'AuthenticationController@login');
-    Route::get('authentication/logout', 'AuthenticationController@logout');
+    Route::resource('feature-category', 'VehicleFeatureCategoryController');
+    Route::resource('feature', 'VehicleFeatureController');
 });
 
 App::missing(function ($exception) {
