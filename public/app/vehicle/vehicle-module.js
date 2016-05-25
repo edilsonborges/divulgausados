@@ -87,11 +87,62 @@ angular.module('divulgausados')
 			});
 		};
 	}])
-	.controller('TheVehicleSpecCtrl', ['$scope', '$routeParams', '$location', 'Vehicle', function ($scope, $routeParams, $location, Vehicle) {
+	.controller('TheVehicleSpecCtrl', ['$scope', '$routeParams', '$location', 'Vehicle', 'VehicleFeatureCategory', 'VehicleFeature', 'VehicleFeatureValue', function ($scope, $routeParams, $location, Vehicle, VehicleFeatureCategory, VehicleFeature, VehicleFeatureValue) {
+		$scope.vehicle = {};
+		$scope.featureCategoryList = [];
+		$scope.featureList = [];
+
 		Vehicle.one($routeParams.vehicleId).get().then(function (vehicle) {
 			$scope.vehicle = vehicle;
 		});
+
+		VehicleFeatureCategory.getList().then(function (result) {
+			$scope.featureCategoryList = result;
+		});
+		
+		$scope.loadFeatureList = function (categoryId) {
+			VehicleFeature.getList({ filter_by_category_id: categoryId }).then(function (result) {
+				$scope.featureList = result;
+			});
+		};
+
+		$scope.vehicleFeatureList = [];
+		$scope.vm = {};
+
+		$scope.clearFeature = function () {
+			$scope.vm = {};
+		};
+
+		$scope.createFeature = function () {
+			var label = $scope.vm.selectedCategory.name + ' ' + $scope.vm.selectedFeature.name;
+			$scope.vehicleFeatureList.push({
+				label: label,
+				vehicle_id: $scope.vehicle.id,
+				vehiclefeature_id: $scope.vm.selectedFeature.id,
+				value: $scope.vm.selectedValue
+			});
+			$scope.clearFeature();
+		};
+
+		$scope.addFeature = function () {
+			$scope.createFeature();
+		};
+
+		$scope.removeFeature = function ($index) {
+			$scope.vehicleFeatureList.splice($index, 1);
+		};
+
+		$scope.onSubmit = function () {
+			var sendToServer = { featureList: $scope.vehicleFeatureList };
+			VehicleFeatureValue.post(sendToServer).then(function () {
+				$scope.vehicleFeatureList = [];
+				$scope.clearFeature();
+			});
+		};
 	}])
 	.factory('Vehicle', ['RestfulFactory', function (RestfulFactory) {
 		return RestfulFactory.service('vehicle');
+	}])
+	.factory('VehicleFeatureValue', ['RestfulFactory', function (RestfulFactory) {
+		return RestfulFactory.service('feature-value');
 	}]);

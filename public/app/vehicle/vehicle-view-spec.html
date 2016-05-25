@@ -1,3 +1,88 @@
 <section-with-side-menu>
+    <form role="form" class="form-horizontal" data-ng-submit="onSubmit()">
+        <fieldset>
+            <legend>Especificações Técnicas de {{ vehicle.make.name }} {{ vehicle.model_series.model.name }}</legend>
 
+            <div class="form-group">
+                <label for="selectedCategory" class="col-sm-2 control-label">Categoria</label>
+                <div class="col-sm-6">
+                    <select id="selectedCategory"
+                            name="selectedCategory"
+                            class="form-control"
+                            data-ng-model="vm.selectedCategory"
+                            data-ng-options="item.name for item in featureCategoryList"
+                            data-ng-change="loadFeatureList(vm.selectedCategory.id)">
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="selectedFeature" class="col-sm-2 control-label">Especificação</label>
+                <div class="col-sm-6">
+                    <select id="selectedFeature"
+                            name="selectedFeature"
+                            class="form-control"
+                            data-ng-model="vm.selectedFeature"
+                            data-ng-options="item.name for item in featureList">
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group" data-ng-show="vm.selectedFeature.type">
+                <label for="selectedValue" class="col-sm-2 control-label">Valor</label>
+                <div class="col-sm-6">
+                    <input type="text" id="selectedValue" name="selectedValue" class="form-control" data-ng-model="vm.selectedValue" data-ng-show="vm.selectedFeature.type === 'SPEC'" />
+                    <input type="checkbox" id="selectedBoolean" name="selectedBoolean" data-ng-model="vm.selectedValue" data-ng-show="vm.selectedFeature.type === 'EQUIP'" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-2">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary" data-ng-click="addFeature()">
+                            <span class="glyphicon glyphicon-plus"></span> Incluir
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>Especificação</th>
+                        <th>Valor</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="item in vehicleFeatureList track by $index" data-ng-show="vehicleFeatureList.length > 0">
+                        <td>{{item.label}}</td>
+                        <td>{{item.value === true ? 'Possui' : (!item.value ? 'Não possui' : item.value)}}</td>
+                        <td class="text-right">
+                            <button type="button" class="btn btn-danger btn-sm" data-ng-click="removeFeature($index)">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr data-ng-hide="vehicleFeatureList.length > 0">
+                        <td>Não há especificações técnicas incluídas</td>
+                    </tr>
+                </tbody>
+            </table>
+        </fieldset>
+
+        <div class="form-group">
+            <div class="col-sm-12">
+                <div class="btn-group">
+                    <a class="btn btn-default" href="#/vehicle">
+                        <span class="glyphicon glyphicon glyphicon-remove"></span> Cancelar
+                    </a>
+
+                    <button type="submit" class="btn btn-success">
+                        <span class="glyphicon glyphicon-ok"></span> Confirmar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
 </section-with-side-menu>

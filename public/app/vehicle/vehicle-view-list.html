@@ -9,7 +9,6 @@
 				<th>Versão</th>
 				<th>Quilometragem</th>
 				<th>Preço</th>
-				<th>Proprietário</th>
 			</tr>
 		</thead>
         <tbody>
@@ -22,7 +21,6 @@
 				<td>{{vehicle.model_series.name}}</td>
 				<td class="text-center">{{vehicle.kilometres | number}}</td>
 				<td class="text-right">{{vehicle.price | currency:'R$ '}}</td>
-				<td>{{vehicle.owner.name}}</td>
             </tr>
             <tr data-ng-hide="vehicleList.length">
 				<td colspan="2">Não há fabricantes cadastrados</td>

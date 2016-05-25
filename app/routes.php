@@ -34,6 +34,7 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::post('upload-vehicle', 'VehicleController@upload');
     Route::resource('feature-category', 'VehicleFeatureCategoryController');
     Route::resource('feature', 'VehicleFeatureController');
+    Route::resource('feature-value', 'VehicleFeatureValueController');
 });
 
 App::missing(function ($exception) {
