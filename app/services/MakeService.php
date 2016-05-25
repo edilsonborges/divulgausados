@@ -5,8 +5,8 @@ class MakeService extends BaseService
 
     public function save($attributes)
     {
-        return $this->persist($attributes, function ($params) {
-            $make = VehicleMake::create($params);
+        return $this->persist($attributes, function ($validated) {
+            $make = VehicleMake::create($validated);
             $this->addSuccessMessage('Fabricante adicionado com sucesso!');
             return $make;
         });

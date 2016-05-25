@@ -31,11 +31,6 @@ angular.module('divulgausados')
 		};
 		$scope.search();
 
-		$scope.fetchImage = function (bodyStyle) {
-			var imagePath = bodyStyle.image_path;
-			return !imagePath ? 'https://placehold.it/200x200' : ('/img/body-style/' + imagePath);
-		};
-
 		$scope.onRowSelect = function (selected) {
 			$scope.selected = selected;
 		};
@@ -55,6 +50,11 @@ angular.module('divulgausados')
 
 		$scope.uploader = ImageUploadService.create('/v1/upload-body-style');
 
+		$scope.fetchImage = function (bodyStyle) {
+			var imagePath = bodyStyle.image_path;
+			return !imagePath ? 'https://placehold.it/200x200' : ('/img/body-style/' + imagePath);
+		};
+
 		$scope.submit = function () {
 			VehicleBodyStyle.post($scope.bodyStyle).then(function (bodyStyle) {
 				ImageUploadService.addFormData($scope.uploader, { body_style_id: bodyStyle.id });
@@ -69,6 +69,11 @@ angular.module('divulgausados')
 		});
 
 		$scope.uploader = ImageUploadService.create('/v1/upload-body-style');
+
+		$scope.fetchImage = function (bodyStyle) {
+			var imagePath = bodyStyle.image_path;
+			return !imagePath ? 'https://placehold.it/200x200' : ('/img/body-style/' + imagePath);
+		};
 
 		$scope.submit = function () {
 			$scope.bodyStyle.put().then(function () {

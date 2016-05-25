@@ -31,11 +31,6 @@ angular.module('divulgausados')
 		};
 		$scope.search();
 
-		$scope.fetchImage = function (make) {
-			var imagePath = make.brand_image_path;
-			return !imagePath ? 'https://placehold.it/200x200' : ('/img/make/' + imagePath);
-		};
-
 		$scope.onRowSelect = function (selected) {
 			$scope.selected = selected;
 		};
@@ -55,6 +50,12 @@ angular.module('divulgausados')
 
         $scope.uploader = ImageUploadService.create('/v1/upload-make-brand');
 
+		$scope.fetchImage = function (make) {
+			console.log(make);
+			var imagePath = make.brand_image_path;
+			return !imagePath ? 'https://placehold.it/200x200' : ('/img/make/' + imagePath);
+		};
+
 		$scope.submit = function () {
 			VehicleMake.post($scope.make).then(function (make) {
 				ImageUploadService.addFormData($scope.uploader, { make_id: make.id });
@@ -69,6 +70,12 @@ angular.module('divulgausados')
 		});
 
         $scope.uploader = ImageUploadService.create('/v1/upload-make-brand');
+
+		$scope.fetchImage = function (make) {
+			console.log(make);
+			var imagePath = make.brand_image_path;
+			return !imagePath ? 'https://placehold.it/200x200' : ('/img/make/' + imagePath);
+		};
 
 		$scope.submit = function () {
 			$scope.make.put().then(function () {
