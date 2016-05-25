@@ -5,27 +5,44 @@ class FeatureCategoryService extends BaseService
 
     public function save($attributes)
     {
-        // TODO: Implement save() method.
+        return $this->persist($attributes, function ($validated) {
+            $featureCategory = VehicleFeatureCategory::create($validated);
+            $this->addSuccessMessage('Categoria de especificação adicionada com sucesso!');
+            return $featureCategory;
+        });
     }
 
     public function update($id, $attributes)
     {
-        // TODO: Implement update() method.
+        $this->persist($attributes, function ($validated) use ($id) {
+            $featureCategory = VehicleFeatureCategory::find($id);
+            $this->setAttributeIfExists($featureCategory, $validated, 'name');
+            $featureCategory->save();
+            $this->addSuccessMessage('Categoria de especificação atualizada com sucesso!');
+        });
     }
 
     public function delete($id)
     {
-        // TODO: Implement delete() method.
+        $featureCategory = VehicleFeatureCategory::find($id);
+        if (!is_null($featureCategory)) {
+            $featureCategory->delete();
+            $this->addSuccessMessage('Categoria de especificação excluída com sucesso!');
+        }
     }
 
     public function findOne($id)
     {
-        // TODO: Implement findOne() method.
+        return VehicleFeatureCategory::find($id);
     }
 
     public function findAll()
     {
-        // TODO: Implement findAll() method.
+        if ($this->hasPagination()) {
+            return VehicleFeatureCategory::orderBy('name')->filter()->paginate($this->getPageSize());
+        } else {
+            return VehicleFeatureCategory::orderBy('name')->filter()->get();
+        }
     }
 
     protected function persist($attributes, $callback)

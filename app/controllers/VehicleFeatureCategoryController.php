@@ -30,13 +30,6 @@ class VehicleFeatureCategoryController extends \BaseController
         return $this->jsonResponse(null);
     }
 
-    protected function retrieve()
-    {
-        return array(
-            'name' => ucwords(Input::get('name')),
-        );
-    }
-
     public function show($id)
     {
         return $this->jsonResponse($this->getService()->findOne($id));
@@ -66,9 +59,21 @@ class VehicleFeatureCategoryController extends \BaseController
         return $this->jsonResponse(null);
     }
 
+    protected function retrieve()
+    {
+        return array(
+            'name' => ucwords(Input::get('name')),
+        );
+    }
+
+    /**
+     * Get the service for specific controller
+     * 
+     * @return FeatureCategoryService
+     */
     protected function getService()
     {
-        return $this->$featureCategoryService;
+        return $this->featureCategoryService;
     }
 
 }

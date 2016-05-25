@@ -34,7 +34,7 @@ class CreateVehicleTable extends Migration
             $table->increments('id');
             $table->integer('vehicle_id')->unsigned();
             $table->integer('vehiclefeature_id')->unsigned();
-            $table->boolean('value');
+            $table->string('value', 100);
 
             $table->foreign('vehicle_id')->references('id')->on('vehicle');
             $table->foreign('vehiclefeature_id')->references('id')->on('vehiclefeature');

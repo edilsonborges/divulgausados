@@ -6,7 +6,7 @@ class VehicleFeatureController extends \BaseController
 
     public function __construct()
     {
-        $this->$featureService = new FeatureService();
+        $this->featureService = new FeatureService();
     }
 
     /**
@@ -28,13 +28,6 @@ class VehicleFeatureController extends \BaseController
     {
         $this->getService()->save($this->retrieve());
         return $this->jsonResponse(null);
-    }
-
-    protected function retrieve()
-    {
-        return array(
-            'name' => ucwords(Input::get('name')),
-        );
     }
 
     public function show($id)
@@ -66,9 +59,25 @@ class VehicleFeatureController extends \BaseController
         return $this->jsonResponse(null);
     }
 
+    protected function retrieve()
+    {
+        return [
+            'feature' => [
+                'name' => ucwords(Input::get('name')),
+                'type' => ucwords(Input::get('type')),
+            ],
+            'category' => Input::get('featureCategory'),
+        ];
+    }
+
+    /**
+     * Get controller service
+     * 
+     * @return FeatureService
+     */
     protected function getService()
     {
-        return $this->$featureService;
+        return $this->featureService;
     }
 
 }

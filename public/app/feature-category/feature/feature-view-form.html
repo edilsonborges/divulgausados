@@ -1,0 +1,41 @@
+<section-with-side-menu>
+    <form role="form" class="form-horizontal" data-ng-submit="submit()">
+        <fieldset>
+            <legend data-ng-hide="feature.id">Inclusão de especificação em {{ featureCategory.name }}</legend>
+            <legend data-ng-show="feature.id">Alteração de especificação em {{ featureCategory.name }}</legend>
+
+            <div class="form-group">
+                <label for="name" class="col-sm-2 control-label">Nome</label>
+                <div class="col-sm-6">
+                    <input type="text" id="name" name="name" class="form-control" data-ng-model="feature.name"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 col-sm-offset-2">
+                    <input type="radio" name="typeF" data-ng-model="feature.type" value="SPEC" checked/>
+                    Especificação técnica
+                </label>
+
+                <label class="col-sm-2">
+                    <input type="radio" name="typeF" data-ng-model="feature.type" value="EQUIP"/>
+                    Equipamento
+                </label>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-2">
+                    <div class="btn-group">
+                        <a class="btn btn-default" href="#/feature-category/{{ featureCategory.id }}/feature">
+                            <span class="glyphicon glyphicon-remove"></span> Cancelar
+                        </a>
+
+                        <button type="submit" class="btn btn-success">
+                            <span class="glyphicon glyphicon-ok"></span> Confirmar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</section-with-side-menu>

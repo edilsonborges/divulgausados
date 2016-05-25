@@ -1,0 +1,68 @@
+<section-with-side-menu>
+    <h2>Listagem de categorias de especificações</h2>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="input-group">
+                <span class="input-group-addon">Nome</span>
+                <input type="text" class="form-control" data-ng-model="filter_by_name" />
+				<span class="input-group-btn">
+					<a href="" class="btn btn-default" data-ng-click="search()">
+                        <span class="glyphicon glyphicon-search"></span> Buscar
+                    </a>
+		        </span>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <table class="table table-hover table-condensed">
+        <thead>
+        <tr>
+            <th>Nome</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr data-ng-repeat="featureCategory in featureCategoryList"
+            data-ng-show="featureCategoryList.length"
+            data-ng-click="onRowSelect(featureCategory)"
+            data-ng-class="{active: isRowSelected(featureCategory)}">
+            <td>{{ featureCategory.name }}</td>
+        </tr>
+        <tr data-ng-hide="featureCategoryList.length">
+            <td colspan="2">Não há categorias cadastradas</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="text-center">
+        <pagination ng-show="paginator.show()" total-items="paginator.getTotalItems()" items-per-page="paginator.getPageSize()"
+                    ng-model="paginator.params.current_page" ng-change="search()" max-size="5" boundary-links="true" rotate="false" class="pagination"
+                    previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+        </pagination>
+    </div>
+
+    <div class="btn-toolbar" role="toolbar">
+        <div class="btn-group">
+            <a class="btn btn-default" href="#/dashboard">
+                <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+            </a>
+            <a class="btn btn-primary" href="#/feature-category/create">
+                <span class="glyphicon glyphicon-floppy-disk"></span> Novo
+            </a>
+            <a class="btn btn-default" href="#/feature-category/{{ selected.id }}" data-ng-disabled="!selected">
+                <span class="glyphicon glyphicon-pencil"></span> Alterar
+            </a>
+            <a class="btn btn-danger" href data-ng-click="destroy(selected.id)" data-ng-disabled="!selected">
+                <span class="glyphicon glyphicon-trash"></span> Excluir
+            </a>
+        </div>
+        <div class="btn-group pull-right">
+            <a class="btn btn-default" href="#/feature-category/{{ selected.id }}/feature" data-ng-disabled="!selected">
+                <span class="glyphicon glyphicon-cog"></span> Especificações
+            </a>
+        </div>
+    </div>
+</section-with-side-menu>

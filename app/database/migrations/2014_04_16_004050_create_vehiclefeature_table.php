@@ -23,7 +23,7 @@ class CreateVehicleFeatureTable extends Migration
             $table->increments('id');
             $table->integer('vehiclefeaturecategory_id')->unsigned();
             $table->string('name', 100);
-            $table->enum('type', array('EQUIPMENT', 'SPEC'));
+            $table->enum('type', array('EQUIP', 'SPEC'));
             $table->timestamps();
             $table->softDeletes();
 
