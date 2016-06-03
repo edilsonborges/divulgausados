@@ -11,6 +11,11 @@ class VehicleFeature extends BaseModel
     {
         return $this->belongsToMany('Vehicle', 'vehiclefeaturevalue', 'vehicle_id', 'vehiclefeature_id');
     }
+    
+    public function featureCategory()
+    {
+        return $this->belongsTo('VehicleFeatureCategory', 'vehiclefeaturecategory_id');
+    }
 
     public function scopeFilter($query)
     {

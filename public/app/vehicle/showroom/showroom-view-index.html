@@ -1,11 +1,20 @@
 <div class="container">
+    <h1 class="page-header">{{vehicle.model_series.model.name}} <small>{{vehicle.model_series.name}}</small></h1>
+
     <div class="img-thumbnail" style="width: 100%;">
         <div class="application-image-placeholder vehicle-image-showroom">
             <img data-ng-src="{{fetchVehicleImage(vehicle)}}">
         </div>
     </div>
 
-    <h1 class="page-header">{{vehicle.model_series.model.name}} <small>{{vehicle.model_series.name}}</small></h1>
+    <div class="row">
+        <div class="col-sm-6 text-left">
+            <span style="font-size: 2em; color: #0b97c4">{{vehicle.kilometres | number}} km</span>
+        </div>
+        <div class="col-sm-6 text-right">
+            <span style="font-size: 3em; color: #0b97c4;">{{vehicle.price | currency:'R$ '}}</span>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-sm-6">
@@ -35,13 +44,37 @@
         </div>
     </div>
 
-    <hr>
-
-    <div class="row">
-        <div class="col-sm-offset-6 col-sm-6 text-right">
-            <span style="font-size: 2em; color: #0b97c4">{{vehicle.kilometres | number}} km</span>
-            <br>
-            <span style="font-size: 3em; color: #0b97c4;">{{vehicle.price | currency:'R$ '}}</span>
+    <div class="row" ng-show="categories.length > 0">
+        <div class="col-sm-12">
+            <h2>Especificações técnicas</h2>
+            <hr>
+        </div>
+        <div data-ng-repeat="category in categories | orderBy:'name'">
+            <div class="col-sm-6">
+                <div class="row" style="font-variant: small-caps; font-size: 1.3em;">
+                    <div class="col-sm-12">
+                        <h3>{{category.name}}</h3>
+                    </div>
+                    <div data-ng-repeat="item in getFeatureByCategory(category.id) | orderBy:'feature.name'">
+                        <div class="col-sm-4" style="font-weight: bold;">
+                            {{item.feature.name}}
+                        </div>
+                        <div class="col-sm-8">
+                            <span data-ng-show="item.feature.type === 'EQUIP'">
+                                <i style="color: #449d44;"
+                                   class="glyphicon glyphicon-ok"
+                                   data-ng-show="item.value === '1'"></i>
+                                <i style="color: #c9302c;"
+                                   class="glyphicon glyphicon-remove"
+                                   data-ng-show="item.value === '0'"></i>
+                            </span>
+                            <span data-ng-show="item.feature.type === 'SPEC'">
+                                {{item.value}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

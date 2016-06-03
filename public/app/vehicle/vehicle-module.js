@@ -87,19 +87,24 @@ angular.module('divulgausados')
 			});
 		};
 	}])
-	.controller('TheVehicleSpecCtrl', ['$scope', '$routeParams', '$location', 'Vehicle', 'VehicleFeatureCategory', 'VehicleFeature', 'VehicleFeatureValue', function ($scope, $routeParams, $location, Vehicle, VehicleFeatureCategory, VehicleFeature, VehicleFeatureValue) {
+	.controller('TheVehicleSpecCtrl', ['$scope', '$routeParams', '$location', 'MessageService', 'Vehicle', 'VehicleFeatureCategory', 'VehicleFeature', 'VehicleFeatureValue', function ($scope, $routeParams, $location, MessageService, Vehicle, VehicleFeatureCategory, VehicleFeature, VehicleFeatureValue) {
 		$scope.vehicle = {};
 		$scope.featureCategoryList = [];
 		$scope.featureList = [];
+		$scope.existentFeatureList = [];
 
 		Vehicle.one($routeParams.vehicleId).get().then(function (vehicle) {
 			$scope.vehicle = vehicle;
 		});
 
+		VehicleFeatureValue.getList({'filter_by_vehicle_id': $routeParams.vehicleId}).then(function (result) {
+			$scope.existentFeatureList = result;
+		});
+
 		VehicleFeatureCategory.getList().then(function (result) {
 			$scope.featureCategoryList = result;
 		});
-		
+
 		$scope.loadFeatureList = function (categoryId) {
 			VehicleFeature.getList({ filter_by_category_id: categoryId }).then(function (result) {
 				$scope.featureList = result;
@@ -113,15 +118,29 @@ angular.module('divulgausados')
 			$scope.vm = {};
 		};
 
-		$scope.createFeature = function () {
+		function isDuplicated() {
+			return $scope.existentFeatureList.some(function (feature) {
+                return feature.vehiclefeature_id === $scope.vm.selectedFeature.id;
+            });
+		}
+
+		function createInstance() {
 			var label = $scope.vm.selectedCategory.name + ' ' + $scope.vm.selectedFeature.name;
-			$scope.vehicleFeatureList.push({
+			return {
 				label: label,
 				vehicle_id: $scope.vehicle.id,
 				vehiclefeature_id: $scope.vm.selectedFeature.id,
 				value: $scope.vm.selectedValue
-			});
-			$scope.clearFeature();
+			}
+		}
+
+		$scope.createFeature = function () {
+			if (!isDuplicated()) {
+				$scope.vehicleFeatureList.push(createInstance());
+				$scope.clearFeature();
+			} else {
+                MessageService.addWarning('A especificação selecionada já foi incluída no veículo!');
+            }
 		};
 
 		$scope.addFeature = function () {

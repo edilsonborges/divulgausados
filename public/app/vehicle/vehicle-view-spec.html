@@ -69,6 +69,26 @@
                     </tr>
                 </tbody>
             </table>
+
+            <legend>Especificações cadastradas</legend>
+
+            <table class="table table-condensed">
+                <thead>
+                <tr>
+                    <th>Especificação</th>
+                    <th>Valor</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-ng-repeat="item in existentFeatureList" data-ng-show="existentFeatureList.length > 0">
+                    <td>{{item.feature.feature_category.name}} {{item.feature.name}}</td>
+                    <td>{{item.value === true ? 'Possui' : (!item.value ? 'Não possui' : item.value)}}</td>
+                </tr>
+                <tr data-ng-hide="existentFeatureList.length > 0">
+                    <td>Não há especificações técnicas incluídas</td>
+                </tr>
+                </tbody>
+            </table>
         </fieldset>
 
         <div class="form-group">

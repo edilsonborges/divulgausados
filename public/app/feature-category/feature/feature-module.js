@@ -26,7 +26,8 @@ angular.module('divulgausados')
                 var queryParams = {
                     page: pagination.getCurrentPage(),
                     page_size: pagination.getPageSize(),
-                    filter_by_name: $scope.filterByName
+                    filter_by_name: $scope.filterByName,
+                    filter_by_category_id: $routeParams.featureCategoryId
                 };
                 VehicleFeature.getList(queryParams).then(function (response) {
                     $scope.featureList = response;

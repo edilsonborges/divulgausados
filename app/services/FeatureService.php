@@ -36,15 +36,16 @@ class FeatureService extends BaseService
 
     public function findOne($id)
     {
-        return VehicleFeature::find($id);
+        return VehicleFeature::with('featureCategory')->find($id);
     }
 
     public function findAll()
     {
+        $query = VehicleFeature::orderBy('name')->filter()->with('featureCategory');
         if ($this->hasPagination()) {
-            return VehicleFeature::orderBy('name')->filter()->paginate($this->getPageSize());
+            return $query->paginate($this->getPageSize());
         } else {
-            return VehicleFeature::orderBy('name')->filter()->get();
+            return $query->get();
         }
     }
 

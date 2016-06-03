@@ -5,10 +5,37 @@ angular.module('divulgausados')
             controller: 'VehicleShowroomCtrl'
         });
     }])
-    .controller('VehicleShowroomCtrl', ['$scope', '$routeParams', '$location', 'Vehicle', function ($scope, $routeParams, $location, Vehicle) {
+    .controller('VehicleShowroomCtrl', ['$scope', '$routeParams', '$location', 'Vehicle', 'VehicleFeatureValue', function ($scope, $routeParams, $location, Vehicle, VehicleFeatureValue) {
+        $scope.categories = [];
+        $scope.features = [];
+
         Vehicle.one($routeParams.vehicleId).get().then(function (vehicle) {
             $scope.vehicle = vehicle;
         });
+
+        VehicleFeatureValue.getList({'filter_by_vehicle_id': $routeParams.vehicleId}).then(function (result) {
+            groupByFeatureCategory(result);
+        });
+
+        function groupByFeatureCategory(featureValues) {
+            var categories = [];
+            var features = [];
+            featureValues.forEach(function (featureValue) {
+                if (!categories[featureValue.feature.feature_category.id]) {
+                    categories[featureValue.feature.feature_category.id] = featureValue.feature.feature_category;
+                }
+                if (!features[featureValue.feature.feature_category.id]) {
+                    features[featureValue.feature.feature_category.id] = [];
+                }
+                features[featureValue.feature.feature_category.id].push(featureValue)
+            });
+            $scope.categories = categories;
+            $scope.features = features;
+        }
+        
+        $scope.getFeatureByCategory = function (categoryId) {
+            return $scope.features[categoryId]; 
+        };
 
         $scope.fetchVehicleImage = function (vehicle) {
             if (!!vehicle && !!vehicle.images[0]) {
