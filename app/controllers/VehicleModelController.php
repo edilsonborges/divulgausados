@@ -68,8 +68,11 @@ class VehicleModelController extends BaseController
     protected function retrieve()
     {
         return array(
-            'model' => array('name' => Input::get('name')),
-            'make' => Input::get('make'),
+            'model' => array(
+                'name' => Input::get('name'),
+                'vehiclebodystyle_id' => Input::get('vehiclebodystyle_id')
+            ),
+            'make' => Input::get('make')
         );
     }
 

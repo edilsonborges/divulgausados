@@ -72,9 +72,18 @@ angular.module('divulgausados')
 			});
 		};
 	}])
-	.controller('TheVehicleEditCtrl', ['$scope', '$routeParams', '$location', 'ImageUploadService', 'Vehicle', function ($scope, $routeParams, $location, ImageUploadService, Vehicle) {
+	.controller('TheVehicleEditCtrl', ['$scope', '$routeParams', '$location', 'ImageUploadService', 'Vehicle', 'VehicleModelSeries', function ($scope, $routeParams, $location, ImageUploadService, Vehicle, VehicleModelSeries) {
+		function fetchModelSeries(selectedModelId) {
+			VehicleModelSeries.getList({
+				filter_by_model_id: selectedModelId
+			}).then(function (response) {
+				$scope.modelSeriesList = response;
+			});
+		}
+
 		Vehicle.one($routeParams.vehicleId).get().then(function (vehicle) {
 			$scope.vehicle = vehicle;
+			fetchModelSeries(vehicle.model_series.model.id);
 		});
 
 		$scope.uploader = ImageUploadService.create('/v1/upload-vehicle');
@@ -131,7 +140,7 @@ angular.module('divulgausados')
 				vehicle_id: $scope.vehicle.id,
 				vehiclefeature_id: $scope.vm.selectedFeature.id,
 				value: $scope.vm.selectedValue
-			}
+			};
 		}
 
 		$scope.createFeature = function () {

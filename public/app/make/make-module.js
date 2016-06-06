@@ -51,7 +51,6 @@ angular.module('divulgausados')
         $scope.uploader = ImageUploadService.create('/v1/upload-make-brand');
 
 		$scope.fetchImage = function (make) {
-			console.log(make);
 			var imagePath = make.brand_image_path;
 			return !imagePath ? 'https://placehold.it/200x200' : ('/img/make/' + imagePath);
 		};
@@ -72,8 +71,7 @@ angular.module('divulgausados')
         $scope.uploader = ImageUploadService.create('/v1/upload-make-brand');
 
 		$scope.fetchImage = function (make) {
-			console.log(make);
-			var imagePath = make.brand_image_path;
+			var imagePath = make && make.brand_image_path ? make.brand_image_path : null;
 			return !imagePath ? 'https://placehold.it/200x200' : ('/img/make/' + imagePath);
 		};
 

@@ -50,7 +50,7 @@ angular.module('divulgausados')
 			});
 		};
 	}])
-	.controller('VehicleModelCreateCtrl', ['$scope', '$routeParams', 'VehicleModel', 'VehicleMake', function ($scope, $routeParams, VehicleModel, VehicleMake) {
+	.controller('VehicleModelCreateCtrl', ['$scope', '$routeParams', 'VehicleBodyStyle', 'VehicleModel', 'VehicleMake', function ($scope, $routeParams, VehicleBodyStyle, VehicleModel, VehicleMake) {
 		$scope.init = function () {
 			$scope.model = {};
 
@@ -60,19 +60,27 @@ angular.module('divulgausados')
 		};
 		$scope.init();
 
+		VehicleBodyStyle.getList({}).then(function (result) {
+			$scope.bodyStyleList = result;
+		});
+
 		$scope.submit = function () {
 			VehicleModel.post($scope.model).then(function () {
 				$scope.init();
 			});
 		};
 	}])
-	.controller('VehicleModelEditCtrl', ['$scope', '$location', '$routeParams', 'VehicleModel', 'VehicleMake', function ($scope, $location, $routeParams, VehicleModel, VehicleMake) {
+	.controller('VehicleModelEditCtrl', ['$scope', '$location', '$routeParams', 'VehicleBodyStyle', 'VehicleModel', 'VehicleMake', function ($scope, $location, $routeParams, VehicleBodyStyle, VehicleModel, VehicleMake) {
 		VehicleModel.one($routeParams.modelId).get().then(function (model) {
 			$scope.model = model;
 		});
 
 		VehicleMake.one($routeParams.makeId).get().then(function (make) {
 			$scope.model.make = make;
+		});
+
+		VehicleBodyStyle.getList({}).then(function (result) {
+			$scope.bodyStyleList = result;
 		});
 
 		$scope.submit = function () {

@@ -6,7 +6,8 @@
 			<div class="form-group">
 				<label for="bodyStyle" class="col-sm-2 control-label">Categoria</label>
 				<div class="col-sm-10" data-ng-hide="vehicle.id">
-					<select id="bodyStyle" class="form-control" data-ng-model="vehicle.vehiclebodystyle_id" data-ng-options="bodyStyle.name for bodyStyle in bodyStyleList">
+					<select id="bodyStyle" class="form-control" data-ng-model="vehicle.vehiclebodystyle_id"
+							data-ng-options="bodyStyle.name for bodyStyle in bodyStyleList track by bodyStyle.id">
 						<option>Selecione uma categoria</option>
 					</select>
 				</div>
@@ -18,7 +19,7 @@
 			<div class="form-group">
 				<label for="make" class="col-sm-2 control-label">Fabricante</label>
 				<div class="col-sm-10" data-ng-hide="vehicle.id">
-					<select id="make" class="form-control" data-ng-model="vehicle.vehiclemake_id" data-ng-options="make.name for make in makeList" data-ng-change="findModels(vehicle.vehiclemake_id.id)">
+					<select id="make" class="form-control" data-ng-model="vehicle.vehiclemake_id" data-ng-options="make.name for make in makeList track by make.id" data-ng-change="findModels(vehicle.vehiclemake_id.id)">
 						<option>Selecione um fabricante</option>
 					</select>
 				</div>
@@ -40,12 +41,7 @@
 
 				<label for="modelSeries" class="col-sm-1 control-label" data-ng-show="modelSeriesList.length || vehicle.id">Versão</label>
 				<div class="col-sm-4" data-ng-show="modelSeriesList.length">
-					<select id="modelSeries" class="form-control" data-ng-model="vehicle.vehiclemodelseries_id" data-ng-options="modelSeries.name for modelSeries in modelSeriesList">
-						<option>Selecione uma versão</option>
-					</select>
-				</div>
-				<div class="col-sm-4" data-ng-show="vehicle.id">
-					<select id="modelSeriesUpdate" class="form-control" data-ng-model="vehicle.vehiclemodelseries_id" data-ng-options="modelSeries.name for modelSeries in modelSeriesList">
+					<select id="modelSeries" class="form-control" data-ng-model="vehicle.vehiclemodelseries_id" data-ng-options="modelSeries.name for modelSeries in modelSeriesList track by modelSeries.id">
 						<option>Selecione uma versão</option>
 					</select>
 				</div>

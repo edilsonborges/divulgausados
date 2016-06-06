@@ -20,7 +20,8 @@ class ModelService extends BaseService
         $this->persist($this->getAttributes($attributes),
             function ($params) use ($make, $id) {
                 $model = VehicleModel::find($id);
-                $model->name = $params['name'];
+                $this->setAttributeIfExists($model, $params, 'name');
+                $this->setAttributeIfExists($model, $params, 'vehiclebodystyle_id');
                 $model->save();
                 $this->addSuccessMessage("O modelo do fabricante {$make->name} foi alterado com sucesso!");
             });
@@ -62,7 +63,7 @@ class ModelService extends BaseService
 
     protected function getAttributes($attributes)
     {
-        return array('name' => $attributes['model']['name']);
+        return $attributes['model'];
     }
 
 }

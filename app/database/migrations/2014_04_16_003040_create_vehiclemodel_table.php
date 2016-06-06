@@ -14,11 +14,13 @@ class CreateVehicleModelTable extends Migration
     {
         Schema::create('vehiclemodel', function ($table) {
             $table->increments('id');
+            $table->integer('vehiclebodystyle_id')->unsigned();
             $table->integer('vehiclemake_id')->unsigned();
             $table->string('name', 80);
             $table->timestamps();
             $table->softDeletes();
 
+            $table->foreign('vehiclebodystyle_id')->references('id')->on('vehiclebodystyle');
             $table->foreign('vehiclemake_id')->references('id')->on('vehiclemake');
         });
 

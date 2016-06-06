@@ -27,7 +27,7 @@ angular.module('divulgausados')
                 if (!features[featureValue.feature.feature_category.id]) {
                     features[featureValue.feature.feature_category.id] = [];
                 }
-                features[featureValue.feature.feature_category.id].push(featureValue)
+                features[featureValue.feature.feature_category.id].push(featureValue);
             });
             $scope.categories = categories;
             $scope.features = features;
