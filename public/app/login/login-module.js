@@ -33,7 +33,7 @@ angular.module('divulgausados')
         $scope.submit = function () {
             User.post($scope.user).then(function () {
                 $scope.user = {};
-                goToLogin()
+                goToLogin();
             });
         };
     }])
