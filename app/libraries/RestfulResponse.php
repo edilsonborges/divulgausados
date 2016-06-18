@@ -44,6 +44,16 @@ class RestfulResponse
         $this->response['errorMessages'] = $errorMessages;
     }
 
+    public function getUser()
+    {
+        return $this->response['user'];
+    }
+    
+    public function setUser($user)
+    {
+        $this->response['user'] = $user; 
+    }
+
     public function getContent()
     {
         return $this->response['content'];

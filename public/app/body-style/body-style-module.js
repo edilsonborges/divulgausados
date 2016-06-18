@@ -71,7 +71,7 @@ angular.module('divulgausados')
 		$scope.uploader = ImageUploadService.create('/v1/upload-body-style');
 
 		$scope.fetchImage = function (bodyStyle) {
-			var imagePath = bodyStyle.image_path;
+			var imagePath = !bodyStyle ? null : bodyStyle.image_path;
 			return !imagePath ? 'https://placehold.it/200x200' : ('/img/body-style/' + imagePath);
 		};
 

@@ -12,7 +12,10 @@ angular.module('divulgausados')
 			redirectTo: '/'
 		});
 	}])
-	.controller('HomeCtrl', ['$scope', 'Vehicle', function ($scope, Vehicle) {
+	.controller('HomeCtrl', ['$scope', 'AuthenticationService', 'Vehicle', function ($scope, AuthenticationService, Vehicle) {
+		$scope.user = AuthenticationService.user();
+
+		$scope.activeIndex = 0;
 		$scope.vehicleList = [];
 
 		$scope.getImage = function (vehicle) {

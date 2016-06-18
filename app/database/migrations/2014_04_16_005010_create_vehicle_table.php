@@ -24,7 +24,7 @@ class CreateVehicleTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('user_id')->references('id')->on('user');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('vehiclebodystyle_id')->references('id')->on('vehiclebodystyle');
             $table->foreign('vehiclemake_id')->references('id')->on('vehiclemake');
             $table->foreign('vehiclemodelseries_id')->references('id')->on('vehiclemodelseries');

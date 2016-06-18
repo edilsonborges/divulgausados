@@ -38,11 +38,26 @@ angular.module('divulgausados')
 		};
 	})
 	.service('AuthenticationService', ['$http', '$location', '$rootScope', '$route', 'localStorageService', 'MessageService', function ($http, $location, $rootScope, $route, localStorageService, MessageService) {
+		var AuthenticationService = this;
 		this.login = function (credentials) {
-			$http.post('/service/authentication/login', credentials).success(cacheSession);
+			$http.post('/v1/authentication/login', credentials)
+				.then(function (response) {
+					if (response.data) {
+						AuthenticationService.user(response.data.user);
+						MessageService.addSuccesses(response.data.successMessages);
+						$location.url('/dashboard');
+					}
+				}, function (response) {
+					if (response.data && response.data.warningMessages) {
+						MessageService.addWarnings(response.data.warningMessages);
+					}
+				});
 		};
 		this.logout = function () {
-			$http.post('/service/authentication/logout', credentials).success(uncacheSession);
+			$http.post('/v1/authentication/logout').then(function () {
+				AuthenticationService.user(null);
+				$location.url('/');
+			});
 		};
 		this.user = function (userInfo) {
 			if (userInfo === undefined) {
@@ -52,8 +67,7 @@ angular.module('divulgausados')
 			}
 		};
 		this.isAuthenticated = function () {
-			// return !!(httpHeaders.common['Authorization'] && this.user()); // if the app is stateless (if there is no session cookie)
-			return !!(document.cookie && document.cookie.indexOf('PHPSESSIONID') >= 0 && this.user());
+			return !!(document.cookie && document.cookie.indexOf('PHPSESSIONID') >= 0) || !!this.user();
 		};
 		this.hasAllRoles = function (neededRoles) {
 			if (!neededRoles || neededRoles.length === 0) {

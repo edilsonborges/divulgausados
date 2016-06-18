@@ -5,19 +5,20 @@ class AuthenticationController extends BaseController
 
     public function login()
     {
-        $response = null;
-        if (Auth::attempt()) {
-            $response = Auth::user();
+        $service = new UserService();
+        $credentials = $this->retrieve();
+        if ($service->login($credentials['email'], $credentials['password'])) {
+            MessageControlCenter::getInstance()->addSuccessMessage('Bem vindo(a) ' . Auth::user()->name);
         } else {
-            $this->addWarningMessage('O login ou senha está incorreto(a).');
+            MessageControlCenter::getInstance()->addWarningMessage('O login ou senha está incorreto(a).');
         }
-        return $this->jsonResponse($response);
+        return $this->jsonResponse(null);
     }
 
     public function logout()
     {
         Auth::logout();
-        $this->addSuccessMessage('Logout efetuado com sucesso!');
+        MessageControlCenter::getInstance()->addSuccessMessage('Logout efetuado com sucesso!');
         return $this->jsonResponse(null);
     }
 
@@ -28,4 +29,5 @@ class AuthenticationController extends BaseController
             'password' => Input::json('password')
         ];
     }
+
 }

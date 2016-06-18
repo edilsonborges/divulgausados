@@ -22,8 +22,9 @@ Route::filter('csrf', function () {
 });
 
 Route::group(array('prefix' => 'v1'), function () {
+    Route::resource('users', 'UserController');
     Route::post('authentication/login', 'AuthenticationController@login');
-    Route::get('authentication/logout', 'AuthenticationController@logout');
+    Route::post('authentication/logout', 'AuthenticationController@logout');
     Route::resource('body-style', 'VehicleBodyStyleController');
     Route::post('upload-body-style', 'VehicleBodyStyleController@upload');
     Route::resource('make', 'VehicleMakeController');

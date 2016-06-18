@@ -1,7 +1,7 @@
 <!-- Header Carousel -->
 <header>
-	<carousel interval="5000">
-		<slide data-ng-repeat="vehicle in vehicleList" active="vehicle.active">
+	<uib-carousel interval="4000" active="activeIndex">
+		<uib-slide ng-repeat="vehicle in vehicleList track by $index" index="$index">
 			<div class="application-image-placeholder vehicle-image-size">
 				<img ng-src="{{getImage(vehicle)}}" style="margin: auto;">
 			</div>
@@ -10,8 +10,8 @@
 				<h3>{{vehicle.make.name}} {{vehicle.price | currency:'R$ '}}</h3>
 				<p>{{vehicle.kilometres | number}} km</p>
 			</div>
-		</slide>
-	</carousel>
+		</uib-slide>
+	</uib-carousel>
 </header>
 
 <!-- Page Content -->

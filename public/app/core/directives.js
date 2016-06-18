@@ -1,11 +1,11 @@
 angular.module('divulgausados')
-    .directive('hasAllRoles', ['AuthService', function (AuthService) {
+    .directive('hasAllRoles', ['AuthenticationService', function (AuthenticationService) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
                 var roles = attrs.hasAllRoles.split(/\s*,\s*/);
                 scope.$watch(function () {
-                    if (AuthService.hasAllRoles(roles)) {
+                    if (AuthenticationService.hasAllRoles(roles)) {
                         element.removeClass('hidden');
                     } else {
                         element.addClass('hidden');
@@ -14,13 +14,13 @@ angular.module('divulgausados')
             }
         };
     }])
-    .directive('hasAnyRole', ['AuthService', function (AuthService) {
+    .directive('hasAnyRole', ['AuthenticationService', function (AuthenticationService) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
                 var roles = attrs.hasAnyRole.split(/\s*,\s*/);
                 scope.$watch(function () {
-                    if (AuthService.hasAnyRole(roles)) {
+                    if (AuthenticationService.hasAnyRole(roles)) {
                         element.removeClass('hidden');
                     } else {
                         element.addClass('hidden');
@@ -29,14 +29,14 @@ angular.module('divulgausados')
             }
         };
     }])
-    .directive('authenticated', ['AuthService', function (AuthService) {
+    .directive('authenticated', ['AuthenticationService', function (AuthenticationService) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
                 var needAuthentication = 'true' === attrs.authenticated;
                 var noAuthentication = 'false' === attrs.authenticated;
                 scope.$watch(function () {
-                    if ((needAuthentication && !AuthService.isAuthenticated()) || (noAuthentication && AuthService.isAuthenticated())) {
+                    if ((needAuthentication && !AuthenticationService.isAuthenticated()) || (noAuthentication && AuthenticationService.isAuthenticated())) {
                         element.addClass('hidden');
                     } else {
                         element.removeClass('hidden');

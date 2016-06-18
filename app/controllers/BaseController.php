@@ -26,12 +26,13 @@ abstract class BaseController extends Controller
         $status = 200;
         $restfulResponse = new RestfulResponse();
         $restfulResponse->setContent($content);
+        $restfulResponse->setUser(Auth::user());
         $messageCenter = MessageControlCenter::getInstance();
         $restfulResponse->setSuccessMessages($messageCenter->getSuccessMessages());
         if (!empty($messageCenter->getWarningMessages())) {
             $restfulResponse->setWarningMessages($messageCenter->getWarningMessages());
             $status = 400;
-        }
+        }   
         if (!empty($messageCenter->getErrorMessages())) {
             $restfulResponse->setErrorMessages($messageCenter->getErrorMessages());
             $status = 500;

@@ -101,6 +101,8 @@ return array(
         'price' => 'Preço',
         'name' => 'Nome',
         'type' => 'Tipo',
+        'email' => 'Email',
+        'password' => 'Senha'
     ),
 
 );

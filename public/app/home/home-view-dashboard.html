@@ -1,3 +1,28 @@
 <section-with-side-menu>
-    <h2>Very welcome, much wow, such layout.</h2>
+    <h2>Bem vindo, {{user.name}}</h2>
+    <hr>
+
+    <h3>Carros registrados</h3>
+    <div ng-repeat="vehicle in vehicleList track by $index">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="application-image-placeholder thumbnail" style="width: 150px; height: 150px;">
+                    <img ng-src="{{getImage(vehicle)}}">
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <div class="row">
+                    <div class="col-sm-12">
+                        {{vehicle.body_style.name}} {{vehicle.model_series.model.name}} {{vehicle.model_series.name}}
+                    </div>
+                    <div class="col-sm-12">
+                        {{vehicle.price | currency:'R$ '}}
+                    </div>
+                    <div class="col-sm-12">
+                        {{vehicle.kilometres | number}} km
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section-with-side-menu>

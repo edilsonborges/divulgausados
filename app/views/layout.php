@@ -6,14 +6,17 @@
     <meta name="description" content="Um website para divulgação de veículos usados">
     <meta name="author" content="Murilo Costa <murilo.nunes.jose@outlook.com>">
     <title>Divulga Usados</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="bower_components/angular-bootstrap/ui-bootstrap-csp.css" />
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/angular-bootstrap-colorpicker/css/colorpicker.css" />
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <!-- endbower -->
     <link rel="stylesheet" type="text/css" href="app/core/divulgausados.css"/>
 
     <!--[if lt IE 9]>
-    <script type="text/javascript" src="bower_components/es5-shim/es5-shim.js"></script>
+    <script type="text/javascript" src="bower_components/es5-shim/es5-shim.min.js"></script>
+    <script type="text/javascript" src="bower_components/es5-shim/es5-sham.min.js"></script>
     <![endif]-->
 </head>
 <body>
@@ -29,7 +32,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/#">Divulga Usados</a>
+            <a class="navbar-brand" href="/#/">Divulga Usados</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -45,9 +48,19 @@
                         <span class="glyphicon glyphicon-th-large"></span> Dashboard
                     </a>
                 </li>
-                <li>
+                <li authenticated="false">
+                    <a href="#/signup">
+                        <span class="glyphicon glyphicon-edit"></span> Cadastrar
+                    </a>
+                </li>
+                <li authenticated="false">
                     <a href="#/login">
                         <span class="glyphicon glyphicon-log-in"></span> Login
+                    </a>
+                </li>
+                <li authenticated="true">
+                    <a href="#/logout">
+                        <span class="glyphicon glyphicon-log-out"></span> Logout
                     </a>
                 </li>
             </ul>
@@ -64,14 +77,14 @@
 <script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
 <script type="text/javascript" src="bower_components/angular-resource/angular-resource.min.js"></script>
 <script type="text/javascript" src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
-<script type="text/javascript" src="bower_components/angular-file-upload/angular-file-upload.min.js"></script>
-<script type="text/javascript" src="bower_components/angular-input-masks/angular-input-masks-standalone.min.js"></script>
+<script type="text/javascript" src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
 
+<script type="text/javascript" src="bower_components/angular-input-masks/angular-input-masks-standalone.min.js"></script>
+<script type="text/javascript" src="bower_components/angular-input-masks/angular-input-masks-dependencies.min.js"></script>
+
+<script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
 <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 <script type="text/javascript" src="bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.min.js"></script>
-
-<script type="text/javascript" src="bower_components/string-mask/src/string-mask.js"></script>
-<script type="text/javascript" src="bower_components/br-validations/releases/br-validations.min.js"></script>
 
 <script type="text/javascript" src="bower_components/lodash/dist/lodash.min.js"></script>
 <script type="text/javascript" src="bower_components/restangular/dist/restangular.min.js"></script>
